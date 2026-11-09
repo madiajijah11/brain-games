@@ -1,3 +1,30 @@
 import Link from "next/link";
 import { AuthForm } from "@/components/auth-form";
-export default function RegisterPage() { return <div className="mx-auto max-w-md rounded-3xl bg-white p-8 shadow-soft"><p className="text-sm font-bold uppercase tracking-widest text-brand">Start your streak</p><h1 className="mt-2 text-3xl font-black">Create account</h1><p className="mb-7 mt-2 text-sm text-slate-500">One account. Every game. Progress that stays with you.</p><AuthForm mode="register"/><p className="mt-6 text-center text-sm text-slate-500">Already have an account? <Link className="font-bold text-brand" href="/login">Sign in</Link></p></div>; }
+
+export default async function RegisterPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ callbackUrl?: string }>;
+}) {
+  const { callbackUrl } = await searchParams;
+
+  return (
+    <div className="mx-auto max-w-md rounded-3xl bg-white p-8 shadow-soft">
+      <p className="text-sm font-bold uppercase tracking-widest text-brand">Start your streak</p>
+      <h1 className="mt-2 text-3xl font-black">Create account</h1>
+      <p className="mb-7 mt-2 text-sm text-slate-500">
+        One account. Every game. Progress that stays with you.
+      </p>
+      <AuthForm mode="register" callbackUrl={callbackUrl} />
+      <p className="mt-6 text-center text-sm text-slate-500">
+        Already have an account?{" "}
+        <Link
+          className="font-bold text-brand"
+          href={callbackUrl ? `/login?callbackUrl=${encodeURIComponent(callbackUrl)}` : "/login"}
+        >
+          Sign in
+        </Link>
+      </p>
+    </div>
+  );
+}
