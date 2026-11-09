@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+model User {
+  id            String        @id @default(cuid())
+  name          String
+  email         String        @unique
+  passwordHash  String
+  totalXp       Int           @default(0)
+  competitiveXp Int           @default(0)
+  streak        Int           @default(0)
+  lastPlayedAt  DateTime?
+  createdAt     DateTime      @default(now())
+  gameSessions  GameSession[]
+  dailyEntries  DailyEntry[]
+
+  @@index([competitiveXp, totalXp])
+}
+
+model GameSession {
+  id         String   @id @default(cuid())
+  userId     String
+  gameSlug   String
+  score      Int
+  xpEarned   Int
+  correct    Int
+  total      Int
+  durationMs Int
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([gameSlug, score])
+}
+
+model DailyEntry {
+  id          String   @id @default(cuid())
+  userId      String
+  dateKey     String
+  completedAt DateTime @default(now())
+  score       Int
+  xpEarned    Int
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, dateKey])
+  @@index([dateKey, score])
+}

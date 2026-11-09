@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      # Dummy URLs are only used so Prisma can load the schema during CI.
+      # No CI job connects to this database.
+      DATABASE_URL: postgresql://ci:ci@localhost:5432/brain_games?schema=public
+      DATABASE_URL_UNPOOLED: postgresql://ci:ci@localhost:5432/brain_games?schema=public
+      AUTH_SECRET: ci-only-secret-not-used-for-deployment-1234567890
+      AUTH_TRUST_HOST: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm install --no-audit --no-fund
+      - run: npm run db:generate
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test
+      - run: npm run build
