@@ -1,6 +1,6 @@
 # Stage 5 Review Report: Initial Zoom Out & Inventive Catalyst
 
-*   **Target Document:** `docs/designs/linkedin-style-8-game-daily-puzzle-suite.md`
+*   **Target Document:** `docs/designs/tactile-mechanics-overhaul-and-retention-suite.md`
 *   **Reviewers:** `egm-zoom-out`, `egm-inventive-catalyst`
 *   **Date:** 2026-11-10
 
@@ -8,37 +8,31 @@
 
 ## 1. Executive Summary
 
-The proposed architecture successfully elevates Brain Games from an ad-hoc quiz app into a cohesive, retention-driven daily puzzle platform. By aligning directly with LinkedIn Games' core engagement model (daily scarcity, synchronized issue numbers, direct manipulation) while strategically solving for organic search discovery and AdSense monetization, the design resolves previous architectural dead-ends without unnecessary infrastructure bloat.
+This design document precisely targets the root causes of the interaction flaws observed in Patches (unrendered board tiles, broken piece retrieval) and Zip (cluttered number stamping obscuring topological landmarks). The proposed architectural solutions leverage native browser primitives (HTML5 Pointer Events, inline SVG ribbon geometry, Web Audio API oscillators) to deliver high visual polish and viral retention loops with zero external npm dependencies or bundle bloat.
 
 ---
 
 ## 2. Zoom-Out Architectural Assessment (`egm-zoom-out`)
 
-### A. Strategic Problem-Solution Fit
-*   **Finding [PASS]**: Transforming 4 multiple-choice text quizzes into 8 tactile puzzles (Queens, Tango, Mini Sudoku, Pinpoint, Crossclimb, Patches, Zip, Wend) directly addresses the user engagement deficit.
-*   **Daily Scarcity [STRONG]**: The `#IssueNumber` engine and daily lockout model establish a clear daily ritual. Limiting ranked play to 1 attempt per day protects streak integrity and prevents leaderboard score inflation, while Practice Mode satisfies replay appetite without diluting competitive stakes.
+### A. Focus on Core Interaction Flaws
+*   **Finding [PASS]**: Directly addresses the disconnect in Patches by defining explicit state transitions for occupied grid coordinates (`placedPieces[shapeId] = [r, c]`) and visual board tile rendering.
+*   **Topological Clarity [STRONG]**: In Zip, separating fixed checkpoint landmarks from the user's connection ribbon eliminates visual ambiguity and restores the core pathfinding satisfaction found in reference web puzzles.
 
-### B. System Boundaries & Invariant Separation
-*   **Finding [PASS]**: Removing `/games/*` from the middleware's auth barrier eliminates the previous SEO and AdSense crawler lockouts, enabling indexability.
-*   **Separation of Concerns [PASS]**:
-    - **Edge Runtime**: Light routing, strictly stateless session check on `/dashboard`, zero database queries.
-    - **Serverless Node.js**: Deterministic puzzle resolution from static JSON pools and atomic verification on `/api/puzzles/submit`.
-    - **Client DOM/SVG**: Tactile direct manipulation with instant client-side constraint feedback, separating visual interaction from backend score recording.
+### B. System Invariants & Zero-Cost Dependencies
+*   **Zero Infrastructure Overhead [PASS]**: The sound synthesizer requires zero audio file downloads or hosting infrastructure. The calendar archive reuses existing deterministic UTC epoch calculations without introducing database migrations or scheduled cron jobs.
+*   **Security & Anti-Cheat [PASS]**: Historical puzzle plays initiated from the archive drawer are strictly bound to unranked Practice Mode (`mode="practice"`), protecting the integrity of daily streaks and global leaderboards.
 
 ---
 
 ## 3. Inventive Catalyst Assessment (`egm-inventive-catalyst`)
 
 ### A. Technical Contradiction Resolutions
-1.  **Scope Breadth vs. Engineering Velocity (8 Games vs. Disjoint Codebases)**:
-    *   *Conflict*: Implementing 8 completely separate games risks massive code duplication and maintenance debt.
-    *   *Resolution [Transform: Unification & Common Primitives]*: Grouping the 6 grid-based games (Queens, Tango, Sudoku, Patches, Zip, Wend) under a shared coordinate/cell interaction state machine drastically compresses the surface area. The remaining 2 games (Pinpoint, Crossclimb) share a unified progressive-reveal ladder state machine.
-2.  **Monetization & SEO vs. Game Integrity & Focus**:
-    *   *Conflict*: Displaying ads often degrades player concentration and risks accidental clicks on interactive puzzle canvases; conversely, canvas-heavy games get rejected by AdSense for "Thin Content".
-    *   *Resolution [Transform: Separation in Space & Complementary Content]*: Puzzles are rendered with semantic DOM/SVG elements, coupled with server-rendered editorial sections (Rules, Guides, Strategies, FAQs) that satisfy AdSense's text-density requirements and rank for organic keywords. Ad banners are placed in pre-allocated, fixed-dimension containers outside finger-touch zones, completely eliminating Cumulative Layout Shift (CLS).
-3.  **Global Synchronization vs. Server Query Load**:
-    *   *Conflict*: Synchronizing daily puzzle releases worldwide typically demands scheduled database cron jobs or real-time queries.
-    *   *Resolution [Transform: Deterministic Mathematical Mapping]*: Using a constant UTC epoch formula calculates `#IssueNumber` and calendar index in $O(1)$ time with zero database queries.
+1.  **Tactile Audio Immersion vs. Mobile Network & Autoplay Friction**:
+    *   *Conflict*: Adding engaging sound effects typically requires downloading audio assets (.mp3) that increase page load time, fail on slow mobile connections, and trigger browser autoplay rejections.
+    *   *Resolution [Transform: Local Synthesis]*: Using programmatic `AudioContext` oscillators generates crisp, customizable acoustic clicks and chords dynamically in <40 lines of code. It consumes 0 KB of network bandwidth and self-unlocks on first user touch.
+2.  **Fluid Drag-and-Drop vs. Responsive Coordinate Accuracy**:
+    *   *Conflict*: Implementing drag-and-drop on responsive CSS grid boards usually requires heavy libraries or causes coordinate drift across window resize events.
+    *   *Resolution [Transform: Normalized Index Snapping]*: Bounding box collision detects relative row/column indices directly (`Math.floor(x / cellSize)`), guaranteeing pixel-perfect grid alignment across mobile and desktop viewports.
 
 ---
 
@@ -46,5 +40,5 @@ The proposed architecture successfully elevates Brain Games from an ad-hoc quiz 
 
 | Priority | Area | Recommendation |
 | :--- | :--- | :--- |
-| 🟢 Nit | Timezone Rollover | Ensure client UI displays a countdown timer to next UTC midnight (00:00 UTC) so players understand exactly when the next daily edition unlocks. |
-| 🟡 Info | LocalStorage Fallback | For guest players, ensure puzzle state is cached in `localStorage` so accidental tab closures do not erase active progress before victory. |
+| 🟢 Nit | Mobile Touch Scrolling | Ensure `touch-action: none` is applied to the Zip canvas and Patches board to prevent accidental page scrolling while dragging. |
+| 🟡 Info | Audio Context Resumption | Ensure `soundFx` checks `audioContext.state === "suspended"` and calls `.resume()` inside the first pointer event to guarantee sound plays on iOS Safari. |

@@ -1,6 +1,6 @@
 # Stage 6 Review Report: Comprehension Test
 
-*   **Target Document:** `docs/designs/linkedin-style-8-game-daily-puzzle-suite.md`
+*   **Target Document:** `docs/designs/tactile-mechanics-overhaul-and-retention-suite.md`
 *   **Reviewer:** `egm-comprehension`
 *   **Date:** 2026-11-10
 
@@ -8,27 +8,29 @@
 
 ## Feature Specification Paraphrase
 
-The feature specification details a comprehensive overhaul of Brain Games into an 8-game daily puzzle platform modeled after LinkedIn Games:
-1. **The 8 Direct-Manipulation Puzzles**: Transitions from text multiple-choice questions to interactive tactile spatial games: Queens (region crown placement), Tango (binary grid balance), Mini Sudoku (4x4 / 6x6 number deduction), Pinpoint (progressive clue deduction), Crossclimb (1-letter swap word ladder), Patches (polyomino spatial tiling), Zip (continuous node connection), and Wend (8-directional word weaving).
-2. **Daily Scarcity & Edition Engine**: Synchronizes all players globally to a shared daily edition (`#IssueNumber`) derived from a constant UTC epoch. The first completion of a daily puzzle awards official XP, advances the player's streak, and commits a ranked record in PostgreSQL (`DailyGameCompletion`). Subsequent plays on the same calendar day transition into an unranked Practice Mode awarding 0 XP.
-3. **Public Access, SEO & Monetization**: Unlocks `/games/*` from authentication barriers, enabling search engines (Googlebot) and guest users to load and play daily puzzles freely. Each game route server-renders Schema.org JSON-LD and in-depth editorial guides (rules, tutorials, strategies, and FAQs) to rank for organic search terms and satisfy Google AdSense's "Valuable Content" policy. Monetization is managed via pre-allocated, fixed-dimension AdSense ad units to prevent Cumulative Layout Shift (CLS), with secondary Monetag interstitial hooks reserved strictly for voluntary mode transitions.
+The feature specification addresses two major interaction defects while adding modern tactile polish and retention tools:
+1. **Patches Interaction Fix**: Re-engineers the polyomino placement experience. Players drag pieces from the bottom inventory dock directly over the target grid. A live "ghost preview" illustrates valid snapping in green/accent or invalid placement in red. When dropped, the target grid cells are rendered in full vibrant color matching the piece. Clicking any cell of a placed shape immediately unassigns it and returns it to the dock.
+2. **Zip Visual Redesign**: Eliminates the confusing number-stamping mechanism where raw step numbers cluttered grid cells. Checkpoint nodes (1, 2, 3...) remain fixed as high-contrast circular landmark badges. The user's path is drawn as an unbroken SVG ribbon line following finger or mouse dragging, smoothly unwinding if the player drags backward across already-visited cells.
+3. **Sensory & Retention Layer**: Implements zero-dependency procedural audio (Web Audio API) for tactile clicks, step chimes, and victory chords with a persistent mute button. Features a 1-click spoiler-free emoji share card for social viral loops, an 8/8 daily progress ring in the navbar, a personal statistics modal, and a calendar archive enabling practice play on historical puzzle editions.
 
 ## Implementation Plan Paraphrase
 
-The implementation plan establishes a clear, multi-tiered roadmap spanning 13 key file groups:
-1. **Prisma & Database Schema**: Updates `prisma/schema.prisma` with the `DailyGameCompletion` model (keyed by `[userId, gameSlug, dateKey]`) and adds `issueNumber` and `mode` to `GameSession`.
-2. **Edge Middleware**: Modifies `middleware.ts` to allow unrestricted public access to `/games/*` while preserving protections on `/dashboard` and guest-guards on `/login`/`/register`.
-3. **Core Domain & Puzzle Engines**: Creates `lib/puzzles/types.ts` for data contracts, `lib/puzzles/daily-engine.ts` for UTC edition mapping, and `lib/puzzles/evaluators.ts` containing deterministic solution solvers for all 8 game types.
-4. **Curated Data Assets**: Creates 8 JSON puzzle banks in `data/puzzles/*.json`, each holding 30 verified-solvable configurations.
-5. **Monetization & Ads**: Creates `adsense-script.tsx`, CLS-safe `ad-banner.tsx`, and `monetag-hook.tsx`.
-6. **UI Components & Game Boards**: Implements `puzzle-shell.tsx` (timer, header, issue badge, post-win guest signup modal) and 8 bespoke interactive board components under `components/games/`.
-7. **Pages & Dynamic Routing**: Updates `app/games/[slug]/page.tsx` with dynamic editorial guides and JSON-LD schema, creates `app/api/puzzles/submit/route.ts` for authoritative validation and scoring, updates `app/dashboard/page.tsx` into an edition-stamped 8-card grid, and generates `app/sitemap.ts`.
-8. **Verification**: Executes database push, TypeScript typechecking, linting, Vitest unit test suites (`tests/puzzles.test.ts`), Next.js production builds, and end-to-end guest/authenticated play validations.
+The implementation plan details 10 concrete file operations:
+1. **`lib/audio/sound-fx.ts` (New)**: Programmatic `AudioContext` sound synthesizer with tap, step, error, and victory audio triggers, local storage mute state, and iOS touch resumption.
+2. **`lib/social/share-generator.ts` (New)**: Generates formatted spoiler-free emoji summaries with clipboard copy helpers.
+3. **`components/games/patches/patches-board.tsx` (Modified)**: Rebuilt with Pointer Events, ghost drag previews, colored board cell rendering, and click-to-retrieve mechanics.
+4. **`components/games/zip/zip-board.tsx` (Modified)**: Rebuilt with SVG ribbon path rendering and smooth drag-to-draw.
+5. **`components/games/shared/puzzle-shell.tsx` (Modified)**: Integrated speaker mute toggle, victory audio, and 1-click emoji share modal.
+6. **`components/shared/progress-ring.tsx` (New) & `components/site-header.tsx` (Modified)**: Radial 8/8 completion progress ring in the navbar.
+7. **`components/profile/stats-modal.tsx` (New)**: Player statistics modal displaying solve times, streaks, and win percentages.
+8. **`components/games/archive-drawer.tsx` (New)**: Calendar drawer enabling selection and practice play of past puzzle edition numbers.
+9. **`app/dashboard/page.tsx` (Modified)**: Integrates progress ring, archive trigger, and personal stats modal launcher.
+10. **Verification**: Executes TypeScript compilation (`npm run typecheck`), linting, and comprehensive manual drag, audio, share, and archive validation.
 
 ---
 
 ## Findings
 
-*   **Self-Containment [PASS]**: Both the high-level intent and the step-by-step implementation plan are self-contained. The dependencies, data contracts, and component boundaries are clear and require no external guesswork.
-*   **Clarity & Invariants [PASS]**: The distinction between ranked daily play and unranked practice play is mathematically and architecturally explicit across the UI, API, and database schema.
-*   **Ambiguity Check [NONE]**: No unresolved TBDs, vague specifications, or dangling file paths were detected.
+*   **Self-Containment [PASS]**: The specification is completely self-contained. Mechanics, math coordinates, audio frequencies, and UI components are clearly defined.
+*   **Clarity & Invariants [PASS]**: The distinction between active drag states and committed board states is mathematically unambiguous.
+*   **Ambiguity Check [NONE]**: No dangling file paths, missing props, or unresolved TBDs.

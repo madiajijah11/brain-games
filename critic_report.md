@@ -1,6 +1,6 @@
 # Stage 7 Review Report: Critic Review
 
-*   **Target Document:** `docs/designs/linkedin-style-8-game-daily-puzzle-suite.md`
+*   **Target Document:** `docs/designs/tactile-mechanics-overhaul-and-retention-suite.md`
 *   **Reviewers:** `egm-design`, `egm-structural`, `egm-style`
 *   **Date:** 2026-11-10
 
@@ -8,36 +8,34 @@
 
 ## 1. Executive Summary
 
-The Critic Review evaluated the feature specification and architectural contracts (lines 1–241). Reviewers identified two critical operational details: (1) AdSense Publisher ID environment configuration safety to prevent Next.js build errors when credentials are not yet provisioned, and (2) canonical tag synchronization for dynamically calculated daily editions.
+The Critic Review evaluated the feature specification and architectural contracts (lines 1–190). Reviewers highlighted two critical mobile touch considerations: ensuring default touch scrolling gestures do not interfere with pointer drag events (`touch-action: none`), and handling browser clipboard permission denials gracefully in the social share card generator.
 
 ---
 
 ## 2. Findings by Lens
 
-### A. Structural & Security Integrity (`egm-structural`)
+### A. Design & Behavioral Ergonomics (`egm-design`)
 
-*   **Finding [CRITICAL-01: AdSense Graceful Fallback When Client ID is Unset]**:
-    *   *Issue*: If `components/ads/adsense-script.tsx` blindly attempts to inject the AdSense script tag when `NEXT_PUBLIC_ADSENSE_CLIENT_ID` is empty or undefined, Next.js may emit browser console warnings and render invalid script tags, potentially flagging deployment builds.
-    *   *Remediation*: Explicitly mandate in the design that `AdSenseScript` and `AdBanner` render inert fallback placeholders (clean empty layout divs that preserve reserved CSS dimensions) whenever `NEXT_PUBLIC_ADSENSE_CLIENT_ID` is absent from the runtime environment.
-*   **Finding [PASS: API Route Authentication Isolation]**:
-    *   *Verification*: The submission endpoint `/api/puzzles/submit` safely accommodates both authenticated users (recording to `DailyGameCompletion` and `GameSession`) and guest users (returning validation success tokens without throwing 401 exceptions).
+*   **Finding [CRITICAL-01: Mobile Touch Gesture Conflicts]**:
+    *   *Issue*: On touch-enabled devices (iOS Safari, Android Chrome), dragging a pointer across a grid often triggers the browser's native pan-and-scroll gesture instead of capturing the piece drag in Patches or the ribbon draw in Zip.
+    *   *Remediation*: Explicitly mandate in the design that `touch-action: none` (or Tailwind class `touch-none`) is applied to the interactive board surfaces of both Patches and Zip, preventing accidental viewport scrolling during puzzle interactions.
+*   **Finding [WARN-01: Clipboard Permission Denials]**:
+    *   *Observation*: Some mobile in-app browsers (e.g. Instagram/TikTok webview, older Safari) restrict programmatic access to `navigator.clipboard.writeText()`.
+    *   *Remediation*: Ensure `lib/social/share-generator.ts` implements a fallback text selection/copy technique (or Web Share API `navigator.share()` if available) so users can always share their scores.
 
-### B. Design & SEO Ergonomics (`egm-design`)
+### B. Structural & Systems Integrity (`egm-structural`)
 
-*   **Finding [WARN-01: Canonical URL & Search Query Cleanliness]**:
-    *   *Observation*: Players accessing games via query parameters (e.g. `/games/queens?mode=practice` or `/games/queens?daily=1`) could cause search engines to perceive duplicate URL variations.
-    *   *Remediation*: Ensure `app/games/[slug]/page.tsx` exports metadata with an explicit canonical URL pointing strictly to `https://<domain>/games/[slug]`, ignoring mode search params for indexing purity.
-*   **Finding [PASS: Mobile Touch Collision Resistance]**:
-    *   *Verification*: Placing mobile ad banners strictly below the puzzle canvas eliminates accidental touch collisions during active grid interactions.
+*   **Finding [PASS: Audio Context Lifecycle Safety]**:
+    *   *Verification*: Ensuring `soundFx` lazily instantiates the Web Audio `AudioContext` only after the first user gesture avoids browser console autoplay policy warnings.
 
 ### C. Style & Specification Hygiene (`egm-style`)
 
-*   **Finding [PASS]**: Strictly follows the Plain-English standard. No marketing buzzwords or decorative adverbs detected.
+*   **Finding [PASS]**: Strictly conforms to the Plain-English standard. No vague buzzwords or decorative adverbs.
 *   **Finding [PASS]**: Explicit rejection rationales provided for all weighed alternatives.
 
 ---
 
 ## 3. Action Items for Remediation
 
-1.  **Update `components/ads/adsense-script.tsx` specification**: Add graceful conditional rendering when environment variables are unset.
-2.  **Add Canonical URL metadata specification**: Mandate static canonical metadata definition in `app/games/[slug]/page.tsx`.
+1.  **Add `touch-none` styling rule**: Require `touch-action: none` on both Patches and Zip board wrappers in `Detailed Implementation Plan`.
+2.  **Add Web Share API fallback**: Specify that `share-generator.ts` supports `navigator.share` on mobile devices as a native sharing alternative.

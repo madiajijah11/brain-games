@@ -8,6 +8,9 @@ import { prisma } from "@/lib/prisma";
 import { GAME_CATALOG } from "@/lib/puzzles/types";
 import { getDailyEdition } from "@/lib/puzzles/daily-engine";
 import { levelForXp } from "@/lib/games";
+import { ProgressRing } from "@/components/shared/progress-ring";
+import { StatsModalButton } from "@/components/profile/stats-modal";
+import { ArchiveDrawerButton } from "@/components/games/archive-drawer";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -15,7 +18,7 @@ export default async function DashboardPage() {
 
   const today = new Date().toISOString().slice(0, 10);
 
-  const [user, sessions, topUsersCount, completions] = await Promise.all([
+  const [user, sessions, topUsersCount, completions, totalGamesCount] = await Promise.all([
     prisma.user.findUniqueOrThrow({ where: { id: session.user.id } }),
     prisma.gameSession.findMany({
       where: { userId: session.user.id },
@@ -29,6 +32,7 @@ export default async function DashboardPage() {
         dateKey: today,
       },
     }),
+    prisma.gameSession.count({ where: { userId: session.user.id } }),
   ]);
 
   const level = levelForXp(user.totalXp);
@@ -42,10 +46,27 @@ export default async function DashboardPage() {
 
   const completedSlugSet = new Set(completions.map((c) => c.gameSlug));
 
+  // Compute analytics stats for the user
+  const avgDurationMs = sessions.length
+    ? Math.round(sessions.reduce((acc, s) => acc + s.durationMs, 0) / sessions.length)
+    : 0;
+  const fastestDurationMs = sessions.length
+    ? Math.min(...sessions.map((s) => s.durationMs))
+    : 0;
+
+  const statsPayload = {
+    totalGames: totalGamesCount,
+    winRate: totalGamesCount > 0 ? 100 : 0,
+    currentStreak: user.streak,
+    longestStreak: Math.max(user.streak, completions.length > 0 ? 1 : 0),
+    avgDurationMs,
+    fastestDurationMs,
+  };
+
   return (
     <div className="space-y-8">
-      {/* Header Profile Greeting */}
-      <div className="flex flex-wrap items-end justify-between gap-3">
+      {/* Header Profile Greeting & Action Buttons */}
+      <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-xs font-black tracking-widest text-brand uppercase">
             YOUR BRAIN SPACE
@@ -57,12 +78,17 @@ export default async function DashboardPage() {
             Complete today&apos;s 8 editions to train all cognitive regions.
           </p>
         </div>
-        <Link
-          href="/leaderboard"
-          className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-sm hover:border-brand"
-        >
-          View leaderboard →
-        </Link>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <StatsModalButton stats={statsPayload} />
+          <ArchiveDrawerButton />
+          <Link
+            href="/leaderboard"
+            className="rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-bold text-slate-700 shadow-sm hover:border-brand hover:text-brand"
+          >
+            Leaderboard →
+          </Link>
+        </div>
       </div>
 
       {/* Metrics Row */}
@@ -91,9 +117,15 @@ export default async function DashboardPage() {
             value: `${completions.length} / 8`,
             sub: "Editions completed today",
             color: "text-emerald-600",
+            ring: true,
           },
         ].map((s) => (
-          <div key={s.label} className="rounded-2xl bg-white p-5 shadow-soft">
+          <div key={s.label} className="relative rounded-2xl bg-white p-5 shadow-soft">
+            {s.ring && (
+              <div className="absolute right-4 top-4">
+                <ProgressRing completed={completions.length} total={8} size={36} />
+              </div>
+            )}
             <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">
               {s.label}
             </p>

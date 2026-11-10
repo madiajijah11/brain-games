@@ -1,4 +1,4 @@
-# LinkedIn-Style 8-Game Daily Puzzle Suite Architecture with SEO & Monetization
+# Tactile Mechanics Overhaul (Patches & Zip) and Retention-Driven UX Suite
 
 *   **Author:** MexL
 *   **Status:** Draft
@@ -8,234 +8,167 @@
 
 ## Overview
 
-Brain Games will evolve from a generic 4-game multiple-choice quiz into an 8-game daily puzzle suite modeled after LinkedIn Games (Queens, Tango, Mini Sudoku, Pinpoint, Crossclimb, Patches, Zip, Wend). The platform introduces a daily scarcity model where puzzles are released as numbered daily editions (`#IssueNumber`) synchronized across all players via global UTC time.
-
-To transition Brain Games into a sustainable commercial web product with strong organic discovery, the platform unifies direct-manipulation puzzle mechanics with a public-access SEO architecture and an AdSense/Monetag monetization layer:
-1. **Direct-Manipulation Gameplay**: Replaces text buttons with interactive tactile mechanics (grid cell cycling, drag connections, word path tracing, and clue ladder deduction).
-2. **Daily Scarcity & Practice Mode**: Exactly one ranked attempt per game per day counts toward streaks, lifetime XP, and global leaderboards. Subsequent plays operate in an unranked Practice Mode (0 XP).
-3. **Public Guest Play & SEO Optimization**: Game pages are accessible without login so Googlebot can crawl and index them. Each game features comprehensive editorial content (rules, tutorials, strategies, FAQs) and Schema.org JSON-LD to qualify for search rich snippets and satisfy Google AdSense's "Valuable Content" policy.
-4. **Non-Intrusive Monetization**: Primary responsive ad slots for Google AdSense with fixed dimensions to eliminate Cumulative Layout Shift (CLS), complemented by secondary user-initiated Monetag interstitials between game sessions.
+Brain Games will execute a targeted mechanics and user experience overhaul to eliminate tactile friction and accelerate viral retention. This technical design resolves interaction bugs in two critical games—**Patches** and **Zip**—while introducing a modern, clean sensory layer and a viral engagement suite inspired by LinkedIn Games and Wordle:
+1. **Patches Interaction Re-architecture**: Replaces broken cell-tap targeting with native pointer drag-and-drop, real-time bounding box "ghost" snap previews, full color tile rendering on the target board, and click-to-retrieve piece removal.
+2. **Zip Visual Path Redesign**: Eliminates numerical cell clutter by rendering the player's connection route as a smooth, continuous SVG ribbon line driven by direct pointer dragging across adjacent cells with dynamic backtracking.
+3. **Procedural Web Audio Layer**: Introduces zero-asset synthesized tactile audio feedback (soft woodblock clicks, arpeggiated checkpoint chimes, celebratory victory chords) powered by the native Web Audio API with a persistent mute toggle.
+4. **Viral Retention & Analytics Suite**: Equips the platform with spoiler-free emoji share cards, an 8/8 daily completion ring, a personal performance analytics modal, and a historical calendar archive for past puzzle editions.
 
 ## The Problem
 
-The current Brain Games implementation suffers from three critical limitations that restrict engagement, retention, and monetization:
+User testing and direct gameplay inspection revealed two severe interaction defects and several missing retention mechanisms:
 
-1. **Passive, Unengaging Mechanics**: The 4 existing games (Number Rush, Logic Grid, Memory Match, Word Connect) are implemented as identical 4-option multiple-choice text quizzes. They lack the spatial reasoning, tactile manipulation, and satisfaction characteristic of modern web puzzles (e.g., LinkedIn Queens, Tango, NYT Wordle/Connections).
-2. **Absence of Daily Scarcity & Habit Loops**: Players can replay the same limited pool of 5 questions infinitely. Without a unified daily edition number, daily lockout, or streak milestones tied to a shared calendar puzzle, competitive scores are devalued, and there is no compelling trigger for players to return daily.
-3. **Search Invisibility & Ad Ineligibility**: The existing authentication middleware redirects unauthenticated visitors from `/games/*` to `/login`. This blocks search engine crawlers from indexing puzzle pages and causes immediate Google AdSense application rejections under the "Site Behind Login / Thin Content" policy.
+1. **Patches Visual Disconnect**:
+   - The inventory dock marks pieces as "Placed", but the target grid above remains completely blank and white.
+   - The board fails to render the colored tiles of placed shapes, leaving the player with no visual indication of grid occupancy.
+   - Players cannot click placed pieces on the board to retrieve or reposition them, creating a dead-end state if a mistake is made.
+2. **Zip Visual Confusion**:
+   - Instead of drawing a continuous fluid path like the authentic LinkedIn Zip experience, the current implementation stamps raw numbers (1, 2, 3...) into every touched cell.
+   - This creates visual chaos where checkpoint numbers (e.g. pos 2 in yellow) collide directly with sequence numbers (e.g. step 3 in purple), obscuring the topological layout and ruining the satisfaction of path-drawing.
+3. **Missing Engagement & Viral Loops**:
+   - Players have no clean, spoiler-free mechanism to share their completion times and moves to social networks (WhatsApp, LinkedIn, X).
+   - There is no visible indicator showing how many of today's 8 daily editions have been cleared without navigating back to the dashboard.
+   - Players cannot inspect their historical win rates or solve times, nor can they access past numbered puzzle editions.
 
 ## Goals
 
-*   **8 Specialized Puzzle Engines**: Implement interactive direct-manipulation engines for Queens, Tango, Mini Sudoku, Pinpoint, Crossclimb, Patches, Zip, and Wend.
-*   **Universal Daily Edition Engine**: Compute deterministic global issue numbers (`#IssueNumber`) from a fixed UTC epoch so all players worldwide receive the same puzzle on any given calendar day.
-*   **Daily Scarcity Enforcement**: Enforce a strict 1-ranked-completion limit per game per day in PostgreSQL (`DailyGameCompletion`), transitioning subsequent attempts into an unranked Practice Mode awarding 0 XP.
-*   **Public Guest Access & Conversion**: Allow guest players and search bots to play daily puzzles without authentication, presenting an optional account creation/sign-in prompt after puzzle completion to claim streaks and leaderboard ranks.
-*   **AdSense-Ready SEO & Editorial Footprint**: Server-render extensive educational content (game mechanics, step-by-step guides, strategies, and FAQs) alongside each game canvas, accompanied by dynamic OpenGraph metadata and Schema.org JSON-LD (`WebApplication`, `Game`, `FAQPage`).
-*   **CLS-Safe Ad Infrastructure**: Implement non-disruptive Google AdSense responsive ad units with pre-allocated layout dimensions below the game board and in desktop sidebars, with secondary Monetag interstitial hooks triggered only on voluntary mode switches.
+*   **Tactile Drag-and-Drop in Patches**: Implement fluid pointer drag-and-drop for polyomino pieces, displaying a semi-transparent ghost preview over the target grid while dragging, rendering full shape colors upon drop, and allowing players to click placed board pieces to return them to the dock.
+*   **Continuous SVG Ribbon Path in Zip**: Replace cell number text with a continuous SVG ribbon line connecting cell centers along the drawn path, supporting smooth finger/mouse dragging and step-by-step backtracking.
+*   **Zero-Asset Audio Synthesis**: Implement lightweight procedural sound effects using browser `AudioContext` oscillators (<40 lines of code, 0 KB network payload) for taps, path steps, and victory celebrations, with `localStorage`-persisted mute controls.
+*   **Viral Emoji Share Cards**: Generate clean, spoiler-free text summaries (grid dimension, edition number, solve time, and performance rating) copyable to the clipboard in one click.
+*   **8/8 Daily Progress Ring**: Display a radial completion ring in the navigation bar and dashboard reflecting real-time progress through today's 8 puzzle editions.
+*   **Personal Player Analytics**: Provide a modal tracking total games played, win rate, average solve duration, current streak, best streak, and solve time distributions.
+*   **Historical Calendar Archive**: Allow players to navigate past calendar days, select prior edition numbers, and play them in unranked Practice Mode.
 
 ## Non-Goals
 
-*   **Real-Time Synchronous Multiplayer**: No live head-to-head socket rooms or matchmaking; all competition remains asynchronous via global leaderboards and completion times.
-*   **User-Generated Level Editors**: Puzzle authoring and publishing tools for public users are deferred to a future milestone.
-*   **Intrusive Mid-Game Ads**: No interstitial or popup ads will interrupt active puzzle solving; all ads remain strictly peripheral or post-game.
-*   **Native App Wrappers**: Focus is 100% on high-performance responsive web across mobile and desktop browsers.
+*   **Third-Party Heavy Drag Libraries**: No heavy external packages (e.g. `dnd-kit`, `react-dnd`); native HTML5 Pointer Events provide superior 60 FPS mobile and desktop touch performance.
+*   **Pre-recorded Audio Files**: No MP3/WAV static files to avoid network latency, mobile autoplay restrictions, and bundle bloat.
+*   **Live Multiplayer Spectating**: Synchronous live drawing or cooperative multiplayer is out of scope.
+*   **Ranked Retroactive Scoring**: Solving past calendar editions from the archive operates exclusively in unranked Practice Mode (0 XP, no streak manipulation).
 
 ## Open Questions
 
-*   None; core scope, game selections, monetization priorities, and guest access models were finalized during the brainstorming phase.
+*   None; mechanics, audio synthesis parameters, and retention feature specifications were confirmed during the brainstorming phase.
 
 --------------------------------------------------------------------------------
 
 ## Technical Plan
 
-### 1. High-Level Architecture
+### 1. Patches Pointer Drag-and-Drop & Board Tile Renderer
 
 ```text
-                                 ┌────────────────────────────────────────┐
-                                 │       Public Request (User/Bot)        │
-                                 └──────────────────┬─────────────────────┘
-                                                    │
-                                                    ▼
-                                 ┌────────────────────────────────────────┐
-                                 │     Next.js Edge Middleware            │
-                                 │  - /login, /register: Guest Guard      │
-                                 │  - /dashboard: Auth Protected          │
-                                 │  - /games/*: PUBLIC ACCESS (Zero Lock) │
-                                 └──────────────────┬─────────────────────┘
-                                                    │
-                                                    ▼
-                                 ┌────────────────────────────────────────┐
-                                 │     Game Page (Server Component)       │
-                                 │  - Compute #IssueNumber (UTC Epoch)    │
-                                 │  - Load Puzzle Definition (JSON Pool)  │
-                                 │  - Render JSON-LD Schema.org           │
-                                 │  - Render Editorial Strategy/Rules     │
-                                 │  - Mount GameRunner + Ad Layout        │
-                                 └──────────────────┬─────────────────────┘
-                                                    │
-                        ┌───────────────────────────┴───────────────────────────┐
-                        ▼                                                       ▼
-┌───────────────────────────────────────────────┐     ┌───────────────────────────────────────────────┐
-│     Client Direct-Manipulation Canvas         │     │         AdSense & Monetag Ad Wrapper          │
-│ - Shared Grid Engine (Queens, Tango, Sudoku)  │     │ - Pre-allocated fixed CSS slots (No CLS)      │
-│ - Polyomino Engine (Patches)                  │     │ - Sidebar slot (Desktop 300x600/300x250)      │
-│ - Path Tracer Engine (Zip, Wend)              │     │ - Below-board slot (Mobile/Tablet 320x50/auto)│
-│ - Deduction Step Engine (Pinpoint, Crossclimb)│     │ - User-initiated Monetag practice interstitial│
-└───────────────────────┬───────────────────────┘     └───────────────────────────────────────────────┘
-                        │
-                        ▼ (Solve Complete)
-┌────────────────────────────────────────────────────────────────────────┐
-│                        POST /api/puzzles/submit                        │
-│  - Validate board against puzzle solution hash                         │
-│  - If Guest: Return success, store unranked token in localStorage      │
-│  - If Logged In: Check DailyGameCompletion (Unique dateKey + gameSlug) │
-│    ├── First play: Award 100 XP + Streak, commit to database           │
-│    └── Subsequent play: Mark mode="practice", award 0 XP               │
-└────────────────────────────────────────────────────────────────────────┘
+User Interaction Lifecycle (Patches):
+
+[Dock Piece] --PointerDown--> [Initiate Drag (Active Shape ID)]
+                                      │
+                                      ▼
+[PointerMove over Grid] ────► [Calculate Bounding Cell Coordinates [r, c]]
+                                      │
+                                      ├── Is Placement Valid?
+                                      │     ├── YES: Render Green/Accent Ghost Preview
+                                      │     └── NO:  Render Red Violation Glow
+                                      │
+[PointerUp] ─────────────────► If Valid: Commit to placedPositions[shapeId] = [r, c]
+                                      │
+                                      ▼
+                    [Target Grid Re-renders Filled Colors]
+                    - Target cells occupy shape.color
+                    - Dock piece transitions to "Docked / In-Grid" state
+                    - Clicking placed piece on board lifts it back to dock
 ```
 
-### 2. Daily Scarcity & Calendar Edition Engine
+*   **State Representation**:
+    - `placedPieces: Record<string, [number, number]>` maps `shapeId` to top-left grid root `[r, c]`.
+    - Board grid maps each occupied coordinate to `{ shapeId, color }`.
+    - Drag state: `{ shapeId, currentPointerPos, snappedGridCoord: [r, c] | null, isValidDrop: boolean }`.
+*   **Click-to-Retrieve**: Clicking any cell occupied by a placed shape immediately unassigns it from `placedPieces`, restoring it to the interactive inventory dock.
 
-Every game edition is deterministic, globally synchronized across all players, and requires zero database overhead:
-* **Epoch Reference**: `const EPOCH_DATE = new Date("2026-01-01T00:00:00Z");`
-* **Issue Calculation**:
-  ```typescript
-  export function getDailyEdition(slug: string, date = new Date()) {
-    const todayUTC = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
-    const epochUTC = EPOCH_DATE.getTime();
-    const issueNumber = Math.max(1, Math.floor((todayUTC - epochUTC) / 86400000) + 1);
-    const dateKey = new Date(todayUTC).toISOString().slice(0, 10);
-    return { issueNumber, dateKey };
-  }
-  ```
-* **Puzzle Retrieval**: Each game has a curated pool in `data/puzzles/[slug].json`. The puzzle index is resolved as `(issueNumber - 1) % pool.length`.
+### 2. Zip Continuous SVG Ribbon Path & Drag Tracer
 
-### 3. The 8 Interactive Game Engines & UI Architecture
+```text
+User Interaction Lifecycle (Zip):
 
-All 8 games are rebuilt from scratch using clean SVG/DOM-based direct manipulation:
-
-| Game Slug | Subtitle / Mechanic | Interaction Model | Board Primitives |
-| :--- | :--- | :--- | :--- |
-| **`queens`** | Crown each region | Tap cell: Cycle `Empty` -> `X` (Cross) -> `Crown`. Long press/right click = quick `X`. | 6x6 to 8x8 colored region grid. Constraint visualizer (red glow if crowns collide). |
-| **`tango`** | Harmonize the grid | Tap cell: Cycle `Empty` -> `Sun` -> `Moon`. Equal constraint per row/col. | Grid with equal/opposite edge markers (`=`, `x`). Rule validator (no 3 identical consecutive). |
-| **`mini-sudoku`** | The classic game, made mini | Tap cell + virtual numerical keypad (1–4 or 1–6). Notes toggle mode. | 4x4 (2x2 boxes) or 6x6 (2x3 boxes) grid with conflict highlighting. |
-| **`pinpoint`** | Guess the category | 5 clue tiles reveal one-by-one. Text input with autocomplete/fuzzy match. | Flip-card clue stack + guess attempt pill tracker. |
-| **`crossclimb`** | Unlock a trivia ladder | 5-step word ladder where adjacent words differ by 1 letter. Trivia clue per rung. | Interactive letter-tile ladder with draggable order or typed letter swaps. |
-| **`patches`** | Piece it together | Drag & drop geometric polyomino patches into target board outline. Rotate button. | Snap-to-grid SVG bounding container with shape inventory dock. |
-| **`zip`** | Connect the path | Touch/mouse drag drawing continuous line connecting ordered number checkpoints. | Node network canvas with path collision and sequence validation. |
-| **`wend`** | Weave through words | Swipe/drag across adjacent letters (8-directional) to discover valid words. | 4x4 letter grid with active word tracer trail and word discovery tracker. |
-
-### 4. Database Schema Evolution (`prisma/schema.prisma`)
-
-```prisma
-model User {
-  id                    String                @id @default(cuid())
-  name                  String
-  email                 String                @unique
-  passwordHash          String
-  totalXp               Int                   @default(0)
-  competitiveXp         Int                   @default(0)
-  streak                Int                   @default(0)
-  lastPlayedAt          DateTime?
-  createdAt             DateTime              @default(now())
-  gameSessions          GameSession[]
-  dailyEntries          DailyEntry[]
-  dailyCompletions      DailyGameCompletion[]
-
-  @@index([competitiveXp, totalXp])
-}
-
-model DailyGameCompletion {
-  id           String   @id @default(cuid())
-  userId       String
-  gameSlug     String
-  dateKey      String   // "YYYY-MM-DD" in UTC
-  issueNumber  Int
-  timeTakenMs  Int
-  completedAt  DateTime @default(now())
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, gameSlug, dateKey])
-  @@index([gameSlug, dateKey])
-}
-
-model GameSession {
-  id          String   @id @default(cuid())
-  userId      String
-  gameSlug    String
-  score       Int
-  xpEarned    Int
-  correct     Int      @default(0)
-  total       Int      @default(0)
-  durationMs  Int
-  issueNumber Int?
-  mode        String   @default("daily") // "daily" | "practice"
-  createdAt   DateTime @default(now())
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId, gameSlug])
-}
+[Checkpoint #1] --PointerDown/Hover--> [Start Path: [[r1, c1]]]
+                                               │
+                                               ▼
+[PointerDrag across Adjacent Cell [r2, c2]] ──► [Distance === 1 Check]
+                                               │
+                                               ├── Already in path? -> Backtrack to that index
+                                               └── Not in path?    -> Append [r2, c2] to path
+                                               │
+                                               ▼
+                         [SVG Ribbon Layer Draws Smooth Path]
+                         - <path d="M x1 y1 L x2 y2 ..." stroke="#6366F1" />
+                         - Checkpoint badges (1, 2, 3...) remain on top layer
+                         - Cells remain clean without sequential number clutter
 ```
 
-### 5. SEO & Editorial Footprint Architecture
+*   **SVG Rendering Geometry**:
+    - Given a cell size $S$, cell centers are located at $X = (c + 0.5) \times S$, $Y = (r + 0.5) \times S$.
+    - The path renders as a single `<svg>` overlay with `strokeWidth={S * 0.38}`, `strokeLinecap="round"`, and `strokeLinejoin="round"`, creating a fluid modern ribbon line.
+*   **Checkpoint Landmarks**:
+    - Checkpoints render as high-contrast circular badges with clear numerical labels (1, 2, 3...) fixed above the path layer.
+    - Path completion triggers when all checkpoints are sequentially visited in an unbroken line.
 
-To ensure immediate Google indexing and eliminate AdSense "Thin Content" flags, each `/games/[slug]` route server-renders rich semantic sections below the puzzle canvas:
-* **JSON-LD Schema**:
-  ```json
-  {
-    "@context": "https://schema.org",
-    "@type": ["SoftwareApplication", "Game"],
-    "name": "Queens #924 - Daily Logic Game",
-    "applicationCategory": "GameApplication",
-    "operatingSystem": "Any",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "description": "Play today's Queens daily puzzle #924. Place one crown per row, column, and region without touching."
-  }
-  ```
-* **Editorial Sections**:
-  - `Rules & Mechanics`: Clear visual breakdown of game constraints.
-  - `How to Play & Step-by-Step Tutorial`: Annotated example board.
-  - `Mastery & Deduction Strategies`: Advanced logical heuristics (e.g. corner trapping in Queens, parity in Tango).
-  - `Frequently Asked Questions (FAQ)`: FAQPage Schema accordion with 4–6 common player questions.
+### 3. Procedural Audio Synthesizer (`lib/audio/sound-fx.ts`)
 
-### 6. Monetization Layout & Ad Placement Architecture
+*   **Architecture**: Singleton `AudioContext` lazily initialized on first user interaction.
+*   **Sound Definitions**:
+    - `playTap()`: 440 Hz triangle wave decaying exponentially in 40ms (clean tactile click).
+    - `playStep()`: Pentatonic frequency progression (C5 -> D5 -> E5 -> G5 -> A5) tied to path progress in Zip and piece placement in Patches.
+    - `playError()`: 160 Hz low sine wave with quick pitch downward bend (subtle soft rejection).
+    - `playVictory()`: Arpeggiated C-Major 9th chord (C4, E4, G4, B4, D5) cascading over 600ms.
+*   **Mute State**: Persisted in `localStorage.getItem("brain_games_muted")`. Toolbar provides a 1-click speaker icon toggle (`🔊 / 🔇`).
 
-Ad delivery is engineered strictly to avoid player annoyance, prevent touch misclicks, and eliminate Cumulative Layout Shift (CLS):
-* **Fixed Pre-Allocated Ad Slots**:
-  - `components/ads/ad-banner.tsx`: Reserves exact container dimensions (`min-h-[250px]` desktop sidebar, `min-h-[50px]` mobile bottom) using CSS aspect ratio / min-height so content never jumps when an ad loads.
-* **AdSense Script Management**:
-  - `components/ads/adsense-script.tsx`: Injects Google AdSense script asynchronously only once via Next.js `Script` (`strategy="afterInteractive"`). Configurable via `NEXT_PUBLIC_ADSENSE_CLIENT_ID`.
-* **Monetag Transition Hooks**:
-  - Secondary fallback network initialized via `NEXT_PUBLIC_MONETAG_TAG_ID`.
-  - Triggered exclusively when a player voluntarily clicks "Practice Unlimited" after finishing their official daily game, never interrupting active gameplay.
+### 4. Viral Spoiler-Free Emoji Share Card (`lib/social/share-generator.ts`)
+
+*   **Format**:
+    ```text
+    Brain Games — [Game Title] #[IssueNumber]
+    ⏱ [Formatted Time]
+    [Dynamic Performance Emoji Grid / Progress Bar]
+    https://brain-games.vercel.app/games/[slug]
+    ```
+*   **One-Click Copy**: Injected into `puzzle-shell.tsx` victory modal with live clipboard copy and "Copied to clipboard! 📋" toast feedback.
+
+### 5. Daily Progress Ring & Personal Analytics
+
+*   **Progress Ring (`components/shared/progress-ring.tsx`)**: Circular SVG progress meter showing `X / 8` completed daily editions, embedded into the navbar header and user dashboard.
+*   **Analytics Modal (`components/profile/stats-modal.tsx`)**: Queries user's `DailyGameCompletion` and `GameSession` records to display:
+    - Total Games Played & Win Percentage.
+    - Current Active Streak & Longest Habit Streak.
+    - Average Solve Duration per puzzle type.
+    - Visual bar distribution of solve times.
+*   **Calendar Archive Drawer (`components/games/archive-drawer.tsx`)**: Slide-out calendar permitting selection of past dates and edition numbers to play in Practice Mode (`/games/[slug]?issue=[N]&mode=practice`).
 
 --------------------------------------------------------------------------------
 
 ## Alternatives Considered
 
-### 1. Fully Gated Game Routes (Require Login to Play)
+### 1. External Drag-and-Drop Library (e.g. dnd-kit or react-dnd)
 
-*   **Mechanism**: Maintain `/games/*` inside `middleware.ts` redirecting unauthenticated users to `/login`.
-*   **Trade-off**: Simplifies user attribution and ensures every game session maps to an authenticated database record from the first click.
-*   **Reason for Rejection**: *Rejected by author*. Blocks search engine bots (Googlebot) from crawling and indexing game pages, destroys organic search traffic acquisition, and leads to immediate Google AdSense application rejection under the "Site Behind Login / Thin Content" policy.
+*   **Mechanism**: Install third-party drag-and-drop packages (`@dnd-kit/core`) to handle sensor detection and drop targets.
+*   **Trade-off**: Provides pre-packaged touch abstractions.
+*   **Reason for Rejection**: *Rejected by author*. Adds ~50KB of unnecessary bundle bloat, complicates coordinate snapping into responsive CSS grid cells, and introduces noticeable event dispatch latency on mobile web browsers. Native HTML5 Pointer Events provide superior 60 FPS hardware-accelerated performance with zero dependencies.
 
-### 2. Pure Procedural Generation at Runtime
+### 2. Static Pre-recorded Audio Files (.mp3 / .wav)
 
-*   **Mechanism**: Generate puzzle boards dynamically inside Vercel serverless functions using random seed generators.
-*   **Trade-off**: Requires zero committed puzzle seed files in the repository.
-*   **Reason for Rejection**: *Rejected by author*. High risk of producing unsolvable or ambiguous puzzle configurations on constraint-heavy games like Queens, Tango, and Crossclimb. Serverless execution timeouts can occur during heavy backtracking solver runs. A pre-validated curated bank guarantees 100% solvability and sub-millisecond page delivery.
+*   **Mechanism**: Load static audio assets from the `/public/sounds/` directory and trigger them using `<audio>` DOM elements.
+*   **Trade-off**: Allows pre-rendered acoustic studio sound effects.
+*   **Reason for Rejection**: *Rejected by author*. Increases initial network payload, causes audible playback latency on mobile connections, and frequently triggers mobile browser autoplay permission rejections. Web Audio API oscillators are instantaneous, dynamic, zero-latency, and add 0 bytes to network transfers.
 
-### 3. Mid-Game Interstitial & Pop-Under Ads
+### 3. Raw Canvas Rendering for Zip Path
 
-*   **Mechanism**: Trigger full-screen popups or video interstitials mid-game after a timer or between moves.
-*   **Trade-off**: Maximizes raw ad impressions per user session.
-*   **Reason for Rejection**: *Rejected by author*. Severely degrades cognitive puzzle flow, triggers massive user bounce rates, causes mobile touch misclicks, and risks Google AdSense account suspension under accidental click enforcement.
+*   **Mechanism**: Draw the continuous ribbon path using an HTML5 `<canvas>` element and 2D canvas drawing contexts.
+*   **Trade-off**: Provides low-level pixel manipulation.
+*   **Reason for Rejection**: *Rejected by author*. Canvas requires manual handling of device pixel ratio (DPR) to prevent blurriness on Retina displays, lacks responsive SVG vector scaling, and prevents applying native CSS shadow/glow filters. An inline SVG path element scales crisply across all screen resolutions and integrates natively with DOM coordinate trees.
 
-### 4. Pure HTML5 Canvas Rendering (Zero DOM Elements)
+### 4. Direct Social OAuth Auto-Publishing
 
-*   **Mechanism**: Render all puzzle boards exclusively inside a single `<canvas>` element using Pixi.js or Canvas2D.
-*   **Trade-off**: Centralizes high-framerate rendering and particle effects.
-*   **Reason for Rejection**: *Rejected by author*. Canvas elements are opaque to search engine indexers and screen readers. Renders text un-indexable by Google, destroying organic SEO rankings and triggering AdSense "Thin Content" flags due to low semantic DOM density. SVG and semantic DOM components provide native vector crispness, search crawler visibility, and accessibility.
+*   **Mechanism**: Integrate Twitter/X and LinkedIn OAuth APIs to automatically publish scores directly to player profiles.
+*   **Trade-off**: Publishes directly without user copy-pasting.
+*   **Reason for Rejection**: *Rejected by author*. Requires complex OAuth app management, developer credentials, and introduces high user friction (players routinely decline granting social account write permissions). The Wordle/LinkedIn-style 1-click clipboard copy model achieves maximum viral conversion with zero security resistance.
 
 --------------------------------------------------------------------------------
 
@@ -243,83 +176,64 @@ Ad delivery is engineered strictly to avoid player annoyance, prevent touch misc
 
 ### Target Files to Create/Modify
 
-#### 1. `prisma/schema.prisma` (Modify)
-*   **Type / Scope**: Prisma Data Model & Migration.
-*   **Rationale**: Adds `DailyGameCompletion` model (with composite unique key `[userId, gameSlug, dateKey]`), adds `issueNumber` and `mode` to `GameSession`, and links new relational fields to `User`.
+#### 1. `lib/audio/sound-fx.ts` (Create)
+*   **Type / Scope**: Web Audio API Sound Synthesizer.
+*   **Rationale**: Exports singleton sound triggers (`soundFx.tap()`, `soundFx.step()`, `soundFx.error()`, `soundFx.victory()`) using Web Audio oscillators. Manages browser mute state in `localStorage` and auto-resumes audio contexts suspended by mobile autoplay policies upon first user touch.
 
-#### 2. `middleware.ts` (Modify)
-*   **Type / Scope**: Next.js Edge Middleware.
-*   **Rationale**: Removes `/games` from the protected route barrier. Unauthenticated users and web crawlers can freely access `/games/*`, while `/dashboard` remains strictly authenticated and `/login`/`/register` remain guest-guarded.
+#### 2. `lib/social/share-generator.ts` (Create)
+*   **Type / Scope**: Social Text Generator Utility.
+*   **Rationale**: Generates spoiler-free emoji share copy with game title, issue number, elapsed time, and difficulty grid representations. Provides a unified `copyShareText()` helper with clipboard fallback.
 
-#### 3. `lib/puzzles/types.ts` (Create)
-*   **Type / Scope**: TypeScript Types & Data Contracts.
-*   **Rationale**: Defines the 8 game slugs (`queens`, `tango`, `mini-sudoku`, `pinpoint`, `crossclimb`, `patches`, `zip`, `wend`), board state schemas, puzzle definition shapes, and API request/response payloads.
+#### 3. `components/games/patches/patches-board.tsx` (Modify)
+*   **Type / Scope**: Interactive Polyomino Game Component.
+*   **Rationale**: Complete overhaul:
+    1. Implements native Pointer Events (`onPointerDown`, `onPointerMove`, `onPointerUp`) on inventory shape tiles.
+    2. Dynamically renders target board grid cells with full shape background colors when occupied.
+    3. Calculates live bounding box intersection during drag to project green/accent ghost previews or red collision warnings.
+    4. Enables click-to-retrieve on board cells to return placed shapes back to the dock.
 
-#### 4. `lib/puzzles/daily-engine.ts` (Create)
-*   **Type / Scope**: Core Game Domain Logic.
-*   **Rationale**: Provides UTC epoch calculation, edition resolution (`#IssueNumber`), calendar date-key formatting, and puzzle pool indexing for daily and practice modes.
+#### 4. `components/games/zip/zip-board.tsx` (Modify)
+*   **Type / Scope**: Path Drawing Game Component.
+*   **Rationale**: Complete overhaul:
+    1. Removes all sequential number-stamping in board cells.
+    2. Overlays an inline SVG ribbon path with `strokeLinecap="round"` and `strokeLinejoin="round"` following pointer drag across adjacent cells.
+    3. Renders fixed high-contrast checkpoint landmark badges (1, 2, 3...) floating above the ribbon layer.
+    4. Implements dynamic path truncation when dragging backward across already-visited squares.
 
-#### 5. `lib/puzzles/evaluators.ts` (Create)
-*   **Type / Scope**: Algorithmic Verification Engine.
-*   **Rationale**: Implements deterministic solution verification for all 8 puzzle types (Queens constraint checker, Tango balance & consecutive checker, Sudoku digit validator, Pinpoint category matcher, Crossclimb ladder validator, Patches grid coverage checker, Zip path continuity validator, and Wend word weave validator). Runs client-side for instant win state and server-side for authoritative score validation.
+#### 5. `components/games/shared/puzzle-shell.tsx` (Modify)
+*   **Type / Scope**: Game Shell Wrapper Component.
+*   **Rationale**:
+    1. Adds a persistent audio speaker icon toggle (`🔊 / 🔇`) in the live toolbar.
+    2. Triggers `soundFx.victory()` upon puzzle solve.
+    3. Adds a prominent "Share Result 📋" button in the victory modal that copies the spoiler-free emoji summary to the clipboard with toast feedback.
 
-#### 6. Curated Puzzle Banks: `data/puzzles/*.json` (Create 8 files)
-*   `data/puzzles/queens.json`: 30 verified solvable Queens puzzles (regions, grid size, solution coordinates).
-*   `data/puzzles/tango.json`: 30 verified Tango boards (grid size, fixed suns/moons, equality constraints).
-*   `data/puzzles/mini-sudoku.json`: 30 4x4 and 6x6 Sudoku puzzles with unique solutions.
-*   `data/puzzles/pinpoint.json`: 30 category deduction puzzles with 5 ordered clues.
-*   `data/puzzles/crossclimb.json`: 30 word ladder puzzles with trivia clues.
-*   `data/puzzles/patches.json`: 30 polyomino tiling puzzles (target silhouette + patch shapes).
-*   `data/puzzles/zip.json`: 30 path finding puzzles (numbered node matrices).
-*   `data/puzzles/wend.json`: 30 word weave letter grids with valid dictionary path lists.
+#### 6. `components/shared/progress-ring.tsx` (Create)
+*   **Type / Scope**: Radial Progress Component.
+*   **Rationale**: Renders a compact, animated SVG circle displaying `X / 8` completed daily editions. Used in the site navbar and dashboard to visually motivate daily completion.
 
-#### 7. Monetization Components: `components/ads/` (Create 3 files)
-*   `components/ads/adsense-script.tsx`: Next.js Script wrapper asynchronously loading AdSense with client ID verification and error boundary.
-*   `components/ads/ad-banner.tsx`: Pre-allocated CSS container preventing CLS with responsive slots (sidebar 300x250/300x600, bottom banner 320x50).
-*   `components/ads/monetag-hook.tsx`: Client trigger managing optional Monetag interstitial display on practice mode transitions.
+#### 7. `components/site-header.tsx` (Modify)
+*   **Type / Scope**: Navigation Header Component.
+*   **Rationale**: Integrates the Daily Progress Ring alongside player XP and navigation links, showing instant daily progress across all pages.
 
-#### 8. Interactive Game Boards: `components/games/` (Create 9 files)
-*   `components/games/shared/puzzle-shell.tsx`: Unified header, timer, issue badge, practice indicator, restart/undo toolbar, and victory modal with streak tracking and guest-to-user conversion prompts.
-*   `components/games/queens/queens-board.tsx`: Interactive SVG/DOM region grid with cell state cycling (`Empty` -> `X` -> `Crown`), collision red-glow feedback, and quick-cross drag.
-*   `components/games/tango/tango-board.tsx`: Binary grid with tap-cycle (`Empty` -> `Sun` -> `Moon`), edge constraint indicators, and violation warnings.
-*   `components/games/mini-sudoku/mini-sudoku-board.tsx`: Touch-friendly mini Sudoku grid with on-screen digit keypad and note-taking mode.
-*   `components/games/pinpoint/pinpoint-board.tsx`: Progressive clue-reveal flip card interface with autocomplete category guess input.
-*   `components/games/crossclimb/crossclimb-board.tsx`: Word ladder tile interface with trivia clue displays and letter-swap input.
-*   `components/games/patches/patches-board.tsx`: Drag-and-drop / click-to-place polyomino board with shape rotation controls.
-*   `components/games/zip/zip-board.tsx`: Continuous pointer-drag path drawing canvas across numbered node checkpoints.
-*   `components/games/wend/wend-board.tsx`: Swipe/drag 8-directional word tracer on 4x4 letter grid with found-word discovery drawer.
+#### 8. `components/profile/stats-modal.tsx` (Create)
+*   **Type / Scope**: Analytics Modal Component.
+*   **Rationale**: Displays comprehensive player statistics: total editions cleared, current/max streaks, win percentage, and a bar chart of average solve times per game.
 
-#### 9. `app/games/[slug]/page.tsx` (Modify)
+#### 9. `components/games/archive-drawer.tsx` (Create)
+*   **Type / Scope**: Calendar Edition Selector Drawer.
+*   **Rationale**: Allows players to browse past calendar dates, compute corresponding `#IssueNumber` values, and launch previous daily puzzles in Practice Mode.
+
+#### 10. `app/dashboard/page.tsx` (Modify)
 *   **Type / Scope**: Next.js Server Component.
-*   **Rationale**: Loads daily puzzle edition, server-renders Schema.org JSON-LD structured data, renders rich editorial content (rules, tutorials, strategies, FAQs) for AdSense compliance and SEO ranking, and mounts the puzzle shell alongside responsive ad banners.
-
-#### 10. `app/api/puzzles/submit/route.ts` (Create)
-*   **Type / Scope**: Next.js API Route Handler (Node.js runtime).
-*   **Rationale**: Authoritatively verifies completed puzzle board states via `lib/puzzles/evaluators.ts`. Enforces the 1-daily-ranked attempt limit per user per game in `DailyGameCompletion`. Awards XP and streak for daily runs, commits unranked records for practice mode, and logs validation failures to Vercel runtime logs.
-
-#### 11. `app/dashboard/page.tsx` (Modify)
-*   **Type / Scope**: Next.js Server Component.
-*   **Rationale**: Redesigns the user hub into an 8-card daily puzzle suite matching the LinkedIn Games layout, showing daily issue numbers, completion status pills, daily completion streak, and direct links to play or practice.
-
-#### 12. `app/sitemap.ts` (Create)
-*   **Type / Scope**: Next.js Dynamic Sitemap Generator.
-*   **Rationale**: Dynamically outputs `sitemap.xml` containing canonical URLs for all 8 games, root landing page, and leaderboard, accelerating indexing in Google Search Console.
-
-#### 13. `tests/puzzles.test.ts` (Create)
-*   **Type / Scope**: Vitest Unit Test Suite.
-*   **Rationale**: Tests UTC issue calculation consistency, board evaluation logic for each of the 8 game engines, solution verification edge cases, and submission quota constraints.
+*   **Rationale**: Embeds the Progress Ring into the daily overview banner, adds a "View Past Editions (Archive)" button, and provides a trigger for the Personal Analytics Modal.
 
 ### Verification Plan
 
-*   **Database Migration**: Run `npx prisma db push` or `npm run db:migrate` against dev database to confirm schema updates apply cleanly.
-*   **Typecheck**: Run `npm run typecheck` to verify zero TypeScript errors across all 8 game engines, types, and components.
-*   **Linting**: Run `npm run lint` to enforce clean code conventions and accessibility standards.
-*   **Unit Tests**: Run `npm run test` to verify puzzle evaluator algorithms and edition calculation suites pass 100%.
-*   **Next.js Build**: Run `npm run build` to confirm static generation, sitemap creation, and edge middleware bundling succeed.
+*   **Typecheck**: Run `npm run typecheck` to confirm zero TypeScript compilation errors.
+*   **Linter**: Run `npm run lint` to enforce clean Next.js and Tailwind standards.
 *   **Manual End-to-End Verification**:
-    1. Open incognito window (Guest) → Navigate to `/games/queens` → Confirm game loads without login redirect.
-    2. Inspect page source → Confirm Schema.org JSON-LD and editorial content (rules, tutorials, FAQs) are rendered.
-    3. Play and solve Queens puzzle → Confirm victory card displays time and guest signup call-to-action.
-    4. Sign in as registered user → Play daily puzzle → Confirm 100 XP and streak awarded.
-    5. Re-play same game on same day → Confirm game enters Practice Mode (0 XP awarded, unlimited plays).
-    6. Verify AdBanner renders fixed-dimension containers without CLS.
+    1. **Patches Test**: Drag a polyomino patch from the dock → Observe ghost snap preview → Drop onto board → Confirm target cells display piece color → Click placed piece on board → Confirm it returns to the dock.
+    2. **Zip Test**: Drag finger/mouse from checkpoint 1 → Observe fluid SVG ribbon line connecting cells without number clutter → Drag through checkpoints in sequence → Confirm victory trigger when final checkpoint is connected.
+    3. **Audio Test**: Click cells and drag pieces → Confirm audible woodblock clicks and step tones → Click speaker icon to mute → Confirm complete silence → Reload page → Confirm mute state persists.
+    4. **Share Test**: Solve any puzzle → Click "Share Result" in victory modal → Paste into text editor → Confirm clean emoji format without spoilers.
+    5. **Archive & Progress Ring Test**: Verify navbar shows `X / 8` daily progress ring → Open archive drawer → Select a past date → Confirm game launches in Practice Mode with correct historical `#IssueNumber`.

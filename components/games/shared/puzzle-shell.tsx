@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState, ReactNode } from "react";
+import { useEffect, useState, ReactNode, useCallback } from "react";
 import Link from "next/link";
 import { GameSlug, GAME_CATALOG, PuzzleSubmissionResult } from "@/lib/puzzles/types";
 import { formatCountdown, getMillisecondsUntilNextUTCMidnight } from "@/lib/puzzles/daily-engine";
 import { AdBanner } from "@/components/ads/ad-banner";
 import { useMonetag } from "@/components/ads/monetag-hook";
+import { soundFx } from "@/lib/audio/sound-fx";
+import { copyShareText } from "@/lib/social/share-generator";
 
 interface PuzzleShellProps {
   slug: GameSlug;
@@ -37,6 +39,8 @@ export function PuzzleShell({
   const [submissionResult, setSubmissionResult] = useState<PuzzleSubmissionResult | null>(null);
   const [error, setError] = useState<string>("");
   const [timeUntilReset, setTimeUntilReset] = useState<string>("");
+  const [isMuted, setIsMuted] = useState<boolean>(() => soundFx.isMuted());
+  const [copiedToast, setCopiedToast] = useState<string>("");
   const { triggerPracticeTransition } = useMonetag();
 
   // Monotonic timer
@@ -61,6 +65,7 @@ export function PuzzleShell({
   // Handle victory completion trigger
   useEffect(() => {
     if (isComplete && !submissionResult && !isSubmitting) {
+      soundFx.playVictory();
       setIsSubmitting(true);
       setError("");
       const finalDuration = Math.max(2000, Math.round(performance.now() - startTime));
@@ -79,6 +84,33 @@ export function PuzzleShell({
         });
     }
   }, [isComplete, submissionResult, isSubmitting, onSubmit, startTime]);
+
+  const handleToggleSound = useCallback(() => {
+    const nextMuted = soundFx.toggleMute();
+    setIsMuted(nextMuted);
+    if (!nextMuted) {
+      soundFx.playTap();
+    }
+  }, []);
+
+  const handleShareResult = useCallback(async () => {
+    soundFx.playTap();
+    const res = await copyShareText({
+      title: meta?.title || slug,
+      slug,
+      issueNumber,
+      durationMs: elapsedMs,
+      streak: submissionResult?.streak,
+    });
+
+    if (res.success) {
+      setCopiedToast("Copied to clipboard! 📋");
+      setTimeout(() => setCopiedToast(""), 3000);
+    } else {
+      setCopiedToast("Failed to copy share card.");
+      setTimeout(() => setCopiedToast(""), 3000);
+    }
+  }, [meta?.title, slug, issueNumber, elapsedMs, submissionResult?.streak]);
 
   const minutes = Math.floor(elapsedMs / 60000);
   const seconds = Math.floor((elapsedMs % 60000) / 1000);
@@ -125,12 +157,25 @@ export function PuzzleShell({
 
         {/* Live Toolbar */}
         <div className="flex items-center gap-2">
+          {/* Sound Toggle */}
+          <button
+            onClick={handleToggleSound}
+            className="grid h-8 w-8 place-items-center rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50"
+            title={isMuted ? "Unmute audio" : "Mute audio"}
+            aria-label={isMuted ? "Unmute sound effects" : "Mute sound effects"}
+          >
+            {isMuted ? "🔇" : "🔊"}
+          </button>
+
           <div className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 font-mono text-sm font-bold text-slate-700 shadow-sm">
             ⏱ {formattedTimer}
           </div>
           {onUndo && (
             <button
-              onClick={onUndo}
+              onClick={() => {
+                soundFx.playTap();
+                onUndo();
+              }}
               disabled={!canUndo || isComplete || isSubmitting}
               className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-40"
               title="Undo last move"
@@ -140,7 +185,10 @@ export function PuzzleShell({
           )}
           {onReset && (
             <button
-              onClick={onReset}
+              onClick={() => {
+                soundFx.playTap();
+                onReset();
+              }}
               disabled={isComplete || isSubmitting}
               className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 shadow-sm hover:bg-slate-50 disabled:opacity-40"
               title="Reset board"
@@ -164,7 +212,7 @@ export function PuzzleShell({
 
       {/* Completion Modal */}
       {submissionResult && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="w-full max-w-md rounded-3xl bg-white p-6 text-center shadow-xl sm:p-8">
             <div className="mx-auto mb-3 grid h-16 w-16 place-items-center rounded-2xl bg-emerald-50 text-3xl text-emerald-600">
               ✓
@@ -191,6 +239,22 @@ export function PuzzleShell({
                 </strong>
                 <span className="text-xs text-slate-500">Daily Streak</span>
               </div>
+            </div>
+
+            {/* 1-Click Viral Emoji Share Card Button */}
+            <div className="mb-5">
+              <button
+                onClick={handleShareResult}
+                className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-emerald-500 bg-emerald-50 py-3 text-sm font-black text-emerald-800 transition active:scale-98 hover:bg-emerald-100"
+              >
+                <span>Share Result</span>
+                <span className="text-xs font-normal">📋</span>
+              </button>
+              {copiedToast && (
+                <p className="mt-1.5 text-xs font-bold text-emerald-700 animate-in fade-in">
+                  {copiedToast}
+                </p>
+              )}
             </div>
 
             {/* Guest Conversion Card */}
@@ -228,6 +292,7 @@ export function PuzzleShell({
             <div className="flex flex-col gap-2">
               <button
                 onClick={() => {
+                  soundFx.playTap();
                   triggerPracticeTransition();
                   window.location.reload();
                 }}
