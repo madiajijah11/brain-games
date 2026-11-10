@@ -1,0 +1,54 @@
+[
+  {
+    "id": "pinpoint-1",
+    "category": "Planets in our Solar System",
+    "clues": [
+      "Named after Roman gods",
+      "Orbiting the same star",
+      "Gas giants and terrestrial rocks",
+      "Includes Jupiter and Saturn",
+      "Earth is one of them"
+    ],
+    "acceptedAnswers": [
+      "planet",
+      "planets",
+      "solar system planets",
+      "the planets"
+    ]
+  },
+  {
+    "id": "pinpoint-2",
+    "category": "Chess Pieces",
+    "clues": [
+      "Found on an 8x8 checkered battlefield",
+      "Move according to distinct geometric patterns",
+      "Include Knights, Bishops, and Rooks",
+      "Protect the royal sovereign",
+      "Pawn to King"
+    ],
+    "acceptedAnswers": [
+      "chess",
+      "chess piece",
+      "chess pieces",
+      "chessmen"
+    ]
+  },
+  {
+    "id": "pinpoint-3",
+    "category": "Primary Colors",
+    "clues": [
+      "Cannot be created by mixing other hues",
+      "Combine to form the entire color wheel",
+      "Includes the color of the clear daytime sky",
+      "Includes the color of fresh ripe strawberries",
+      "Red, Yellow, and Blue"
+    ],
+    "acceptedAnswers": [
+      "primary color",
+      "primary colors",
+      "colors",
+      "colour",
+      "colours"
+    ]
+  }
+]

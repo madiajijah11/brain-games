@@ -10,8 +10,9 @@ export default auth((req) => {
   const pathname = nextUrl.pathname;
 
   const isGuestRoute = pathname === "/login" || pathname === "/register";
-  const isProtectedRoute = pathname.startsWith("/dashboard") || pathname.startsWith("/games");
+  const isProtectedRoute = pathname.startsWith("/dashboard");
 
+  // Redirect authenticated users away from guest-only pages
   if (isGuestRoute) {
     if (isLoggedIn) {
       return NextResponse.redirect(new URL("/dashboard", nextUrl));
@@ -19,6 +20,7 @@ export default auth((req) => {
     return NextResponse.next();
   }
 
+  // Protect private user dashboard
   if (isProtectedRoute) {
     if (!isLoggedIn) {
       const loginUrl = new URL("/login", nextUrl);
@@ -28,6 +30,7 @@ export default auth((req) => {
     return NextResponse.next();
   }
 
+  // /games/* and public landing page are freely accessible for guest play and SEO indexing
   return NextResponse.next();
 });
 
@@ -40,6 +43,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico, sitemap.xml, robots.txt, etc.
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

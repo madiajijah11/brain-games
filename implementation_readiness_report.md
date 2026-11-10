@@ -1,46 +1,53 @@
 # Stage 9 Review Report: Implementation Readiness Test
 
-*   **Target Document:** `docs/designs/auth-guard-and-game-submission-integrity.md`
+*   **Target Document:** `docs/designs/linkedin-style-8-game-daily-puzzle-suite.md`
 *   **Reviewers:** `egm-implementation-readiness`, `egm-codebase-details`, `egm-style`
-*   **Date:** 2026-11-09
+*   **Date:** 2026-11-10
 
 ---
 
 ## 1. Executive Summary
 
-The Implementation Readiness Test evaluated the Detailed Implementation Plan (lines 150–204). The target files, modification scopes, and verification plans are unambiguous and actionable. Reviewers confirmed strict alignment with the Next.js 16 App Router and Vitest toolchain, with one proactive recommendation regarding Next.js 16 `searchParams` resolution.
+The Implementation Readiness Test evaluated the Detailed Implementation Plan (lines 242–327). All 13 target file groupings, database migrations, components, APIs, and verification routines are comprehensively enumerated and actionable. The architecture cleanly conforms to Next.js 16 App Router standards, Prisma ORM patterns, and responsive SVG/DOM manipulation best practices.
 
 ---
 
 ## 2. Findings by Lens
 
-### A. Codebase Details & Next.js 16 Ergonomics (`egm-codebase-details`)
+### A. Codebase Details & Next.js 16 App Router Alignment (`egm-codebase-details`)
 
-*   **Finding [PASS: Next.js 16 SearchParams Optimization]**:
-    *   *Analysis*: In Next.js 16, invoking `useSearchParams()` directly inside a Client Component can trigger a build-time requirement for a `<Suspense>` wrapper if parent pages are statically rendered.
-    *   *Recommendation*: In `app/login/page.tsx`, read `searchParams` in the Server Component (`await searchParams`) and pass `callbackUrl` as an optional prop into `<AuthForm mode="login" callbackUrl={resolvedUrl} />`. This prevents Client-Side Rendering bailouts and eliminates the need for extra Suspense wrappers.
-*   **Finding [PASS: NextAuth v5 Decoupling]**:
-    *   *Verification*: Splitting `auth.config.ts` (exporting a plain configuration object without Prisma) from `lib/auth.ts` (instantiating `NextAuth` with the Credentials provider) strictly conforms to Auth.js v5 Next.js Edge guidelines and ensures zero Edge build failures.
+*   **Finding [PASS: Route & Middleware Decoupling]**:
+    *   *Verification*: Removing `/games/*` from the middleware's auth barrier while keeping `/dashboard` protected is cleanly scoped. Edge middleware continues to execute strictly without database dependencies, preserving sub-10ms response times.
+*   **Finding [PASS: Prisma Schema Safety]**:
+    *   *Verification*: Adding `DailyGameCompletion` with composite unique index `@@unique([userId, gameSlug, dateKey])` prevents race conditions on double-submissions and guarantees that only the first daily attempt awards XP and streak increments.
+*   **Finding [PASS: Data Asset Distribution]**:
+    *   *Verification*: Storing 30 static JSON puzzles per game under `data/puzzles/` provides an immutable, version-controlled library requiring zero database queries on initial page load.
 
 ### B. Implementation Readiness (`egm-implementation-readiness`)
 
-*   **File Enumeration [100% COMPLETE]**: All 7 files are explicitly classified as either `(Create)` or `(Modify)`.
-    1. `auth.config.ts` (Create)
-    2. `middleware.ts` (Create)
-    3. `lib/auth.ts` (Modify)
-    4. `components/game-runner.tsx` (Modify)
-    5. `app/api/games/submit/route.ts` (Modify)
-    6. `components/auth-form.tsx` (Modify)
-    7. `tests/games.test.ts` (Create)
-*   **No Code In High-Level Spec [PASS]**: The plan describes behavioral contracts, schema boundaries, and error patterns without dumping complete source code into the design doc.
-*   **Verification Feasibility [PASS]**: Verification scripts match existing `package.json` scripts (`npm run typecheck`, `npm run lint`, `npm run test`, `npm run build`).
+*   **File Enumeration [100% COMPLETE]**: Every necessary file touchpoint is categorized explicitly:
+    1. `prisma/schema.prisma` (Modify)
+    2. `middleware.ts` (Modify)
+    3. `lib/puzzles/types.ts` (Create)
+    4. `lib/puzzles/daily-engine.ts` (Create)
+    5. `lib/puzzles/evaluators.ts` (Create)
+    6. `data/puzzles/*.json` (Create 8 files)
+    7. `components/ads/*.tsx` (Create 3 files)
+    8. `components/games/**/*.tsx` (Create 9 files)
+    9. `app/games/[slug]/page.tsx` (Modify)
+    10. `app/api/puzzles/submit/route.ts` (Create)
+    11. `app/dashboard/page.tsx` (Modify)
+    12. `app/sitemap.ts` (Create)
+    13. `tests/puzzles.test.ts` (Create)
+*   **No Code In High-Level Spec [PASS]**: The plan describes behavioral contracts, schema boundaries, and algorithms without code dumping.
+*   **Verification Feasibility [PASS]**: Matches the available toolchain in `package.json` (`prisma db push`, `npm run typecheck`, `npm run lint`, `npm run test`, `npm run build`).
 
 ### C. Style & Grammar Standards (`egm-style`)
 
-*   **Finding [PASS]**: Clean standard Markdown formatting, valid table syntax, and unambiguous technical descriptions.
+*   **Finding [PASS]**: Clean Markdown formatting, standard table layout, unambiguous technical terminology, and zero ungrounded buzzwords.
 
 ---
 
 ## 3. Final Recommendation: READINESS CONFIRMED (READY TO IMPLEMENT)
 
-The design document satisfies all architectural, security, and codebase constraints. The author may conclude the review and advance immediately to code implementation.
+The technical design document satisfies all architectural, SEO, monetization, and codebase requirements. The document is formally approved for implementation.

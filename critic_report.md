@@ -1,45 +1,43 @@
 # Stage 7 Review Report: Critic Review
 
-*   **Target Document:** `docs/designs/auth-guard-and-game-submission-integrity.md`
+*   **Target Document:** `docs/designs/linkedin-style-8-game-daily-puzzle-suite.md`
 *   **Reviewers:** `egm-design`, `egm-structural`, `egm-style`
-*   **Date:** 2026-11-09
+*   **Date:** 2026-11-10
 
 ---
 
 ## 1. Executive Summary
 
-The Critic Review evaluated the feature specification and architectural contracts (lines 1–149). The core route interception and timing protocols are sound. However, reviewers identified one functional blind spot in authentication redirect handling (`callbackUrl`) and refined the Edge middleware matching boundary.
+The Critic Review evaluated the feature specification and architectural contracts (lines 1–241). Reviewers identified two critical operational details: (1) AdSense Publisher ID environment configuration safety to prevent Next.js build errors when credentials are not yet provisioned, and (2) canonical tag synchronization for dynamically calculated daily editions.
 
 ---
 
 ## 2. Findings by Lens
 
-### A. Design & Behavioral Ergonomics (`egm-design`)
+### A. Structural & Security Integrity (`egm-structural`)
 
-*   **Finding [CRITICAL-01: UX Drop-off in `callbackUrl` Handling]**:
-    *   *Issue*: The Technical Plan states that unauthenticated visitors to protected routes (`/dashboard`, `/games/:slug`) will be redirected to `/login?callbackUrl=...`. However, `components/auth-form.tsx` currently hardcodes:
-        ```typescript
-        router.push("/dashboard");
-        ```
-        If a user attempts to open a direct challenge link (e.g., `/games/number-rush?daily=1`), is forced to sign in, and submits credentials, they are dropped into `/dashboard` instead of returning to the requested game.
-    *   *Remediation*: Update `components/auth-form.tsx` to read `searchParams.get("callbackUrl")` and sanitize it (ensuring it is a relative path starting with `/` to prevent open-redirect vulnerabilities), defaulting to `/dashboard` only if no valid callback parameter exists.
+*   **Finding [CRITICAL-01: AdSense Graceful Fallback When Client ID is Unset]**:
+    *   *Issue*: If `components/ads/adsense-script.tsx` blindly attempts to inject the AdSense script tag when `NEXT_PUBLIC_ADSENSE_CLIENT_ID` is empty or undefined, Next.js may emit browser console warnings and render invalid script tags, potentially flagging deployment builds.
+    *   *Remediation*: Explicitly mandate in the design that `AdSenseScript` and `AdBanner` render inert fallback placeholders (clean empty layout divs that preserve reserved CSS dimensions) whenever `NEXT_PUBLIC_ADSENSE_CLIENT_ID` is absent from the runtime environment.
+*   **Finding [PASS: API Route Authentication Isolation]**:
+    *   *Verification*: The submission endpoint `/api/puzzles/submit` safely accommodates both authenticated users (recording to `DailyGameCompletion` and `GameSession`) and guest users (returning validation success tokens without throwing 401 exceptions).
 
-### B. Structural & Systems Integrity (`egm-structural`)
+### B. Design & SEO Ergonomics (`egm-design`)
 
-*   **Finding [WARN-01: API Boundary Separation]**:
-    *   *Observation*: APIs under `/api/**` must never be redirected with HTTP 307 by Middleware, as programmatic fetch requests expect JSON error payloads (`{ error: "Unauthorized" }` with HTTP 401) rather than HTML redirect documents.
-    *   *Verification [PASS]*: The matcher specification explicitly excludes `/api/**`, leaving API authentication to per-route `await auth()` checks.
-*   **Finding [PASS: Root Landing Page Accessibility]**:
-    *   *Verification*: The landing page `/` remains public and accessible to both guests and registered users, matching the product specification.
+*   **Finding [WARN-01: Canonical URL & Search Query Cleanliness]**:
+    *   *Observation*: Players accessing games via query parameters (e.g. `/games/queens?mode=practice` or `/games/queens?daily=1`) could cause search engines to perceive duplicate URL variations.
+    *   *Remediation*: Ensure `app/games/[slug]/page.tsx` exports metadata with an explicit canonical URL pointing strictly to `https://<domain>/games/[slug]`, ignoring mode search params for indexing purity.
+*   **Finding [PASS: Mobile Touch Collision Resistance]**:
+    *   *Verification*: Placing mobile ad banners strictly below the puzzle canvas eliminates accidental touch collisions during active grid interactions.
 
 ### C. Style & Specification Hygiene (`egm-style`)
 
-*   **Finding [PASS]**: The document adheres strictly to the Plain-English standard. No ungrounded marketing adjectives (*seamless*, *blazingly fast*, *robust*) or decorative adverbs were detected.
-*   **Finding [PASS]**: Architectural alternatives detail exact author rejection rationales.
+*   **Finding [PASS]**: Strictly follows the Plain-English standard. No marketing buzzwords or decorative adverbs detected.
+*   **Finding [PASS]**: Explicit rejection rationales provided for all weighed alternatives.
 
 ---
 
 ## 3. Action Items for Remediation
 
-1.  **Add `components/auth-form.tsx` to Implementation Targets**: Explicitly include handling of `callbackUrl` in `components/auth-form.tsx` to complete the end-to-end redirect loop.
-2.  **Sanitization Rule**: Specify in the design that `callbackUrl` must begin with `/` and not `//` to eliminate open redirect vectors.
+1.  **Update `components/ads/adsense-script.tsx` specification**: Add graceful conditional rendering when environment variables are unset.
+2.  **Add Canonical URL metadata specification**: Mandate static canonical metadata definition in `app/games/[slug]/page.tsx`.

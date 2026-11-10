@@ -1,0 +1,22 @@
+[
+  {
+    "id": "crossclimb-1",
+    "rungs": [
+      { "clue": "Low temperature or frosty sensation", "word": "COLD" },
+      { "clue": "Thin rope or electrical wire", "word": "CORD" },
+      { "clue": "Single distinct meaningful element of speech", "word": "WORD" },
+      { "clue": "Small burrowing earth creature with no legs", "word": "WORM" },
+      { "clue": "Pleasantly comfortable heat", "word": "WARM" }
+    ]
+  },
+  {
+    "id": "crossclimb-2",
+    "rungs": [
+      { "clue": "Top part of human body containing the brain", "word": "HEAD" },
+      { "clue": "Small decorative drop of glass or wood on a necklace", "word": "BEAD" },
+      { "clue": "Rhythmic pulse in music or the heart", "word": "BEAT" },
+      { "clue": "Small water vessel propelled by oars or engine", "word": "BOAT" },
+      { "clue": "Sturdy protective footwear covering the ankle", "word": "BOOT" }
+    ]
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "wend-1",
+    "grid": [
+      ["C", "A", "T", "S"],
+      ["O", "P", "E", "N"],
+      ["R", "E", "A", "D"],
+      ["S", "T", "A", "R"]
+    ],
+    "minWordsToWin": 3,
+    "targetWords": [
+      "CATS",
+      "OPEN",
+      "READ",
+      "STAR",
+      "CARE",
+      "TEAR",
+      "STEP",
+      "DATE",
+      "PEAR",
+      "ROSE",
+      "DEAR",
+      "TAPE",
+      "EAST",
+      "SEAT"
+    ]
+  },
+  {
+    "id": "wend-2",
+    "grid": [
+      ["M", "I", "N", "D"],
+      ["G", "A", "M", "E"],
+      ["P", "L", "A", "Y"],
+      ["W", "O", "R", "D"]
+    ],
+    "minWordsToWin": 3,
+    "targetWords": [
+      "MIND",
+      "GAME",
+      "PLAY",
+      "WORD",
+      "MAIN",
+      "NAME",
+      "GLAD",
+      "WORM",
+      "MIME",
+      "LAME"
+    ]
+  }
+]

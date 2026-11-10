@@ -1,0 +1,43 @@
+[
+  {
+    "id": "tango-1",
+    "size": 4,
+    "initial": [
+      ["S", null, null, null],
+      [null, null, "M", null],
+      [null, "S", null, null],
+      [null, null, null, "M"]
+    ],
+    "equalities": [
+      { "r1": 0, "c1": 1, "r2": 0, "c2": 2 }
+    ],
+    "opposites": [
+      { "r1": 1, "c1": 0, "r2": 2, "c2": 0 }
+    ],
+    "solution": [
+      ["S", "M", "M", "S"],
+      ["M", "S", "M", "S"],
+      ["S", "M", "S", "M"],
+      ["M", "S", "S", "M"]
+    ]
+  },
+  {
+    "id": "tango-2",
+    "size": 4,
+    "initial": [
+      [null, "M", null, null],
+      ["S", null, null, "M"],
+      [null, null, "S", null],
+      [null, null, null, "S"]
+    ],
+    "equalities": [
+      { "r1": 2, "c1": 0, "r2": 2, "c2": 1 }
+    ],
+    "solution": [
+      ["S", "M", "M", "S"],
+      ["S", "M", "S", "M"],
+      ["M", "M", "S", "S"],
+      ["M", "S", "M", "S"]
+    ]
+  }
+]

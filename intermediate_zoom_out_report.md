@@ -1,29 +1,30 @@
 # Stage 8 Review Report: Intermediate Zoom Out
 
-*   **Target Document:** `docs/designs/auth-guard-and-game-submission-integrity.md`
+*   **Target Document:** `docs/designs/linkedin-style-8-game-daily-puzzle-suite.md`
 *   **Reviewer:** `egm-zoom-out`
-*   **Date:** 2026-11-09
+*   **Date:** 2026-11-10
 
 ---
 
 ## 1. Executive Summary
 
-The Intermediate Zoom Out assessed the document following Stage 7 critic remediation. The addition of `components/auth-form.tsx` to handle `callbackUrl` closes the authentication redirect loop cleanly without expanding feature scope or altering fundamental system boundaries.
+The Intermediate Zoom Out assessed the document following Stage 7 critic remediation. The additions—graceful fallback rendering when `NEXT_PUBLIC_ADSENSE_CLIENT_ID` is unset and explicit canonical metadata isolation on `/games/[slug]`—safeguard deployment reliability across preview branches and enforce search engine indexing discipline without introducing new dependencies or complexity.
 
 ---
 
 ## 2. Assessment of Additions & System Invariants
 
-### A. Callback URL Remediation Impact
-*   **Finding [PASS]**: Adding `callbackUrl` parameter resolution in `components/auth-form.tsx` integrates directly with Next.js navigation conventions (`useSearchParams`) and completes the user journey promised in the Technical Plan.
-*   **Security Boundary [ENFORCED]**: The explicit requirement to reject open redirects (disallowing non-relative or protocol-relative `//` URLs) preserves client origin security.
+### A. AdSense Graceful Degradation
+*   **Finding [PASS]**: Making AdSense script injection conditional on client ID availability prevents Next.js compiler warnings and broken script tags in local and preview testing environments while retaining reserved CSS slot dimensions to avoid CLS.
 
-### B. Architectural Simplicity & Minimal Surface Area
-*   **Finding [PASS]**: The architecture remains strictly bounded to 7 cohesive file touchpoints. No new database tables, third-party libraries, or runtime packages are introduced.
-*   **Performance & Quota Impact [PASS]**: The Edge middleware remains zero-dependency with no database connections, and server-side submission checks use in-memory Zod parsing with sub-millisecond execution overhead.
+### B. SEO Canonical Hygiene
+*   **Finding [PASS]**: Stripping mode query parameters (`?mode=practice`) from canonical URLs guarantees that Googlebot consolidates page rank strictly onto the primary `/games/[slug]` route, preventing duplicate content dilution.
+
+### C. System Scope & Simplicity
+*   **Finding [PASS]**: The architectural footprint remains cohesive across the 13 defined file groupings. No scope creep was introduced.
 
 ---
 
 ## 3. Conclusion
 
-The specification is structurally balanced, secure, and ready for Stage 9 (Implementation Readiness Test).
+The specification is thoroughly hardened and ready for Stage 9 (Implementation Readiness Test).

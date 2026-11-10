@@ -9,32 +9,49 @@ datasource db {
 }
 
 model User {
-  id            String        @id @default(cuid())
-  name          String
-  email         String        @unique
-  passwordHash  String
-  totalXp       Int           @default(0)
-  competitiveXp Int           @default(0)
-  streak        Int           @default(0)
-  lastPlayedAt  DateTime?
-  createdAt     DateTime      @default(now())
-  gameSessions  GameSession[]
-  dailyEntries  DailyEntry[]
+  id               String                @id @default(cuid())
+  name             String
+  email            String                @unique
+  passwordHash     String
+  totalXp          Int                   @default(0)
+  competitiveXp    Int                   @default(0)
+  streak           Int                   @default(0)
+  lastPlayedAt     DateTime?
+  createdAt        DateTime              @default(now())
+  gameSessions     GameSession[]
+  dailyEntries     DailyEntry[]
+  dailyCompletions DailyGameCompletion[]
 
   @@index([competitiveXp, totalXp])
 }
 
+model DailyGameCompletion {
+  id          String   @id @default(cuid())
+  userId      String
+  gameSlug    String
+  dateKey     String   // "YYYY-MM-DD" in UTC
+  issueNumber Int
+  timeTakenMs Int
+  completedAt DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, gameSlug, dateKey])
+  @@index([gameSlug, dateKey])
+}
+
 model GameSession {
-  id         String   @id @default(cuid())
-  userId     String
-  gameSlug   String
-  score      Int
-  xpEarned   Int
-  correct    Int
-  total      Int
-  durationMs Int
-  createdAt  DateTime @default(now())
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id          String   @id @default(cuid())
+  userId      String
+  gameSlug    String
+  score       Int
+  xpEarned    Int
+  correct     Int      @default(0)
+  total       Int      @default(0)
+  durationMs  Int
+  issueNumber Int?
+  mode        String   @default("daily") // "daily" | "practice"
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, createdAt])
   @@index([gameSlug, score])

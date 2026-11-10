@@ -1,37 +1,44 @@
 # Stage 5 Review Report: Initial Zoom Out & Inventive Catalyst
 
-*   **Target Document:** `docs/designs/auth-guard-and-game-submission-integrity.md`
+*   **Target Document:** `docs/designs/linkedin-style-8-game-daily-puzzle-suite.md`
 *   **Reviewers:** `egm-zoom-out`, `egm-inventive-catalyst`
-*   **Date:** 2026-11-09
+*   **Date:** 2026-11-10
 
 ---
 
 ## 1. Executive Summary
 
-The design document demonstrates high problem-solution alignment, addressing both the guest route navigation defect and the distributed clock-drift submission failure cleanly. The architectural separation of concerns between Edge Middleware (stateless cookie decoding) and Node.js Serverless runtime (Prisma transaction and database updates) prevents Edge runtime bundling failures on Vercel.
+The proposed architecture successfully elevates Brain Games from an ad-hoc quiz app into a cohesive, retention-driven daily puzzle platform. By aligning directly with LinkedIn Games' core engagement model (daily scarcity, synchronized issue numbers, direct manipulation) while strategically solving for organic search discovery and AdSense monetization, the design resolves previous architectural dead-ends without unnecessary infrastructure bloat.
 
 ---
 
 ## 2. Zoom-Out Architectural Assessment (`egm-zoom-out`)
 
-### A. Altitude & Scope Discipline
-*   **Finding [PASS]**: The document maintains appropriate altitude throughout the Feature Spec sections (lines 1–149). It articulates business and user impact before diving into technical protocols.
-*   **Observation**: Section 4 (*Observability & SRE Diagnostics*) provides a concrete TypeScript logging snippet. While pure standards discourage code in high-level specs, this snippet specifies the machine-readable log payload contract necessary for Vercel SRE debugging without introducing extraneous implementation details.
+### A. Strategic Problem-Solution Fit
+*   **Finding [PASS]**: Transforming 4 multiple-choice text quizzes into 8 tactile puzzles (Queens, Tango, Mini Sudoku, Pinpoint, Crossclimb, Patches, Zip, Wend) directly addresses the user engagement deficit.
+*   **Daily Scarcity [STRONG]**: The `#IssueNumber` engine and daily lockout model establish a clear daily ritual. Limiting ranked play to 1 attempt per day protects streak integrity and prevents leaderboard score inflation, while Practice Mode satisfies replay appetite without diluting competitive stakes.
 
-### B. System Boundaries & Invariants
-*   **Finding [PASS]**: Explicit Non-Goals prevent scope creep (no premature database session tables, no external Redis infrastructure for MVP).
-*   **Verification**: The edge middleware matcher explicitly excludes `/api/*`, ensuring Auth.js API route handlers (`/api/auth/*`) and game endpoints operate without circular edge interception.
+### B. System Boundaries & Invariant Separation
+*   **Finding [PASS]**: Removing `/games/*` from the middleware's auth barrier eliminates the previous SEO and AdSense crawler lockouts, enabling indexability.
+*   **Separation of Concerns [PASS]**:
+    - **Edge Runtime**: Light routing, strictly stateless session check on `/dashboard`, zero database queries.
+    - **Serverless Node.js**: Deterministic puzzle resolution from static JSON pools and atomic verification on `/api/puzzles/submit`.
+    - **Client DOM/SVG**: Tactile direct manipulation with instant client-side constraint feedback, separating visual interaction from backend score recording.
 
 ---
 
 ## 3. Inventive Catalyst Assessment (`egm-inventive-catalyst`)
 
-### A. Technical Contradiction Resolution
-*   **Core Contradiction**: The system must enforce strict server-side anti-cheat duration verification, but cannot depend on client wall clocks without rejecting legitimate players due to clock drift.
-*   **Resolution Quality [STRONG]**: The proposed design uses **Separation in Measurement Reference**:
-    *   Client measures relative duration using monotonic elapsed time (`performance.now()`), eliminating negative duration values.
-    *   Server validates that duration against biological human constraints (minimum 3,000 ms to read and answer 5 cognitive puzzle questions; maximum 10 minutes before session invalidation).
-    *   Result: Closes zero-second automated bot exploits completely while eliminating false positives from out-of-sync player operating system clocks.
+### A. Technical Contradiction Resolutions
+1.  **Scope Breadth vs. Engineering Velocity (8 Games vs. Disjoint Codebases)**:
+    *   *Conflict*: Implementing 8 completely separate games risks massive code duplication and maintenance debt.
+    *   *Resolution [Transform: Unification & Common Primitives]*: Grouping the 6 grid-based games (Queens, Tango, Sudoku, Patches, Zip, Wend) under a shared coordinate/cell interaction state machine drastically compresses the surface area. The remaining 2 games (Pinpoint, Crossclimb) share a unified progressive-reveal ladder state machine.
+2.  **Monetization & SEO vs. Game Integrity & Focus**:
+    *   *Conflict*: Displaying ads often degrades player concentration and risks accidental clicks on interactive puzzle canvases; conversely, canvas-heavy games get rejected by AdSense for "Thin Content".
+    *   *Resolution [Transform: Separation in Space & Complementary Content]*: Puzzles are rendered with semantic DOM/SVG elements, coupled with server-rendered editorial sections (Rules, Guides, Strategies, FAQs) that satisfy AdSense's text-density requirements and rank for organic keywords. Ad banners are placed in pre-allocated, fixed-dimension containers outside finger-touch zones, completely eliminating Cumulative Layout Shift (CLS).
+3.  **Global Synchronization vs. Server Query Load**:
+    *   *Conflict*: Synchronizing daily puzzle releases worldwide typically demands scheduled database cron jobs or real-time queries.
+    *   *Resolution [Transform: Deterministic Mathematical Mapping]*: Using a constant UTC epoch formula calculates `#IssueNumber` and calendar index in $O(1)$ time with zero database queries.
 
 ---
 
@@ -39,5 +46,5 @@ The design document demonstrates high problem-solution alignment, addressing bot
 
 | Priority | Area | Recommendation |
 | :--- | :--- | :--- |
-| 🟢 Nit | Middleware Matcher | Verify that `matcher` regex explicitly excludes PWA assets (e.g. `site.webmanifest`, SVG icons) if added later. |
-| 🟡 Info | Token Expiry | Document that expired JWT cookies return `null` in `req.auth`, ensuring graceful fallback to unauthenticated state. |
+| 🟢 Nit | Timezone Rollover | Ensure client UI displays a countdown timer to next UTC midnight (00:00 UTC) so players understand exactly when the next daily edition unlocks. |
+| 🟡 Info | LocalStorage Fallback | For guest players, ensure puzzle state is cached in `localStorage` so accidental tab closures do not erase active progress before victory. |
