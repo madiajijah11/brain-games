@@ -204,10 +204,19 @@ export async function POST(request: Request) {
     };
   });
 
-  const speedStats = result.mode === "daily" ? await computeDailySpeedStats(true) : {};
+  const [speedStats, todayCompletedCount] = await Promise.all([
+    result.mode === "daily" ? computeDailySpeedStats(true) : Promise.resolve({}),
+    prisma.dailyGameCompletion.count({
+      where: {
+        userId,
+        dateKey: dailyInfo.dateKey,
+      },
+    }),
+  ]);
 
   return NextResponse.json({
     ...result,
     ...speedStats,
+    todayCompletedCount,
   });
 }

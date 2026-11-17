@@ -1,38 +1,40 @@
 import Link from "next/link";
 import { auth, signOut } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { ProgressRing } from "@/components/shared/progress-ring";
+import { getDailyEdition } from "@/lib/puzzles/daily-engine";
+import { HeaderDailyProgress } from "@/components/shared/header-daily-progress";
 
 export async function SiteHeader() {
   const session = await auth();
 
   let todayCompletedCount = 0;
   if (session?.user?.id) {
-    const today = new Date().toISOString().slice(0, 10);
+    const { dateKey } = getDailyEdition("queens");
     todayCompletedCount = await prisma.dailyGameCompletion.count({
       where: {
         userId: session.user.id,
-        dateKey: today,
+        dateKey,
       },
     });
   }
 
   return (
     <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+      <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-2 px-3 sm:gap-3 sm:px-6">
         <Link
           href="/dashboard"
           className="flex shrink-0 items-center gap-2 text-base font-black tracking-tight sm:text-lg"
+          aria-label="Brain Games home"
         >
           <span className="grid h-8 w-8 place-items-center rounded-xl bg-brand text-white shadow-soft sm:h-9 sm:w-9">
             B
           </span>
-          <span>
+          <span className="hidden min-[430px]:inline">
             brain<span className="text-brand">games</span>
           </span>
         </Link>
 
-        <nav className="flex items-center gap-2.5 text-xs font-semibold text-slate-600 sm:gap-4 sm:text-sm">
+        <nav className="flex items-center gap-2 text-xs font-semibold text-slate-600 sm:gap-4 sm:text-sm">
           <Link href="/dashboard" className="hover:text-brand">
             Puzzles
           </Link>
@@ -41,14 +43,7 @@ export async function SiteHeader() {
           </Link>
 
           {/* Daily 8/8 Progress Ring Tracker */}
-          {session?.user && (
-            <div className="flex items-center gap-2 border-l border-slate-200 pl-2 sm:pl-3">
-              <ProgressRing completed={todayCompletedCount} total={8} size={30} />
-              <span className="hidden text-xs font-bold text-slate-500 sm:inline">
-                {todayCompletedCount}/8 Solved
-              </span>
-            </div>
-          )}
+          {session?.user && <HeaderDailyProgress initialCount={todayCompletedCount} />}
 
           {session?.user ? (
             <form

@@ -17,7 +17,7 @@ export default async function DashboardPage() {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
 
-  const today = new Date().toISOString().slice(0, 10);
+  const { dateKey: today } = getDailyEdition("queens");
 
   const [
     user,

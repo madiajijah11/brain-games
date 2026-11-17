@@ -218,5 +218,6 @@ export interface PuzzleSubmissionResult {
   isGuest?: boolean;
   fasterThanPct?: number;
   todayFinishers?: number;
+  todayCompletedCount?: number;
   message?: string;
 }

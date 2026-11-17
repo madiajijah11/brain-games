@@ -2,6 +2,7 @@
 
 import { useEffect, useState, ReactNode, useCallback } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { GameSlug, GAME_CATALOG, PuzzleSubmissionResult } from "@/lib/puzzles/types";
 import { formatCountdown, getMillisecondsUntilNextUTCMidnight } from "@/lib/puzzles/daily-engine";
 import { AdBanner } from "@/components/ads/ad-banner";
@@ -10,6 +11,7 @@ import { soundFx } from "@/lib/audio/sound-fx";
 import { copyShareText, copyChallengeText, formatTime } from "@/lib/social/share-generator";
 import { GAME_EDITORIALS } from "@/lib/puzzles/editorial";
 import { usePuzzleContext } from "@/components/games/shared/puzzle-context";
+import { DAILY_PROGRESS_EVENT } from "@/components/shared/header-daily-progress";
 
 interface PuzzleShellProps {
   slug: GameSlug;
@@ -53,6 +55,7 @@ export function PuzzleShell({
   const [isMuted, setIsMuted] = useState<boolean>(() => soundFx.isMuted());
   const [copiedToast, setCopiedToast] = useState<string>("");
   const [showHelp, setShowHelp] = useState<boolean>(false);
+  const router = useRouter();
   const { challenge, playerName } = usePuzzleContext();
   const { triggerPracticeTransition } = useMonetag();
 
@@ -90,6 +93,14 @@ export function PuzzleShell({
         const res = await onSubmit(finalDuration);
         if (!cancelled && res) {
           setSubmissionResult(res);
+          if (typeof res.todayCompletedCount === "number") {
+            window.dispatchEvent(
+              new CustomEvent(DAILY_PROGRESS_EVENT, {
+                detail: { todayCompletedCount: res.todayCompletedCount },
+              }),
+            );
+          }
+          router.refresh();
         }
       } catch (err) {
         if (!cancelled) {
@@ -106,7 +117,7 @@ export function PuzzleShell({
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [isComplete, submissionResult, onSubmit, startTime]);
+  }, [isComplete, submissionResult, onSubmit, startTime, router]);
 
   const handleToggleSound = useCallback(() => {
     const nextMuted = soundFx.toggleMute();
