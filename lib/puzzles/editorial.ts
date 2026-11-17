@@ -30,15 +30,18 @@ export const GAME_EDITORIALS: Record<GameSlug, GameEditorial> = {
     faqs: [
       {
         question: "Can crowns be in adjacent squares if they are in different regions?",
-        answer: "No. Crowns can never touch horizontally, vertically, or diagonally under any circumstance.",
+        answer:
+          "No. Crowns can never touch horizontally, vertically, or diagonally under any circumstance.",
       },
       {
         question: "How many crowns are needed to win?",
-        answer: "The number of crowns always equals the board grid size (for example, a 5x5 board requires exactly 5 crowns).",
+        answer:
+          "The number of crowns always equals the board grid size (for example, a 5x5 board requires exactly 5 crowns).",
       },
       {
         question: "Is there only one unique solution?",
-        answer: "Yes, every daily edition is handcrafted and mathematically verified to have exactly one unique solution.",
+        answer:
+          "Yes, every daily edition is handcrafted and mathematically verified to have exactly one unique solution.",
       },
     ],
   },
@@ -64,7 +67,8 @@ export const GAME_EDITORIALS: Record<GameSlug, GameEditorial> = {
     faqs: [
       {
         question: "What does the = sign between two squares mean?",
-        answer: "It means both squares must contain the identical symbol (both Suns or both Moons).",
+        answer:
+          "It means both squares must contain the identical symbol (both Suns or both Moons).",
       },
       {
         question: "What does the x sign between two squares mean?",
@@ -92,7 +96,8 @@ export const GAME_EDITORIALS: Record<GameSlug, GameEditorial> = {
     faqs: [
       {
         question: "How is Mini Sudoku different from standard 9x9 Sudoku?",
-        answer: "Mini Sudoku uses a compact 4x4 or 6x6 grid, making it faster to solve while exercising the exact same logical deduction principles.",
+        answer:
+          "Mini Sudoku uses a compact 4x4 or 6x6 grid, making it faster to solve while exercising the exact same logical deduction principles.",
       },
     ],
   },
@@ -115,29 +120,31 @@ export const GAME_EDITORIALS: Record<GameSlug, GameEditorial> = {
     faqs: [
       {
         question: "Are plurals accepted in Pinpoint?",
-        answer: "Yes, both singular and plural forms (e.g. 'Planet' or 'Planets') are automatically accepted.",
+        answer:
+          "Yes, both singular and plural forms (e.g. 'Planet' or 'Planets') are automatically accepted.",
       },
     ],
   },
   crossclimb: {
     rules: [
-      "Arrange the word rungs into an ordered ladder from top to bottom.",
-      "Each word must differ from its immediate neighbor by changing exactly one letter.",
-      "Each rung corresponds to one of the trivia clues provided.",
+      "Solve the middle trivia clues and arrange them so each rung differs by exactly one letter.",
+      "Once the middle ladder is connected, unlock and solve the Top and Bottom rungs.",
+      "Each adjacent pair of words from Top to Bottom must change by exactly one letter.",
     ],
     howToPlay: [
-      "Drag and drop the word rungs to change their vertical order on the ladder.",
-      "Read the clue on the right side of each rung to verify word meaning.",
-      "When all adjacent words differ by exactly one letter in a continuous sequence, the ladder unlocks.",
+      "Type your 4-letter answer into each middle rung using its trivia clue.",
+      "Use the ▲ / ▼ arrows to arrange solved rungs into a valid 1-letter-step chain.",
+      "Type the final Top and Bottom words once they unlock to complete the ladder.",
     ],
     strategies: [
-      "Identify the start and end anchors by checking which words have the fewest one-letter transformation neighbors.",
-      "Look for words that share 3 out of 4 letters in common to pair them together.",
+      "Identify anchor words by checking which words share 3 out of 4 letters in the same positions.",
+      "Use the Top + Bottom theme clue once the middle rungs are ordered.",
     ],
     faqs: [
       {
         question: "Can words be scrambled anagrams?",
-        answer: "No, the letter positions must remain identical except for the single letter that changes.",
+        answer:
+          "No, the letter positions must remain identical except for the single letter that changes.",
       },
     ],
   },
@@ -148,9 +155,9 @@ export const GAME_EDITORIALS: Record<GameSlug, GameEditorial> = {
       "Every square of the target silhouette must be completely covered.",
     ],
     howToPlay: [
-      "Select a patch from the bottom inventory dock.",
-      "Tap a target square on the board to place the selected piece.",
-      "Continue placing remaining patches until the entire board is tiled.",
+      "Drag a patch from the dock onto the board, or tap a piece then tap a target square.",
+      "Use the ↻ button on any unplaced piece to rotate it 90 degrees.",
+      "Tap any placed piece on the board to return it to the dock.",
     ],
     strategies: [
       "Place the largest and most awkwardly shaped pieces into corners first.",
@@ -159,29 +166,30 @@ export const GAME_EDITORIALS: Record<GameSlug, GameEditorial> = {
     faqs: [
       {
         question: "Can pieces be rotated?",
-        answer: "In this edition, pieces are presented in fixed orientations designed to assemble into the unique target silhouette.",
+        answer:
+          "Yes! Tap the ↻ button on any piece in the dock to rotate it in 90-degree increments before placing.",
       },
     ],
   },
   zip: {
     rules: [
-      "Draw a single continuous, non-branching path through the grid.",
-      "The path must visit every numbered checkpoint in strict sequential order (1, 2, 3...).",
-      "Movement is strictly horizontal or vertical between adjacent squares.",
+      "Draw a single continuous, non-branching path visiting every numbered checkpoint in order (1, 2, 3...).",
+      "Your path must cover every single square on the grid.",
+      "Movement is strictly horizontal or vertical and cannot cross amber barrier walls.",
     ],
     howToPlay: [
-      "Tap checkpoint #1 to begin your path.",
-      "Tap adjacent neighboring squares in sequence to extend your line toward checkpoint #2 and beyond.",
-      "Tap the most recent square to undo or backtrack a step.",
+      "Press on checkpoint #1 and drag continuously through adjacent squares toward checkpoint #2 and beyond.",
+      "Drag backward along your line to backtrack, or use Undo.",
+      "Make sure every square on the grid is covered when reaching the final number.",
     ],
     strategies: [
-      "Plan the path mentally between consecutive checkpoints before drawing.",
-      "Avoid boxing yourself into dead ends where you cannot navigate outward to the next checkpoint.",
+      "Use barrier walls and corners to force deterministic turns before guessing open regions.",
+      "Avoid cutting off pockets of unvisited cells that you cannot return to.",
     ],
     faqs: [
       {
-        question: "Can I move diagonally in Zip?",
-        answer: "No, all path steps must be orthogonal (up, down, left, right).",
+        question: "Can I finish as soon as I hit the highest number?",
+        answer: "Only if every square on the grid has been visited along your path.",
       },
     ],
   },
@@ -193,10 +201,9 @@ export const GAME_EDITORIALS: Record<GameSlug, GameEditorial> = {
       "Find at least the required minimum word threshold to solve the daily edition.",
     ],
     howToPlay: [
-      "Tap a starting letter on the grid.",
-      "Tap adjacent letters to spell out a word.",
-      "Tap 'Submit' to validate your discovered word.",
-      "Keep discovering words until the victory threshold is cleared.",
+      "Swipe across adjacent letters on the grid to connect a word—releasing automatically submits it.",
+      "You can also tap letters one by one and press Submit.",
+      "Keep discovering words until the progress bar reaches 100%.",
     ],
     strategies: [
       "Look for common prefixes (RE-, UN-, DE-) and suffixes (-ED, -ER, -ST).",
@@ -205,7 +212,8 @@ export const GAME_EDITORIALS: Record<GameSlug, GameEditorial> = {
     faqs: [
       {
         question: "How long must words be?",
-        answer: "Words must be at least 3 letters long to count toward your discovery score.",
+        answer:
+          "Words must be at least 4 letters long (or 3+ where supported) to count toward your discovery score.",
       },
     ],
   },

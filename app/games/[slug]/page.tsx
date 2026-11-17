@@ -7,10 +7,11 @@ import fs from "fs";
 import path from "path";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { GameSlug, GAME_CATALOG } from "@/lib/puzzles/types";
+import { GameSlug, GAME_CATALOG, ChallengeTarget } from "@/lib/puzzles/types";
 import { getDailyEdition } from "@/lib/puzzles/daily-engine";
 import { GAME_EDITORIALS } from "@/lib/puzzles/editorial";
 import { AdBanner } from "@/components/ads/ad-banner";
+import { PuzzleContextProvider } from "@/components/games/shared/puzzle-context";
 
 // Board Components
 import { QueensBoard } from "@/components/games/queens/queens-board";
@@ -24,7 +25,12 @@ import { WendBoard } from "@/components/games/wend/wend-board";
 
 interface GamePageProps {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ mode?: string }>;
+  searchParams: Promise<{
+    mode?: string;
+    issue?: string;
+    targetMs?: string;
+    challenger?: string;
+  }>;
 }
 
 export async function generateMetadata({ params }: GamePageProps): Promise<Metadata> {
@@ -74,12 +80,29 @@ export default async function GamePage({ params, searchParams }: GamePageProps) 
   const session = await auth();
   const daily = getDailyEdition(game.slug);
 
-  // Load the authoritative puzzle for today's issue
-  const puzzle = loadPuzzleForSlug(game.slug, daily.issueNumber);
+  const requestedIssue = query.issue ? Number(query.issue) : NaN;
+  const activeIssueNumber =
+    Number.isInteger(requestedIssue) && requestedIssue >= 1 ? requestedIssue : daily.issueNumber;
+
+  const rawTargetMs = query.targetMs ? Number(query.targetMs) : NaN;
+  const challenge: ChallengeTarget | undefined =
+    Number.isFinite(rawTargetMs) && rawTargetMs >= 2000 && rawTargetMs <= 1800000
+      ? {
+          targetMs: Math.round(rawTargetMs),
+          challenger:
+            (query.challenger || "A friend").replace(/[<>]/g, "").trim().slice(0, 24) || "A friend",
+        }
+      : undefined;
+
+  const playerName = session?.user?.name?.split(" ")[0]?.trim() || undefined;
+
+  // Load the authoritative puzzle for the active issue
+  const puzzle = loadPuzzleForSlug(game.slug, activeIssueNumber);
   if (!puzzle) notFound();
 
-  // Check if user has already solved today's edition
-  let initialMode: "daily" | "practice" = query.mode === "practice" ? "practice" : "daily";
+  // Check if user has already solved today's edition (archive issues are always practice)
+  let initialMode: "daily" | "practice" =
+    query.mode === "practice" || activeIssueNumber !== daily.issueNumber ? "practice" : "daily";
 
   if (session?.user?.id && initialMode === "daily") {
     const completed = await prisma.dailyGameCompletion.findUnique({
@@ -104,24 +127,24 @@ export default async function GamePage({ params, searchParams }: GamePageProps) 
     "@graph": [
       {
         "@type": ["SoftwareApplication", "Game"],
-        "name": `${game.title} #${daily.issueNumber}`,
-        "description": game.description,
-        "applicationCategory": "GameApplication",
-        "operatingSystem": "Any",
-        "offers": {
+        name: `${game.title} #${daily.issueNumber}`,
+        description: game.description,
+        applicationCategory: "GameApplication",
+        operatingSystem: "Any",
+        offers: {
           "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD",
+          price: "0",
+          priceCurrency: "USD",
         },
       },
       {
         "@type": "FAQPage",
-        "mainEntity": editorial?.faqs.map((faq) => ({
+        mainEntity: editorial?.faqs.map((faq) => ({
           "@type": "Question",
-          "name": faq.question,
-          "acceptedAnswer": {
+          name: faq.question,
+          acceptedAnswer: {
             "@type": "Answer",
-            "text": faq.answer,
+            text: faq.answer,
           },
         })),
       },
@@ -137,64 +160,54 @@ export default async function GamePage({ params, searchParams }: GamePageProps) 
       />
 
       {/* Main Interactive Board Mount */}
-      <main className="mb-12">
-        {game.slug === "queens" && (
-          <QueensBoard
-            puzzle={puzzle}
-            issueNumber={daily.issueNumber}
-            initialMode={initialMode}
-          />
-        )}
-        {game.slug === "tango" && (
-          <TangoBoard
-            puzzle={puzzle}
-            issueNumber={daily.issueNumber}
-            initialMode={initialMode}
-          />
-        )}
-        {game.slug === "mini-sudoku" && (
-          <MiniSudokuBoard
-            puzzle={puzzle}
-            issueNumber={daily.issueNumber}
-            initialMode={initialMode}
-          />
-        )}
-        {game.slug === "pinpoint" && (
-          <PinpointBoard
-            puzzle={puzzle}
-            issueNumber={daily.issueNumber}
-            initialMode={initialMode}
-          />
-        )}
-        {game.slug === "crossclimb" && (
-          <CrossclimbBoard
-            puzzle={puzzle}
-            issueNumber={daily.issueNumber}
-            initialMode={initialMode}
-          />
-        )}
-        {game.slug === "patches" && (
-          <PatchesBoard
-            puzzle={puzzle}
-            issueNumber={daily.issueNumber}
-            initialMode={initialMode}
-          />
-        )}
-        {game.slug === "zip" && (
-          <ZipBoard
-            puzzle={puzzle}
-            issueNumber={daily.issueNumber}
-            initialMode={initialMode}
-          />
-        )}
-        {game.slug === "wend" && (
-          <WendBoard
-            puzzle={puzzle}
-            issueNumber={daily.issueNumber}
-            initialMode={initialMode}
-          />
-        )}
-      </main>
+      <PuzzleContextProvider challenge={challenge} playerName={playerName}>
+        <main className="mb-12">
+          {game.slug === "queens" && (
+            <QueensBoard
+              puzzle={puzzle}
+              issueNumber={activeIssueNumber}
+              initialMode={initialMode}
+            />
+          )}
+          {game.slug === "tango" && (
+            <TangoBoard puzzle={puzzle} issueNumber={activeIssueNumber} initialMode={initialMode} />
+          )}
+          {game.slug === "mini-sudoku" && (
+            <MiniSudokuBoard
+              puzzle={puzzle}
+              issueNumber={activeIssueNumber}
+              initialMode={initialMode}
+            />
+          )}
+          {game.slug === "pinpoint" && (
+            <PinpointBoard
+              puzzle={puzzle}
+              issueNumber={activeIssueNumber}
+              initialMode={initialMode}
+            />
+          )}
+          {game.slug === "crossclimb" && (
+            <CrossclimbBoard
+              puzzle={puzzle}
+              issueNumber={activeIssueNumber}
+              initialMode={initialMode}
+            />
+          )}
+          {game.slug === "patches" && (
+            <PatchesBoard
+              puzzle={puzzle}
+              issueNumber={activeIssueNumber}
+              initialMode={initialMode}
+            />
+          )}
+          {game.slug === "zip" && (
+            <ZipBoard puzzle={puzzle} issueNumber={activeIssueNumber} initialMode={initialMode} />
+          )}
+          {game.slug === "wend" && (
+            <WendBoard puzzle={puzzle} issueNumber={activeIssueNumber} initialMode={initialMode} />
+          )}
+        </main>
+      </PuzzleContextProvider>
 
       {/* Non-Disruptive Responsive Ad Banner (0 CLS) */}
       <div className="my-10 flex justify-center">
@@ -205,9 +218,7 @@ export default async function GamePage({ params, searchParams }: GamePageProps) 
       <article className="mt-12 space-y-10 border-t border-slate-200 pt-10 text-slate-800">
         {/* Rules & Mechanics */}
         <section>
-          <h2 className="text-xl font-black text-slate-900">
-            Rules & Mechanics
-          </h2>
+          <h2 className="text-xl font-black text-slate-900">Rules & Mechanics</h2>
           <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-slate-600">
             {editorial?.rules.map((rule, idx) => (
               <li key={idx}>{rule}</li>
@@ -217,9 +228,7 @@ export default async function GamePage({ params, searchParams }: GamePageProps) 
 
         {/* How to Play */}
         <section>
-          <h2 className="text-xl font-black text-slate-900">
-            How to Play {game.title}
-          </h2>
+          <h2 className="text-xl font-black text-slate-900">How to Play {game.title}</h2>
           <ol className="mt-3 list-decimal space-y-1.5 pl-5 text-sm text-slate-600">
             {editorial?.howToPlay.map((step, idx) => (
               <li key={idx}>{step}</li>
@@ -229,9 +238,7 @@ export default async function GamePage({ params, searchParams }: GamePageProps) 
 
         {/* Strategies & Tips */}
         <section>
-          <h2 className="text-xl font-black text-slate-900">
-            Deduction Strategies & Tips
-          </h2>
+          <h2 className="text-xl font-black text-slate-900">Deduction Strategies & Tips</h2>
           <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm text-slate-600">
             {editorial?.strategies.map((tip, idx) => (
               <li key={idx}>{tip}</li>
@@ -241,15 +248,11 @@ export default async function GamePage({ params, searchParams }: GamePageProps) 
 
         {/* FAQ Accordion */}
         <section>
-          <h2 className="text-xl font-black text-slate-900">
-            Frequently Asked Questions
-          </h2>
+          <h2 className="text-xl font-black text-slate-900">Frequently Asked Questions</h2>
           <div className="mt-4 divide-y divide-slate-100 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             {editorial?.faqs.map((faq, idx) => (
-              <div key={idx} className={idx > 0 ? "pt-4 mt-4" : ""}>
-                <h3 className="font-bold text-sm text-slate-900">
-                  {faq.question}
-                </h3>
+              <div key={idx} className={idx > 0 ? "mt-4 pt-4" : ""}>
+                <h3 className="text-sm font-bold text-slate-900">{faq.question}</h3>
                 <p className="mt-1 text-sm text-slate-600">{faq.answer}</p>
               </div>
             ))}

@@ -8,7 +8,9 @@ import {
   ZipPuzzle,
   WendPuzzle,
   GameSlug,
+  AnyPuzzleDefinition,
 } from "./types";
+import { coordsSignature, getAllRotations, hasWallBetween, canTraceWordInGrid } from "./geometry";
 
 /**
  * Queens Validator:
@@ -163,12 +165,32 @@ export function validateMiniSudoku(puzzle: MiniSudokuPuzzle, grid: number[][]): 
 
 /**
  * Pinpoint Validator:
- * - Matches user guess against accepted answers (case-insensitive & trimmed).
+ * - Matches user guess against accepted answers / category (normalized, punctuation/article-tolerant).
  */
+function normalizePinpointGuess(raw: string): string {
+  return raw
+    .trim()
+    .toLowerCase()
+    .replace(/['’".,!?-]/g, " ")
+    .replace(/^(the|a|an)\s+/i, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export function validatePinpoint(puzzle: PinpointPuzzle, userGuess: string): boolean {
   if (typeof userGuess !== "string") return false;
-  const normalized = userGuess.trim().toLowerCase();
-  return puzzle.acceptedAnswers.some((ans) => ans.trim().toLowerCase() === normalized);
+  const normalized = normalizePinpointGuess(userGuess);
+  if (!normalized) return false;
+
+  const candidates = [puzzle.category, ...puzzle.acceptedAnswers].map(normalizePinpointGuess);
+  return candidates.some((ans) => {
+    if (!ans) return false;
+    if (ans === normalized) return true;
+    // Allow simple plural/singular equivalence for words >= 4 chars
+    if (normalized.length >= 4 && `${normalized}s` === ans) return true;
+    if (ans.length >= 4 && `${ans}s` === normalized) return true;
+    return false;
+  });
 }
 
 /**
@@ -202,18 +224,35 @@ export function validateCrossclimb(puzzle: CrossclimbPuzzle, userWords: string[]
 
 /**
  * Patches Validator:
- * - Checks that placed polyomino coordinates match target board mask completely with 0 overlap.
+ * - Each puzzle shape ID used exactly once.
+ * - Placed coordinates match one valid 90-degree rotation + translation of that shape.
+ * - Placed polyomino coordinates match target board mask completely with 0 overlap.
  */
 export function validatePatches(
   puzzle: PatchesPuzzle,
-  placedShapes: { id: string; placedCoords: [number, number][] }[]
+  placedShapes: { id: string; placedCoords: [number, number][] }[],
 ): boolean {
   if (!Array.isArray(placedShapes) || placedShapes.length !== puzzle.shapes.length) return false;
 
+  const shapeById = new Map(puzzle.shapes.map((s) => [s.id, s]));
+  const seenIds = new Set<string>();
   const covered = new Set<string>();
 
-  for (const shape of placedShapes) {
-    for (const [r, c] of shape.placedCoords) {
+  for (const placed of placedShapes) {
+    if (!placed || typeof placed.id !== "string" || !Array.isArray(placed.placedCoords)) {
+      return false;
+    }
+    if (seenIds.has(placed.id)) return false;
+    const def = shapeById.get(placed.id);
+    if (!def) return false;
+    seenIds.add(placed.id);
+
+    if (placed.placedCoords.length !== def.coords.length) return false;
+    const validSignatures = new Set(getAllRotations(def.coords).map(coordsSignature));
+    if (!validSignatures.has(coordsSignature(placed.placedCoords))) return false;
+
+    for (const [r, c] of placed.placedCoords) {
+      if (!Number.isInteger(r) || !Number.isInteger(c)) return false;
       if (r < 0 || r >= puzzle.boardHeight || c < 0 || c >= puzzle.boardWidth) return false;
       if (!puzzle.targetMask[r]?.[c]) return false; // Must be inside target mask
       const key = `${r},${c}`;
@@ -230,32 +269,67 @@ export function validatePatches(
     }
   }
 
-  return covered.size === targetCount;
+  return seenIds.size === puzzle.shapes.length && covered.size === targetCount;
 }
 
 /**
  * Zip Validator:
- * - Single continuous path.
+ * - Single continuous simple path (no cell visited twice).
+ * - Adjacent orthogonal moves only, never crossing walls.
  * - Visits each node with num 1..N in exact chronological order.
+ * - When requireFullGrid is true (default when solutionPath covers full grid), every cell must be visited.
  */
 export function validateZip(puzzle: ZipPuzzle, userPath: [number, number][]): boolean {
   if (!Array.isArray(userPath) || userPath.length < puzzle.nodes.length) return false;
 
-  // Path must be contiguous (each step adjacent horizontally or vertically)
-  for (let i = 0; i < userPath.length - 1; i++) {
-    const [r1, c1] = userPath[i];
-    const [r2, c2] = userPath[i + 1];
-    const dist = Math.abs(r1 - r2) + Math.abs(c1 - c2);
-    if (dist !== 1) return false; // Must be adjacent
+  const visited = new Set<string>();
+  for (let i = 0; i < userPath.length; i++) {
+    const step = userPath[i];
+    if (!Array.isArray(step) || step.length !== 2) return false;
+    const [r, c] = step;
+    if (!Number.isInteger(r) || !Number.isInteger(c)) return false;
+    if (r < 0 || r >= puzzle.height || c < 0 || c >= puzzle.width) return false;
+
+    const key = `${r},${c}`;
+    if (visited.has(key)) return false; // No self-intersection
+    visited.add(key);
+
+    if (i > 0) {
+      const [prevR, prevC] = userPath[i - 1];
+      const dist = Math.abs(prevR - r) + Math.abs(prevC - c);
+      if (dist !== 1) return false; // Must be orthogonal neighbor
+      if (hasWallBetween(puzzle.walls, prevR, prevC, r, c)) return false;
+    }
   }
 
-  // Verify node checkpoints appear in order
-  const sortedNodes = [...puzzle.nodes].sort((a, b) => a.num - b.num);
-  let nodeIdx = 0;
+  const mustFillAll =
+    puzzle.requireFullGrid ?? puzzle.solutionPath.length === puzzle.width * puzzle.height;
+  if (mustFillAll && visited.size !== puzzle.width * puzzle.height) {
+    return false;
+  }
 
+  // Verify node checkpoints appear in exact ascending order (1..N)
+  const sortedNodes = [...puzzle.nodes].sort((a, b) => a.num - b.num);
+  if (sortedNodes.length === 0) return false;
+
+  // Must start at checkpoint 1
+  const [startR, startC] = userPath[0];
+  if (startR !== sortedNodes[0].r || startC !== sortedNodes[0].c) return false;
+
+  // Must not step on a future checkpoint out of order
+  const nodeNumAtCoord = new Map<string, number>();
+  for (const n of sortedNodes) {
+    nodeNumAtCoord.set(`${n.r},${n.c}`, n.num);
+  }
+
+  let nodeIdx = 0;
   for (const [r, c] of userPath) {
-    const targetNode = sortedNodes[nodeIdx];
-    if (targetNode && targetNode.r === r && targetNode.c === c) {
+    const foundNum = nodeNumAtCoord.get(`${r},${c}`);
+    if (foundNum !== undefined) {
+      const expected = sortedNodes[nodeIdx];
+      if (!expected || foundNum !== expected.num) {
+        return false;
+      }
       nodeIdx++;
     }
   }
@@ -265,7 +339,7 @@ export function validateZip(puzzle: ZipPuzzle, userPath: [number, number][]): bo
 
 /**
  * Wend Validator:
- * - Checks found words against puzzle's target word list.
+ * - Checks found words against puzzle's target word list and confirms grid traceability.
  * - Must meet minWordsToWin threshold.
  */
 export function validateWend(puzzle: WendPuzzle, foundWords: string[]): boolean {
@@ -275,7 +349,9 @@ export function validateWend(puzzle: WendPuzzle, foundWords: string[]): boolean 
 
   let validCount = 0;
   for (const word of uniqueFound) {
-    if (validTargets.has(word)) validCount++;
+    if (validTargets.has(word) && canTraceWordInGrid(puzzle.grid, word)) {
+      validCount++;
+    }
   }
 
   return validCount >= puzzle.minWordsToWin;
@@ -284,24 +360,31 @@ export function validateWend(puzzle: WendPuzzle, foundWords: string[]): boolean 
 /**
  * Master solution evaluator router
  */
-export function evaluatePuzzleSolution(slug: GameSlug, puzzle: any, userSolution: any): boolean {
+export function evaluatePuzzleSolution(
+  slug: GameSlug,
+  puzzle: AnyPuzzleDefinition,
+  userSolution: unknown,
+): boolean {
   switch (slug) {
     case "queens":
-      return validateQueens(puzzle, userSolution);
+      return validateQueens(puzzle as QueensPuzzle, userSolution as [number, number][]);
     case "tango":
-      return validateTango(puzzle, userSolution);
+      return validateTango(puzzle as TangoPuzzle, userSolution as string[][]);
     case "mini-sudoku":
-      return validateMiniSudoku(puzzle, userSolution);
+      return validateMiniSudoku(puzzle as MiniSudokuPuzzle, userSolution as number[][]);
     case "pinpoint":
-      return validatePinpoint(puzzle, userSolution);
+      return validatePinpoint(puzzle as PinpointPuzzle, userSolution as string);
     case "crossclimb":
-      return validateCrossclimb(puzzle, userSolution);
+      return validateCrossclimb(puzzle as CrossclimbPuzzle, userSolution as string[]);
     case "patches":
-      return validatePatches(puzzle, userSolution);
+      return validatePatches(
+        puzzle as PatchesPuzzle,
+        userSolution as { id: string; placedCoords: [number, number][] }[],
+      );
     case "zip":
-      return validateZip(puzzle, userSolution);
+      return validateZip(puzzle as ZipPuzzle, userSolution as [number, number][]);
     case "wend":
-      return validateWend(puzzle, userSolution);
+      return validateWend(puzzle as WendPuzzle, userSolution as string[]);
     default:
       return false;
   }

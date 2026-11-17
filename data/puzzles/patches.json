@@ -4,31 +4,5350 @@
     "boardWidth": 4,
     "boardHeight": 4,
     "targetMask": [
-      [true, true, true, true],
-      [true, true, true, true],
-      [true, true, true, true],
-      [false, true, true, false]
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ]
     ],
     "shapes": [
       {
         "id": "shape-1",
-        "coords": [[0, 0], [0, 1], [1, 0], [1, 1]],
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
         "color": "#8B5CF6"
       },
       {
         "id": "shape-2",
-        "coords": [[0, 0], [0, 1], [0, 2], [1, 1]],
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ],
         "color": "#EC4899"
       },
       {
         "id": "shape-3",
-        "coords": [[0, 0], [1, 0], [2, 0], [2, 1]],
+        "coords": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            2
+          ]
+        ],
         "color": "#3B82F6"
       },
       {
         "id": "shape-4",
-        "coords": [[0, 0], [0, 1]],
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ],
         "color": "#10B981"
+      }
+    ]
+  },
+  {
+    "id": "patches-2",
+    "boardWidth": 4,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        false,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      }
+    ]
+  },
+  {
+    "id": "patches-3",
+    "boardWidth": 5,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#F59E0B"
+      }
+    ]
+  },
+  {
+    "id": "patches-4",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#06B6D4"
+      }
+    ]
+  },
+  {
+    "id": "patches-5",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#06B6D4"
+      }
+    ]
+  },
+  {
+    "id": "patches-6",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#06B6D4"
+      },
+      {
+        "id": "shape-7",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      }
+    ]
+  },
+  {
+    "id": "patches-7",
+    "boardWidth": 4,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      }
+    ]
+  },
+  {
+    "id": "patches-8",
+    "boardWidth": 4,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        false,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      }
+    ]
+  },
+  {
+    "id": "patches-9",
+    "boardWidth": 5,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#06B6D4"
+      }
+    ]
+  },
+  {
+    "id": "patches-10",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "color": "#F59E0B"
+      }
+    ]
+  },
+  {
+    "id": "patches-11",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "color": "#06B6D4"
+      },
+      {
+        "id": "shape-7",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "color": "#8B5CF6"
+      }
+    ]
+  },
+  {
+    "id": "patches-12",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#06B6D4"
+      }
+    ]
+  },
+  {
+    "id": "patches-13",
+    "boardWidth": 4,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#10B981"
+      }
+    ]
+  },
+  {
+    "id": "patches-14",
+    "boardWidth": 4,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        false,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      }
+    ]
+  },
+  {
+    "id": "patches-15",
+    "boardWidth": 5,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "color": "#06B6D4"
+      }
+    ]
+  },
+  {
+    "id": "patches-16",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#F59E0B"
+      }
+    ]
+  },
+  {
+    "id": "patches-17",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#F59E0B"
+      }
+    ]
+  },
+  {
+    "id": "patches-18",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#06B6D4"
+      }
+    ]
+  },
+  {
+    "id": "patches-19",
+    "boardWidth": 4,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      }
+    ]
+  },
+  {
+    "id": "patches-20",
+    "boardWidth": 4,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        false,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#10B981"
+      }
+    ]
+  },
+  {
+    "id": "patches-21",
+    "boardWidth": 5,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#06B6D4"
+      }
+    ]
+  },
+  {
+    "id": "patches-22",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#F59E0B"
+      }
+    ]
+  },
+  {
+    "id": "patches-23",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#06B6D4"
+      }
+    ]
+  },
+  {
+    "id": "patches-24",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#06B6D4"
+      }
+    ]
+  },
+  {
+    "id": "patches-25",
+    "boardWidth": 4,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#F59E0B"
+      }
+    ]
+  },
+  {
+    "id": "patches-26",
+    "boardWidth": 4,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        false,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      }
+    ]
+  },
+  {
+    "id": "patches-27",
+    "boardWidth": 5,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#06B6D4"
+      }
+    ]
+  },
+  {
+    "id": "patches-28",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "color": "#F59E0B"
+      }
+    ]
+  },
+  {
+    "id": "patches-29",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#F59E0B"
+      }
+    ]
+  },
+  {
+    "id": "patches-30",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#06B6D4"
+      }
+    ]
+  },
+  {
+    "id": "patches-31",
+    "boardWidth": 4,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ],
+          [
+            2,
+            2
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#10B981"
+      }
+    ]
+  },
+  {
+    "id": "patches-32",
+    "boardWidth": 4,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        false,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      }
+    ]
+  },
+  {
+    "id": "patches-33",
+    "boardWidth": 5,
+    "boardHeight": 4,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            0,
+            3
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "color": "#06B6D4"
+      }
+    ]
+  },
+  {
+    "id": "patches-34",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            3,
+            0
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#06B6D4"
+      }
+    ]
+  },
+  {
+    "id": "patches-35",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "color": "#06B6D4"
+      }
+    ]
+  },
+  {
+    "id": "patches-36",
+    "boardWidth": 5,
+    "boardHeight": 5,
+    "targetMask": [
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    ],
+    "shapes": [
+      {
+        "id": "shape-1",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "color": "#8B5CF6"
+      },
+      {
+        "id": "shape-2",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#EC4899"
+      },
+      {
+        "id": "shape-3",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "color": "#3B82F6"
+      },
+      {
+        "id": "shape-4",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#10B981"
+      },
+      {
+        "id": "shape-5",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "color": "#F59E0B"
+      },
+      {
+        "id": "shape-6",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            0
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "color": "#06B6D4"
+      },
+      {
+        "id": "shape-7",
+        "coords": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "color": "#8B5CF6"
       }
     ]
   }

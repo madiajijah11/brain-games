@@ -47,8 +47,552 @@
       "primary color",
       "primary colors",
       "colors",
-      "colour",
       "colours"
+    ]
+  },
+  {
+    "id": "pinpoint-4",
+    "category": "Musical Instruments",
+    "clues": [
+      "Used to compose symphonies and folk tunes",
+      "Categorized into brass, woodwind, percussion, and strings",
+      "Played by bowing, blowing, or striking",
+      "Includes trumpet, flute, and cello",
+      "Piano and guitar"
+    ],
+    "acceptedAnswers": [
+      "musical instrument",
+      "musical instruments",
+      "instruments"
+    ]
+  },
+  {
+    "id": "pinpoint-5",
+    "category": "Elements on the Periodic Table",
+    "clues": [
+      "Organized by atomic number",
+      "Represented by one- or two-letter symbols",
+      "Include noble gases and alkali metals",
+      "Gold (Au) and Silver (Ag)",
+      "Hydrogen, Oxygen, and Carbon"
+    ],
+    "acceptedAnswers": [
+      "element",
+      "elements",
+      "chemical elements",
+      "periodic table elements"
+    ]
+  },
+  {
+    "id": "pinpoint-6",
+    "category": "Things with Keys",
+    "clues": [
+      "Can be pressed, turned, or clicked",
+      "Often kept on a ring or desk",
+      "Found on grand pianos and laptops",
+      "Open locked doors",
+      "Spacebar, Escape, and Master"
+    ],
+    "acceptedAnswers": [
+      "things with keys",
+      "keys",
+      "things that have keys"
+    ]
+  },
+  {
+    "id": "pinpoint-7",
+    "category": "Types of Bridges",
+    "clues": [
+      "Span obstacles like rivers and canyons",
+      "Engineered to carry weight under tension or compression",
+      "Suspension, Arch, and Truss",
+      "Famous examples in San Francisco and London",
+      "Structures connecting two sides over water"
+    ],
+    "acceptedAnswers": [
+      "bridge",
+      "bridges",
+      "types of bridges"
+    ]
+  },
+  {
+    "id": "pinpoint-8",
+    "category": "Coffee Drinks",
+    "clues": [
+      "Often ordered at a morning cafe",
+      "Built around espresso and steamed milk",
+      "Served hot or over ice",
+      "Macchiato, Cortado, and Flat White",
+      "Latte and Cappuccino"
+    ],
+    "acceptedAnswers": [
+      "coffee",
+      "coffee drinks",
+      "espresso drinks",
+      "types of coffee"
+    ]
+  },
+  {
+    "id": "pinpoint-9",
+    "category": "Things That Have Wings",
+    "clues": [
+      "Enable flight or gliding",
+      "Found in nature, aviation, and architecture",
+      "Monarch butterflies and eagles",
+      "Boeing 747 and Concorde",
+      "Birds and airplanes"
+    ],
+    "acceptedAnswers": [
+      "things with wings",
+      "things that have wings",
+      "wings"
+    ]
+  },
+  {
+    "id": "pinpoint-10",
+    "category": "Noble Gases",
+    "clues": [
+      "Occupy Group 18 of the periodic table",
+      "Odorless, colorless, and mostly inert",
+      "Glow brightly inside electric discharge tubes",
+      "Used in neon signs and party balloons",
+      "Helium, Neon, and Argon"
+    ],
+    "acceptedAnswers": [
+      "noble gas",
+      "noble gases",
+      "inert gases"
+    ]
+  },
+  {
+    "id": "pinpoint-11",
+    "category": "Seasons of the Year",
+    "clues": [
+      "Driven by Earth's axial tilt",
+      "Each lasts roughly three months",
+      "Marked by solstices and equinoxes",
+      "Blossoms, heatwaves, falling leaves, and frost",
+      "Spring, Summer, Autumn, Winter"
+    ],
+    "acceptedAnswers": [
+      "season",
+      "seasons",
+      "four seasons",
+      "seasons of the year"
+    ]
+  },
+  {
+    "id": "pinpoint-12",
+    "category": "Parts of a Book",
+    "clues": [
+      "Hold pages together and organize text",
+      "Spine, Fore-edge, and Dust Jacket",
+      "Prologue, Chapters, and Epilogue",
+      "Index and Bibliography",
+      "Cover and Table of Contents"
+    ],
+    "acceptedAnswers": [
+      "parts of a book",
+      "book parts",
+      "anatomy of a book",
+      "book"
+    ]
+  },
+  {
+    "id": "pinpoint-13",
+    "category": "Olympic Sports",
+    "clues": [
+      "Governed by international federations",
+      "Competed every four years for gold, silver, and bronze",
+      "Include fencing, rowing, and archery",
+      "Track and field events",
+      "Swimming and Gymnastics"
+    ],
+    "acceptedAnswers": [
+      "olympic sport",
+      "olympic sports",
+      "olympics",
+      "sports"
+    ]
+  },
+  {
+    "id": "pinpoint-14",
+    "category": "Types of Clouds",
+    "clues": [
+      "Classified by altitude and shape in Latin",
+      "Form from condensed water vapor",
+      "Cirrus, Stratus, and Nimbus",
+      "Fluffy white puffs in summer skies",
+      "Cumulus and Cumulonimbus"
+    ],
+    "acceptedAnswers": [
+      "cloud",
+      "clouds",
+      "types of clouds",
+      "cloud types"
+    ]
+  },
+  {
+    "id": "pinpoint-15",
+    "category": "Things with Hands",
+    "clues": [
+      "Point, wave, or measure",
+      "Usually come in pairs or triplets",
+      "Found on wrists and grandfather walls",
+      "Hour, minute, and second",
+      "Clocks and people"
+    ],
+    "acceptedAnswers": [
+      "things with hands",
+      "things that have hands",
+      "hands"
+    ]
+  },
+  {
+    "id": "pinpoint-16",
+    "category": "World Currencies",
+    "clues": [
+      "Regulated by central banks",
+      "Traded on foreign exchange markets",
+      "Represented by symbols like ¥, £, and €",
+      "Yen, Pound, and Franc",
+      "Dollar and Euro"
+    ],
+    "acceptedAnswers": [
+      "currency",
+      "currencies",
+      "world currencies",
+      "money"
+    ]
+  },
+  {
+    "id": "pinpoint-17",
+    "category": "Web Browsers",
+    "clues": [
+      "Render HTML, CSS, and JavaScript",
+      "Maintain tabs, bookmarks, and history",
+      "Powered by Blink, Gecko, or WebKit",
+      "Edge, Firefox, and Safari",
+      "Google Chrome"
+    ],
+    "acceptedAnswers": [
+      "web browser",
+      "web browsers",
+      "browser",
+      "browsers"
+    ]
+  },
+  {
+    "id": "pinpoint-18",
+    "category": "Citrus Fruits",
+    "clues": [
+      "Rich in vitamin C and citric acid",
+      "Have a fragrant segmented peel",
+      "Pomelo, Yuzu, and Kumquat",
+      "Key ingredient in lemonade and marmalade",
+      "Orange, Lemon, and Lime"
+    ],
+    "acceptedAnswers": [
+      "citrus",
+      "citrus fruit",
+      "citrus fruits"
+    ]
+  },
+  {
+    "id": "pinpoint-19",
+    "category": "Greek Alphabet Letters",
+    "clues": [
+      "Used heavily in mathematics and physics equations",
+      "Origin of words like 'alphabet'",
+      "Delta, Sigma, and Lambda",
+      "Fraternity and sorority names",
+      "Alpha, Beta, and Omega"
+    ],
+    "acceptedAnswers": [
+      "greek letters",
+      "greek alphabet",
+      "greek alphabet letters"
+    ]
+  },
+  {
+    "id": "pinpoint-20",
+    "category": "Things Found in a Toolbox",
+    "clues": [
+      "Measure, fasten, or cut",
+      "Essential for home DIY repairs",
+      "Allen wrench and spirit level",
+      "Phillips and flathead drivers",
+      "Hammer, Screwdriver, and Pliers"
+    ],
+    "acceptedAnswers": [
+      "tools",
+      "hand tools",
+      "toolbox",
+      "things in a toolbox"
+    ]
+  },
+  {
+    "id": "pinpoint-21",
+    "category": "Card Games",
+    "clues": [
+      "Played with a standard 52-card deck or specialty set",
+      "Involve shuffling, dealing, and bluffing",
+      "Hearts, Bridge, and Solitaire",
+      "Texas Hold'em and Blackjack",
+      "Poker and Uno"
+    ],
+    "acceptedAnswers": [
+      "card game",
+      "card games",
+      "cards"
+    ]
+  },
+  {
+    "id": "pinpoint-22",
+    "category": "Types of Pasta",
+    "clues": [
+      "Made from durum wheat semolina",
+      "Named after Italian shapes like little worms or ears",
+      "Penne, Fusilli, and Farfalle",
+      "Twirled on a fork with marinara",
+      "Spaghetti and Macaroni"
+    ],
+    "acceptedAnswers": [
+      "pasta",
+      "types of pasta",
+      "pasta shapes",
+      "noodles"
+    ]
+  },
+  {
+    "id": "pinpoint-23",
+    "category": "Things That Bounce",
+    "clues": [
+      "Return upward after hitting a surface",
+      "Governed by elasticity and restitution",
+      "Checks, emails, and ideas",
+      "Used on courts and tables",
+      "Basketball and Tennis ball"
+    ],
+    "acceptedAnswers": [
+      "things that bounce",
+      "bounce",
+      "bouncy things"
+    ]
+  },
+  {
+    "id": "pinpoint-24",
+    "category": "Programming Languages",
+    "clues": [
+      "Compiled or interpreted into machine instructions",
+      "Power web backends, apps, and AI",
+      "Rust, Go, and Kotlin",
+      "Named after a snake or coffee",
+      "Python and JavaScript"
+    ],
+    "acceptedAnswers": [
+      "programming language",
+      "programming languages",
+      "coding languages"
+    ]
+  },
+  {
+    "id": "pinpoint-25",
+    "category": "Zodiac Constellations",
+    "clues": [
+      "Lie along the sun's apparent annual path",
+      "Twelve classical astronomical regions",
+      "Scorpius, Taurus, and Aquarius",
+      "Represented by a lion, twins, and scales",
+      "Aries, Leo, and Libra"
+    ],
+    "acceptedAnswers": [
+      "zodiac",
+      "zodiac signs",
+      "zodiac constellations",
+      "astrology signs"
+    ]
+  },
+  {
+    "id": "pinpoint-26",
+    "category": "Things with Rings",
+    "clues": [
+      "Encircle a center point",
+      "Can be made of gold, ice, or tree bark",
+      "Olympics logo and boxing arenas",
+      "Visible through a telescope around a gas giant",
+      "Saturn and Wedding Bands"
+    ],
+    "acceptedAnswers": [
+      "things with rings",
+      "things that have rings",
+      "rings"
+    ]
+  },
+  {
+    "id": "pinpoint-27",
+    "category": "Types of Dance",
+    "clues": [
+      "Performed to rhythm and choreography",
+      "Span ballroom halls and street corners",
+      "Waltz, Foxtrot, and Samba",
+      "En pointe tutus or breakdancing",
+      "Ballet, Tango, and Salsa"
+    ],
+    "acceptedAnswers": [
+      "dance",
+      "dances",
+      "types of dance",
+      "dance styles"
+    ]
+  },
+  {
+    "id": "pinpoint-28",
+    "category": "Ocean Zones / Bodies of Water",
+    "clues": [
+      "Cover more than 70% of Earth's surface",
+      "Driven by global thermohaline currents",
+      "Home to coral reefs and abyssal trenches",
+      "Arctic, Indian, and Southern",
+      "Pacific and Atlantic Oceans"
+    ],
+    "acceptedAnswers": [
+      "ocean",
+      "oceans",
+      "earth's oceans",
+      "world oceans"
+    ]
+  },
+  {
+    "id": "pinpoint-29",
+    "category": "Kitchen Appliances",
+    "clues": [
+      "Plugged into countertop outlets or wired in cabinets",
+      "Transform ingredients using heat, cold, or blades",
+      "Air fryer, stand mixer, and kettle",
+      "Keeps milk cold and soup warm",
+      "Toaster, Blender, and Microwave"
+    ],
+    "acceptedAnswers": [
+      "kitchen appliance",
+      "kitchen appliances",
+      "appliances"
+    ]
+  },
+  {
+    "id": "pinpoint-30",
+    "category": "Units of Time",
+    "clues": [
+      "Standardized by atomic clocks and calendars",
+      "Measured by pendulums and quartz crystals",
+      "Millisecond, Fortnight, and Decade",
+      "Sixty make a minute or hour",
+      "Seconds, Minutes, and Hours"
+    ],
+    "acceptedAnswers": [
+      "units of time",
+      "time units",
+      "time"
+    ]
+  },
+  {
+    "id": "pinpoint-31",
+    "category": "Precious Gemstones",
+    "clues": [
+      "Formed deep underground under extreme pressure",
+      "Rated on the Mohs hardness scale",
+      "Cut into facets to reflect light",
+      "Sapphire, Emerald, and Amethyst",
+      "Diamond and Ruby"
+    ],
+    "acceptedAnswers": [
+      "gemstone",
+      "gemstones",
+      "gems",
+      "precious stones",
+      "jewels"
+    ]
+  },
+  {
+    "id": "pinpoint-32",
+    "category": "Types of Cheese",
+    "clues": [
+      "Aged in caves or brine for distinct flavors",
+      "Made by coagulating milk protein casein",
+      "Gouda, Roquefort, and Brie",
+      "Melted on pizza or grated over pasta",
+      "Cheddar, Mozzarella, and Parmesan"
+    ],
+    "acceptedAnswers": [
+      "cheese",
+      "types of cheese",
+      "cheeses"
+    ]
+  },
+  {
+    "id": "pinpoint-33",
+    "category": "Shakespeare Plays",
+    "clues": [
+      "Written in Early Modern English around 1600",
+      "Performed at the Globe Theatre",
+      "Divided into comedies, histories, and tragedies",
+      "Macbeth, Othello, and The Tempest",
+      "Hamlet and Romeo and Juliet"
+    ],
+    "acceptedAnswers": [
+      "shakespeare",
+      "shakespeare plays",
+      "william shakespeare plays",
+      "plays by shakespeare"
+    ]
+  },
+  {
+    "id": "pinpoint-34",
+    "category": "Things That Have Teeth",
+    "clues": [
+      "Grip, chew, or interlock",
+      "Arranged in rows along an edge",
+      "Gears, zippers, and saws",
+      "Used to detangle hair",
+      "Combs and Sharks"
+    ],
+    "acceptedAnswers": [
+      "things with teeth",
+      "things that have teeth",
+      "teeth"
+    ]
+  },
+  {
+    "id": "pinpoint-35",
+    "category": "Renewable Energy Sources",
+    "clues": [
+      "Replenish naturally on a human timescale",
+      "Emit minimal greenhouse gases during operation",
+      "Tidal, Geothermal, and Biomass",
+      "Captured by turbines and panels",
+      "Solar and Wind Power"
+    ],
+    "acceptedAnswers": [
+      "renewable energy",
+      "renewable energy sources",
+      "clean energy",
+      "green energy"
+    ]
+  },
+  {
+    "id": "pinpoint-36",
+    "category": "Board Games",
+    "clues": [
+      "Played around a tabletop with tokens and dice",
+      "Require strategy, trading, or territory control",
+      "Risk, Clue, and Settlers of Catan",
+      "Collect $200 as you pass Go",
+      "Monopoly and Scrabble"
+    ],
+    "acceptedAnswers": [
+      "board game",
+      "board games",
+      "tabletop games"
     ]
   }
 ]

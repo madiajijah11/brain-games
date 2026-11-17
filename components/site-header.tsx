@@ -19,12 +19,12 @@ export async function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-4 sm:px-6">
+      <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
         <Link
           href="/dashboard"
-          className="flex items-center gap-2 text-lg font-black tracking-tight"
+          className="flex shrink-0 items-center gap-2 text-base font-black tracking-tight sm:text-lg"
         >
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-white shadow-soft">
+          <span className="grid h-8 w-8 place-items-center rounded-xl bg-brand text-white shadow-soft sm:h-9 sm:w-9">
             B
           </span>
           <span>
@@ -32,7 +32,7 @@ export async function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="flex items-center gap-4 text-sm font-semibold text-slate-600">
+        <nav className="flex items-center gap-2.5 text-xs font-semibold text-slate-600 sm:gap-4 sm:text-sm">
           <Link href="/dashboard" className="hover:text-brand">
             Puzzles
           </Link>
@@ -42,8 +42,8 @@ export async function SiteHeader() {
 
           {/* Daily 8/8 Progress Ring Tracker */}
           {session?.user && (
-            <div className="flex items-center gap-2 border-l border-slate-200 pl-3">
-              <ProgressRing completed={todayCompletedCount} total={8} size={32} />
+            <div className="flex items-center gap-2 border-l border-slate-200 pl-2 sm:pl-3">
+              <ProgressRing completed={todayCompletedCount} total={8} size={30} />
               <span className="hidden text-xs font-bold text-slate-500 sm:inline">
                 {todayCompletedCount}/8 Solved
               </span>
@@ -57,14 +57,14 @@ export async function SiteHeader() {
                 await signOut({ redirectTo: "/login" });
               }}
             >
-              <button className="rounded-full bg-slate-100 px-4 py-2 text-slate-700 hover:bg-slate-200">
+              <button className="whitespace-nowrap rounded-full bg-slate-100 px-3 py-1.5 text-slate-700 hover:bg-slate-200 sm:px-4 sm:py-2">
                 Sign out
               </button>
             </form>
           ) : (
             <Link
               href="/login"
-              className="rounded-full bg-brand px-4 py-2 text-white shadow-soft"
+              className="whitespace-nowrap rounded-full bg-brand px-3 py-1.5 text-white shadow-soft sm:px-4 sm:py-2"
             >
               Sign in
             </Link>

@@ -1,12 +1,5 @@
 export type GameSlug =
-  | "queens"
-  | "tango"
-  | "mini-sudoku"
-  | "pinpoint"
-  | "crossclimb"
-  | "patches"
-  | "zip"
-  | "wend";
+  "queens" | "tango" | "mini-sudoku" | "pinpoint" | "crossclimb" | "patches" | "zip" | "wend";
 
 export interface GameCatalogItem {
   slug: GameSlug;
@@ -65,7 +58,8 @@ export const GAME_CATALOG: GameCatalogItem[] = [
     title: "Crossclimb",
     subtitle: "Unlock a trivia ladder",
     category: "TRIVIA & WORDS",
-    description: "Solve trivia clues by changing one letter at a time to form an ordered word ladder.",
+    description:
+      "Solve trivia clues by changing one letter at a time to form an ordered word ladder.",
     icon: "☲",
     accentColor: "bg-rose-100 text-rose-700 border-rose-200",
     estimatedMinutes: "4 min",
@@ -95,7 +89,8 @@ export const GAME_CATALOG: GameCatalogItem[] = [
     title: "Wend",
     subtitle: "Weave through words",
     category: "VERBAL",
-    description: "Trace an adjacent 8-directional path through a letter grid to discover valid words.",
+    description:
+      "Trace an adjacent 8-directional path through a letter grid to discover valid words.",
     icon: "✢",
     accentColor: "bg-teal-100 text-teal-700 border-teal-200",
     estimatedMinutes: "3 min",
@@ -146,6 +141,7 @@ export interface PinpointPuzzle {
 
 export interface CrossclimbPuzzle {
   id: string;
+  themeHint?: string;
   rungs: {
     clue: string;
     word: string;
@@ -164,11 +160,20 @@ export interface PatchesPuzzle {
   }[];
 }
 
+export interface ZipWall {
+  r1: number;
+  c1: number;
+  r2: number;
+  c2: number;
+}
+
 export interface ZipPuzzle {
   id: string;
   width: number;
   height: number;
   nodes: { r: number; c: number; num: number }[]; // numbered checkpoints 1..N
+  walls?: ZipWall[];
+  requireFullGrid?: boolean;
   solutionPath: [number, number][];
 }
 
@@ -197,6 +202,11 @@ export interface PuzzleSubmissionPayload {
   solution: unknown;
 }
 
+export interface ChallengeTarget {
+  challenger: string;
+  targetMs: number;
+}
+
 export interface PuzzleSubmissionResult {
   valid: boolean;
   score: number;
@@ -204,6 +214,9 @@ export interface PuzzleSubmissionResult {
   streak: number;
   mode: "daily" | "practice";
   issueNumber: number;
-  completedAt: string;
+  completedAt?: string;
+  isGuest?: boolean;
+  fasterThanPct?: number;
+  todayFinishers?: number;
   message?: string;
 }

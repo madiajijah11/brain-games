@@ -9,7 +9,7 @@ const submitSchema = z.object({
       z.object({
         questionId: z.string().min(1).max(80),
         answer: z.string().max(200),
-      })
+      }),
     )
     .length(5),
   durationMs: z.number().int().min(3000).max(600000),
@@ -99,8 +99,8 @@ describe("Game questions and grading logic", () => {
   it("calculates progression levels correctly", () => {
     expect(levelForXp(0).name).toBe("Beginner");
     expect(levelForXp(500).name).toBe("Thinker");
-    expect(levelForXp(1200).name).toBe("Strategist");
-    expect(levelForXp(2500).name).toBe("Mastermind");
-    expect(levelForXp(5000).name).toBe("Grandmaster");
+    expect(levelForXp(1500).name).toBe("Strategist");
+    expect(levelForXp(3500).name).toBe("Mastermind");
+    expect(levelForXp(7000).name).toBe("Genius");
   });
 });

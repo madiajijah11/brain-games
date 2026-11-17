@@ -50,12 +50,9 @@ export async function POST(request: Request) {
   if (!parsed.success) {
     console.error(
       "[PuzzleSubmissionRejected] Invalid schema:",
-      JSON.stringify(parsed.error.flatten())
+      JSON.stringify(parsed.error.flatten()),
     );
-    return NextResponse.json(
-      { error: "Invalid puzzle submission payload." },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Invalid puzzle submission payload." }, { status: 400 });
   }
 
   const { slug, issueNumber, durationMs, mode, solution } = parsed.data;
@@ -65,7 +62,7 @@ export async function POST(request: Request) {
   if (mode === "daily" && issueNumber !== dailyInfo.issueNumber) {
     return NextResponse.json(
       { error: "Issue number does not match current UTC edition." },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -80,12 +77,40 @@ export async function POST(request: Request) {
   if (!isCorrect) {
     return NextResponse.json(
       { valid: false, message: "Puzzle solution is incomplete or incorrect." },
-      { status: 422 }
+      { status: 422 },
     );
   }
 
+  // Compute daily speed percentile against other finishers today (safe read)
+  const computeDailySpeedStats = async (excludeCurrentUser: boolean) => {
+    try {
+      const [totalToday, slowerCount] = await Promise.all([
+        prisma.dailyGameCompletion.count({
+          where: { gameSlug: slug, dateKey: dailyInfo.dateKey },
+        }),
+        prisma.dailyGameCompletion.count({
+          where: {
+            gameSlug: slug,
+            dateKey: dailyInfo.dateKey,
+            timeTakenMs: { gt: durationMs },
+          },
+        }),
+      ]);
+
+      const peerCount = excludeCurrentUser ? Math.max(0, totalToday - 1) : totalToday;
+      if (peerCount < 1) {
+        return { todayFinishers: totalToday };
+      }
+      const fasterThanPct = Math.min(99, Math.max(1, Math.round((slowerCount / peerCount) * 100)));
+      return { fasterThanPct, todayFinishers: totalToday };
+    } catch {
+      return {};
+    }
+  };
+
   // If Guest (Unauthenticated user)
   if (!session?.user?.id) {
+    const speedStats = mode === "daily" ? await computeDailySpeedStats(false) : {};
     return NextResponse.json({
       valid: true,
       score: 100,
@@ -94,6 +119,7 @@ export async function POST(request: Request) {
       mode,
       issueNumber,
       isGuest: true,
+      ...speedStats,
       message: "Puzzle solved successfully! Create an account to save your streak and XP.",
     });
   }
@@ -178,5 +204,10 @@ export async function POST(request: Request) {
     };
   });
 
-  return NextResponse.json(result);
+  const speedStats = result.mode === "daily" ? await computeDailySpeedStats(true) : {};
+
+  return NextResponse.json({
+    ...result,
+    ...speedStats,
+  });
 }

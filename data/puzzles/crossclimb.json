@@ -1,22 +1,938 @@
 [
   {
     "id": "crossclimb-1",
+    "themeHint": "Temperature opposites",
     "rungs": [
-      { "clue": "Low temperature or frosty sensation", "word": "COLD" },
-      { "clue": "Thin rope or electrical wire", "word": "CORD" },
-      { "clue": "Single distinct meaningful element of speech", "word": "WORD" },
-      { "clue": "Small burrowing earth creature with no legs", "word": "WORM" },
-      { "clue": "Pleasantly comfortable heat", "word": "WARM" }
+      {
+        "word": "COLD",
+        "clue": "Chilly or below freezing"
+      },
+      {
+        "word": "CORD",
+        "clue": "Flexible rope or power cable"
+      },
+      {
+        "word": "WORD",
+        "clue": "Single spoken or written term"
+      },
+      {
+        "word": "WORM",
+        "clue": "Legless soil creature"
+      },
+      {
+        "word": "WARM",
+        "clue": "Comfortably heated"
+      }
     ]
   },
   {
     "id": "crossclimb-2",
+    "themeHint": "From crown to sole",
     "rungs": [
-      { "clue": "Top part of human body containing the brain", "word": "HEAD" },
-      { "clue": "Small decorative drop of glass or wood on a necklace", "word": "BEAD" },
-      { "clue": "Rhythmic pulse in music or the heart", "word": "BEAT" },
-      { "clue": "Small water vessel propelled by oars or engine", "word": "BOAT" },
-      { "clue": "Sturdy protective footwear covering the ankle", "word": "BOOT" }
+      {
+        "word": "HEAD",
+        "clue": "Uppermost part of the body"
+      },
+      {
+        "word": "BEAD",
+        "clue": "Small decorative sphere on a necklace"
+      },
+      {
+        "word": "BEAT",
+        "clue": "Rhythmic pulse in music"
+      },
+      {
+        "word": "BOAT",
+        "clue": "Small vessel for traveling on water"
+      },
+      {
+        "word": "BOOT",
+        "clue": "Sturdy ankle-high footwear"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-3",
+    "themeHint": "Dry to wet",
+    "rungs": [
+      {
+        "word": "ARID",
+        "clue": "Extremely dry desert climate"
+      },
+      {
+        "word": "GRID",
+        "clue": "Network of intersecting lines"
+      },
+      {
+        "word": "GRIP",
+        "clue": "Firm hold with the hand"
+      },
+      {
+        "word": "DRIP",
+        "clue": "Fall in tiny liquid drops"
+      },
+      {
+        "word": "DROP",
+        "clue": "Single bead of water"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-4",
+    "themeHint": "Beginning to end",
+    "rungs": [
+      {
+        "word": "LOVE",
+        "clue": "Deep affection or care"
+      },
+      {
+        "word": "LIVE",
+        "clue": "Broadcast as it happens"
+      },
+      {
+        "word": "LINE",
+        "clue": "Straight geometric path"
+      },
+      {
+        "word": "PINE",
+        "clue": "Evergreen needle tree"
+      },
+      {
+        "word": "PINT",
+        "clue": "Measure equal to half a quart"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-5",
+    "themeHint": "Forest to ocean",
+    "rungs": [
+      {
+        "word": "TREE",
+        "clue": "Tall woody plant with branches"
+      },
+      {
+        "word": "FREE",
+        "clue": "Costing zero dollars"
+      },
+      {
+        "word": "FLEE",
+        "clue": "Run away quickly from danger"
+      },
+      {
+        "word": "FLEW",
+        "clue": "Traveled through the air"
+      },
+      {
+        "word": "FLOW",
+        "clue": "Move steadily like a river"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-6",
+    "themeHint": "Dusk to dawn",
+    "rungs": [
+      {
+        "word": "DUSK",
+        "clue": "Twilight time after sunset"
+      },
+      {
+        "word": "DESK",
+        "clue": "Table used for reading or writing"
+      },
+      {
+        "word": "DISK",
+        "clue": "Flat circular storage platter"
+      },
+      {
+        "word": "RISK",
+        "clue": "Exposure to danger or loss"
+      },
+      {
+        "word": "RISE",
+        "clue": "Ascend upward like the morning sun"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-7",
+    "themeHint": "Silence to sound",
+    "rungs": [
+      {
+        "word": "MUTE",
+        "clue": "Completely silent"
+      },
+      {
+        "word": "MATE",
+        "clue": "Chess check or partner"
+      },
+      {
+        "word": "MAKE",
+        "clue": "Create or manufacture"
+      },
+      {
+        "word": "WAKE",
+        "clue": "Stop sleeping"
+      },
+      {
+        "word": "WAVE",
+        "clue": "Moving swell on the ocean"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-8",
+    "themeHint": "Soft to solid",
+    "rungs": [
+      {
+        "word": "SILK",
+        "clue": "Smooth fabric spun by worms"
+      },
+      {
+        "word": "MILK",
+        "clue": "White dairy beverage"
+      },
+      {
+        "word": "MILD",
+        "clue": "Gentle and not spicy"
+      },
+      {
+        "word": "MOLD",
+        "clue": "Shape into a form"
+      },
+      {
+        "word": "GOLD",
+        "clue": "Precious yellow metal (Au)"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-9",
+    "themeHint": "Slow to swift",
+    "rungs": [
+      {
+        "word": "LATE",
+        "clue": "Arriving after the scheduled time"
+      },
+      {
+        "word": "LACE",
+        "clue": "Delicate open-weave fabric or shoe tie"
+      },
+      {
+        "word": "FACE",
+        "clue": "Front part of the head"
+      },
+      {
+        "word": "FACT",
+        "clue": "Thing proved to be true"
+      },
+      {
+        "word": "FAST",
+        "clue": "Moving at high speed"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-10",
+    "themeHint": "Earth to sky",
+    "rungs": [
+      {
+        "word": "LAND",
+        "clue": "Solid ground not covered by sea"
+      },
+      {
+        "word": "BAND",
+        "clue": "Musical group or elastic loop"
+      },
+      {
+        "word": "BEND",
+        "clue": "Curve or flex smoothly"
+      },
+      {
+        "word": "BIND",
+        "clue": "Tie or fasten securely together"
+      },
+      {
+        "word": "WIND",
+        "clue": "Moving air in the atmosphere"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-11",
+    "themeHint": "Kitchen to garden",
+    "rungs": [
+      {
+        "word": "FORK",
+        "clue": "Pronged eating utensil"
+      },
+      {
+        "word": "CORK",
+        "clue": "Bottle stopper from tree bark"
+      },
+      {
+        "word": "COOK",
+        "clue": "Prepare food using heat"
+      },
+      {
+        "word": "ROOK",
+        "clue": "Corner castle piece in chess"
+      },
+      {
+        "word": "ROOT",
+        "clue": "Underground part of a plant"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-12",
+    "themeHint": "Earth and fire",
+    "rungs": [
+      {
+        "word": "SAND",
+        "clue": "Tiny grains on a beach"
+      },
+      {
+        "word": "HAND",
+        "clue": "Five-fingered body part"
+      },
+      {
+        "word": "HARD",
+        "clue": "Solid and firm to touch"
+      },
+      {
+        "word": "HARM",
+        "clue": "Physical injury or damage"
+      },
+      {
+        "word": "WARM",
+        "clue": "Pleasantly hot"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-13",
+    "themeHint": "Shadow to shine",
+    "rungs": [
+      {
+        "word": "DARK",
+        "clue": "Absence of visible light"
+      },
+      {
+        "word": "BARK",
+        "clue": "Outer covering of a tree trunk"
+      },
+      {
+        "word": "PARK",
+        "clue": "Public green space for recreation"
+      },
+      {
+        "word": "PART",
+        "clue": "Piece of a larger whole"
+      },
+      {
+        "word": "PAST",
+        "clue": "Time gone by before now"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-14",
+    "themeHint": "Royal journey",
+    "rungs": [
+      {
+        "word": "KING",
+        "clue": "Male monarch of a realm"
+      },
+      {
+        "word": "RING",
+        "clue": "Circular band worn on a finger"
+      },
+      {
+        "word": "SING",
+        "clue": "Produce musical tones with voice"
+      },
+      {
+        "word": "SINK",
+        "clue": "Basin with a faucet"
+      },
+      {
+        "word": "SILK",
+        "clue": "Luxurious woven fiber"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-15",
+    "themeHint": "Winter to spring",
+    "rungs": [
+      {
+        "word": "SNOW",
+        "clue": "Frozen white precipitation"
+      },
+      {
+        "word": "SHOW",
+        "clue": "Display or television program"
+      },
+      {
+        "word": "SHOP",
+        "clue": "Retail store for buying goods"
+      },
+      {
+        "word": "SHIP",
+        "clue": "Large ocean-going vessel"
+      },
+      {
+        "word": "WHIP",
+        "clue": "Beat cream until fluffy"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-16",
+    "themeHint": "Writing desk",
+    "rungs": [
+      {
+        "word": "PAGE",
+        "clue": "One side of a sheet in a book"
+      },
+      {
+        "word": "PALE",
+        "clue": "Light in shade or faint"
+      },
+      {
+        "word": "PILE",
+        "clue": "Stack of papers or books"
+      },
+      {
+        "word": "PINE",
+        "clue": "Evergreen tree used for timber"
+      },
+      {
+        "word": "LINE",
+        "clue": "Continuous mark drawn by a pen"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-17",
+    "themeHint": "Morning routine",
+    "rungs": [
+      {
+        "word": "RISE",
+        "clue": "Get up from bed"
+      },
+      {
+        "word": "RICE",
+        "clue": "Staple white grain crop"
+      },
+      {
+        "word": "NICE",
+        "clue": "Pleasant and agreeable"
+      },
+      {
+        "word": "DICE",
+        "clue": "Six-sided cubes used in games"
+      },
+      {
+        "word": "DINE",
+        "clue": "Eat dinner"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-18",
+    "themeHint": "Mountain trail",
+    "rungs": [
+      {
+        "word": "PEAK",
+        "clue": "Pointed summit of a mountain"
+      },
+      {
+        "word": "BEAK",
+        "clue": "Hard pointed mouth of a bird"
+      },
+      {
+        "word": "BEAR",
+        "clue": "Large omnivorous forest mammal"
+      },
+      {
+        "word": "GEAR",
+        "clue": "Toothed wheel in a machine"
+      },
+      {
+        "word": "NEAR",
+        "clue": "Close by in distance"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-19",
+    "themeHint": "Ocean voyage",
+    "rungs": [
+      {
+        "word": "SAIL",
+        "clue": "Fabric sheet catching wind on a yacht"
+      },
+      {
+        "word": "TAIL",
+        "clue": "Rear appendage of an animal"
+      },
+      {
+        "word": "TALL",
+        "clue": "Of great vertical height"
+      },
+      {
+        "word": "WALL",
+        "clue": "Vertical brick or stone barrier"
+      },
+      {
+        "word": "WALK",
+        "clue": "Move forward on foot"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-20",
+    "themeHint": "Music studio",
+    "rungs": [
+      {
+        "word": "SONG",
+        "clue": "Short musical piece with lyrics"
+      },
+      {
+        "word": "LONG",
+        "clue": "Measuring a great distance"
+      },
+      {
+        "word": "LONE",
+        "clue": "Solitary or single"
+      },
+      {
+        "word": "TONE",
+        "clue": "Quality of a musical sound"
+      },
+      {
+        "word": "TUNE",
+        "clue": "Catchy melody"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-21",
+    "themeHint": "Clockwork precision",
+    "rungs": [
+      {
+        "word": "TICK",
+        "clue": "Short clicking sound of a clock"
+      },
+      {
+        "word": "PICK",
+        "clue": "Select from a group"
+      },
+      {
+        "word": "PACK",
+        "clue": "Bundle items into a bag"
+      },
+      {
+        "word": "BACK",
+        "clue": "Rear side of something"
+      },
+      {
+        "word": "BANK",
+        "clue": "Financial institution for deposits"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-22",
+    "themeHint": "Cozy evening",
+    "rungs": [
+      {
+        "word": "LAMP",
+        "clue": "Electric light fixture on a table"
+      },
+      {
+        "word": "CAMP",
+        "clue": "Pitch tents outdoors"
+      },
+      {
+        "word": "DAMP",
+        "clue": "Slightly moist or wet"
+      },
+      {
+        "word": "DUMP",
+        "clue": "Discard in a heap"
+      },
+      {
+        "word": "JUMP",
+        "clue": "Spring upward off the ground"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-23",
+    "themeHint": "Desert oasis",
+    "rungs": [
+      {
+        "word": "DUNE",
+        "clue": "Mound of wind-blown sand"
+      },
+      {
+        "word": "JUNE",
+        "clue": "Sixth month of the year"
+      },
+      {
+        "word": "TUNE",
+        "clue": "Melody or musical air"
+      },
+      {
+        "word": "TUBE",
+        "clue": "Hollow cylindrical pipe"
+      },
+      {
+        "word": "CUBE",
+        "clue": "Six-sided regular polyhedron"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-24",
+    "themeHint": "Sports arena",
+    "rungs": [
+      {
+        "word": "BALL",
+        "clue": "Spherical object used in sports"
+      },
+      {
+        "word": "BELL",
+        "clue": "Hollow metal instrument that rings"
+      },
+      {
+        "word": "BELT",
+        "clue": "Strap worn around the waist"
+      },
+      {
+        "word": "BEST",
+        "clue": "Of the highest quality"
+      },
+      {
+        "word": "REST",
+        "clue": "Relax after exertion"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-25",
+    "themeHint": "Farmstead morning",
+    "rungs": [
+      {
+        "word": "BARN",
+        "clue": "Large farm building for hay and livestock"
+      },
+      {
+        "word": "BORN",
+        "clue": "Brought into the world"
+      },
+      {
+        "word": "CORN",
+        "clue": "Tall cereal plant with yellow kernels"
+      },
+      {
+        "word": "CORE",
+        "clue": "Central innermost part of an apple"
+      },
+      {
+        "word": "MORE",
+        "clue": "A larger amount or quantity"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-26",
+    "themeHint": "Art gallery",
+    "rungs": [
+      {
+        "word": "DRAW",
+        "clue": "Sketch an image with pencil"
+      },
+      {
+        "word": "DRAG",
+        "clue": "Pull something heavy along the ground"
+      },
+      {
+        "word": "BRAG",
+        "clue": "Boast proudly about achievements"
+      },
+      {
+        "word": "BRAT",
+        "clue": "Spoiled ill-mannered child"
+      },
+      {
+        "word": "BOAT",
+        "clue": "Small craft floating on a lake"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-27",
+    "themeHint": "Bakery fresh",
+    "rungs": [
+      {
+        "word": "CAKE",
+        "clue": "Frosted celebration pastry"
+      },
+      {
+        "word": "BAKE",
+        "clue": "Cook inside an oven"
+      },
+      {
+        "word": "BIKE",
+        "clue": "Two-wheeled pedal vehicle"
+      },
+      {
+        "word": "HIKE",
+        "clue": "Long walk on a nature trail"
+      },
+      {
+        "word": "HIDE",
+        "clue": "Conceal from view"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-28",
+    "themeHint": "Knight's quest",
+    "rungs": [
+      {
+        "word": "HERO",
+        "clue": "Person admired for courage"
+      },
+      {
+        "word": "HERE",
+        "clue": "In this exact place"
+      },
+      {
+        "word": "HIRE",
+        "clue": "Employ someone for pay"
+      },
+      {
+        "word": "FIRE",
+        "clue": "Rapid combustion producing flame"
+      },
+      {
+        "word": "WIRE",
+        "clue": "Thin flexible strand of metal"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-29",
+    "themeHint": "Stormy weather",
+    "rungs": [
+      {
+        "word": "RAIN",
+        "clue": "Water falling from clouds"
+      },
+      {
+        "word": "PAIN",
+        "clue": "Physical discomfort or ache"
+      },
+      {
+        "word": "PAIL",
+        "clue": "Bucket with a handle"
+      },
+      {
+        "word": "FAIL",
+        "clue": "Fall short of succeeding"
+      },
+      {
+        "word": "FALL",
+        "clue": "Autumn season or drop downward"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-30",
+    "themeHint": "Mystery solver",
+    "rungs": [
+      {
+        "word": "HINT",
+        "clue": "Subtle clue helping solve a puzzle"
+      },
+      {
+        "word": "MINT",
+        "clue": "Aromatic herb or coin factory"
+      },
+      {
+        "word": "MIST",
+        "clue": "Light morning fog near the ground"
+      },
+      {
+        "word": "LIST",
+        "clue": "Ordered series of written items"
+      },
+      {
+        "word": "LOST",
+        "clue": "Unable to find the way"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-31",
+    "themeHint": "City transit",
+    "rungs": [
+      {
+        "word": "ROAD",
+        "clue": "Paved route for vehicles"
+      },
+      {
+        "word": "LOAD",
+        "clue": "Heavy cargo carried by a truck"
+      },
+      {
+        "word": "LOAF",
+        "clue": "Baked block of bread"
+      },
+      {
+        "word": "LEAF",
+        "clue": "Green blade growing on a branch"
+      },
+      {
+        "word": "LEAP",
+        "clue": "Spring forward in a big jump"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-32",
+    "themeHint": "Night sky",
+    "rungs": [
+      {
+        "word": "MOON",
+        "clue": "Earth's natural rocky satellite"
+      },
+      {
+        "word": "SOON",
+        "clue": "In a very short time"
+      },
+      {
+        "word": "SOOT",
+        "clue": "Black powdery residue from smoke"
+      },
+      {
+        "word": "FOOT",
+        "clue": "Unit equal to twelve inches"
+      },
+      {
+        "word": "FORT",
+        "clue": "Strong defensive military building"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-33",
+    "themeHint": "Campfire tale",
+    "rungs": [
+      {
+        "word": "WOOD",
+        "clue": "Hard fibrous material from trees"
+      },
+      {
+        "word": "GOOD",
+        "clue": "Morally right or high quality"
+      },
+      {
+        "word": "HOOD",
+        "clue": "Covering for the head on a jacket"
+      },
+      {
+        "word": "HOLD",
+        "clue": "Grasp firmly in your hands"
+      },
+      {
+        "word": "BOLD",
+        "clue": "Fearless and daring"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-34",
+    "themeHint": "Deep sea dive",
+    "rungs": [
+      {
+        "word": "FISH",
+        "clue": "Gill-breathing aquatic animal"
+      },
+      {
+        "word": "WISH",
+        "clue": "Hope strongly for something"
+      },
+      {
+        "word": "WASH",
+        "clue": "Clean using soap and water"
+      },
+      {
+        "word": "CASH",
+        "clue": "Physical paper and coin money"
+      },
+      {
+        "word": "CAST",
+        "clue": "Throw a fishing line into water"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-35",
+    "themeHint": "Chess strategy",
+    "rungs": [
+      {
+        "word": "MOVE",
+        "clue": "Shift a piece to another square"
+      },
+      {
+        "word": "MORE",
+        "clue": "A greater quantity or degree"
+      },
+      {
+        "word": "WORE",
+        "clue": "Had clothing on the body"
+      },
+      {
+        "word": "WORK",
+        "clue": "Mental or physical effort"
+      },
+      {
+        "word": "FORK",
+        "clue": "Simultaneous attack on two pieces"
+      }
+    ]
+  },
+  {
+    "id": "crossclimb-36",
+    "themeHint": "Morning brew",
+    "rungs": [
+      {
+        "word": "BEAN",
+        "clue": "Roasted seed used to brew coffee"
+      },
+      {
+        "word": "MEAN",
+        "clue": "Signify or intend"
+      },
+      {
+        "word": "MEAT",
+        "clue": "Animal flesh eaten as food"
+      },
+      {
+        "word": "HEAT",
+        "clue": "Thermal energy used for boiling"
+      },
+      {
+        "word": "NEAT",
+        "clue": "Tidy and well organized"
+      }
     ]
   }
 ]

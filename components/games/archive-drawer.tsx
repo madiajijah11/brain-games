@@ -31,8 +31,8 @@ export function ArchiveDrawerButton() {
       </button>
 
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-end bg-slate-900/50 backdrop-blur-xs animate-in fade-in duration-200">
-          <div className="h-full w-full max-w-md bg-white p-6 shadow-2xl flex flex-col justify-between overflow-y-auto">
+        <div className="backdrop-blur-xs animate-in fade-in fixed inset-0 z-50 flex items-center justify-end bg-slate-900/50 duration-200">
+          <div className="flex h-full w-full max-w-md flex-col justify-between overflow-y-auto bg-white p-6 shadow-2xl">
             <div>
               <div className="flex items-center justify-between border-b border-slate-100 pb-4">
                 <div>
@@ -71,19 +71,21 @@ export function ArchiveDrawerButton() {
                 {pastDates.map((item) => (
                   <Link
                     key={item.dateText}
-                    href={`/games/${selectedGame}?mode=practice`}
+                    href={
+                      item.isToday
+                        ? `/games/${selectedGame}`
+                        : `/games/${selectedGame}?issue=${item.issueNumber}&mode=practice`
+                    }
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-between rounded-xl border border-slate-150 p-3.5 hover:border-brand hover:bg-violet-50/50 transition group"
+                    className="border-slate-150 group flex items-center justify-between rounded-xl border p-3.5 transition hover:border-brand hover:bg-violet-50/50"
                   >
                     <div>
-                      <span className="font-bold text-sm text-slate-800">
+                      <span className="text-sm font-bold text-slate-800">
                         Edition #{item.issueNumber}
                       </span>
-                      <span className="ml-2 text-xs text-slate-400">
-                        {item.dateText}
-                      </span>
+                      <span className="ml-2 text-xs text-slate-400">{item.dateText}</span>
                     </div>
-                    <span className="text-xs font-bold text-brand group-hover:translate-x-0.5 transition">
+                    <span className="text-xs font-bold text-brand transition group-hover:translate-x-0.5">
                       {item.isToday ? "Play Today →" : "Practice →"}
                     </span>
                   </Link>
@@ -91,7 +93,7 @@ export function ArchiveDrawerButton() {
               </div>
             </div>
 
-            <p className="mt-6 border-t border-slate-100 pt-4 text-[11px] text-slate-400 text-center">
+            <p className="mt-6 border-t border-slate-100 pt-4 text-center text-[11px] text-slate-400">
               Past editions operate in unranked Practice Mode (0 XP awarded).
             </p>
           </div>

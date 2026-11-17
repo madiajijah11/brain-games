@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { getDailyEdition, getPuzzleIndexForIssue, formatCountdown } from "@/lib/puzzles/daily-engine";
+import {
+  getDailyEdition,
+  getPuzzleIndexForIssue,
+  formatCountdown,
+} from "@/lib/puzzles/daily-engine";
 import {
   validateQueens,
   validateTango,
@@ -18,6 +22,11 @@ import type {
   ZipPuzzle,
   WendPuzzle,
 } from "@/lib/puzzles/types";
+import {
+  buildChallengeUrl,
+  generateChallengeText,
+  generateShareText,
+} from "@/lib/social/share-generator";
 
 describe("Daily Edition Engine", () => {
   it("calculates issue number deterministically from UTC epoch", () => {
@@ -54,7 +63,7 @@ describe("Queens Solution Evaluator", () => {
       [0, 0, 1, 1],
       [0, 2, 2, 1],
       [3, 2, 2, 1],
-      [3, 3, 3, 3],
+      [3, 3, 2, 1],
     ],
     solution: [
       [0, 1],
@@ -259,5 +268,53 @@ describe("Zip & Wend Evaluators", () => {
 
     expect(validateWend(wend, ["cats", "open", "read"])).toBe(true);
     expect(validateWend(wend, ["cats", "open"])).toBe(false); // Only 2 words
+  });
+});
+
+describe("Challenge Link & Share Generator", () => {
+  it("builds a clean challenge URL with issue, targetMs, and challenger", () => {
+    const url = buildChallengeUrl({
+      slug: "queens",
+      issueNumber: 320,
+      durationMs: 34250,
+      challenger: "Dian",
+      origin: "https://brain-games.vercel.app",
+    });
+
+    const parsed = new URL(url);
+    expect(parsed.pathname).toBe("/games/queens");
+    expect(parsed.searchParams.get("issue")).toBe("320");
+    expect(parsed.searchParams.get("targetMs")).toBe("34250");
+    expect(parsed.searchParams.get("challenger")).toBe("Dian");
+  });
+
+  it("includes percentile and hint metadata in share card text", () => {
+    const text = generateShareText({
+      title: "Tango",
+      slug: "tango",
+      issueNumber: 320,
+      durationMs: 45000,
+      streak: 5,
+      hintsUsed: 0,
+      fasterThanPct: 84,
+      solveSummary: "6×6 grid harmonized",
+    });
+
+    expect(text).toContain("Tango #320");
+    expect(text).toContain("00:45");
+    expect(text).toContain("5d streak");
+    expect(text).toContain("No hints");
+    expect(text).toContain("Faster than 84% today");
+
+    const invite = generateChallengeText({
+      title: "Queens",
+      slug: "queens",
+      issueNumber: 320,
+      durationMs: 38000,
+      challenger: "Dian",
+      origin: "https://brain-games.vercel.app",
+    });
+    expect(invite).toContain("00:38");
+    expect(invite).toContain("challenger=Dian");
   });
 });
