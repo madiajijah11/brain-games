@@ -28,6 +28,8 @@
   },
   "dependencies": {
     "@prisma/client": "^6.19.3",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.1.0",
     "autoprefixer": "^10.4.21",
     "bcryptjs": "^3.0.2",
     "next": "^16.4.5",

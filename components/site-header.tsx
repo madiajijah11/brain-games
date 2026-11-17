@@ -1,28 +1,34 @@
 import Link from "next/link";
-import { auth, signOut } from "@/lib/auth";
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getDailyEdition } from "@/lib/puzzles/daily-engine";
 import { HeaderDailyProgress } from "@/components/shared/header-daily-progress";
+import { SignOutButton } from "@/components/auth/sign-out-button";
 
 export async function SiteHeader() {
   const session = await auth();
 
   let todayCompletedCount = 0;
   if (session?.user?.id) {
-    const { dateKey } = getDailyEdition("queens");
-    todayCompletedCount = await prisma.dailyGameCompletion.count({
-      where: {
-        userId: session.user.id,
-        dateKey,
-      },
-    });
+    try {
+      const { dateKey } = getDailyEdition("queens");
+      todayCompletedCount = await prisma.dailyGameCompletion.count({
+        where: {
+          userId: session.user.id,
+          dateKey,
+        },
+      });
+    } catch {
+      todayCompletedCount = 0;
+    }
   }
 
   return (
     <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-2 px-3 sm:gap-3 sm:px-6">
         <Link
-          href="/dashboard"
+          href={session?.user ? "/dashboard" : "/"}
+          prefetch={false}
           className="flex shrink-0 items-center gap-2 text-base font-black tracking-tight sm:text-lg"
           aria-label="Brain Games home"
         >
@@ -35,7 +41,11 @@ export async function SiteHeader() {
         </Link>
 
         <nav className="flex items-center gap-2 text-xs font-semibold text-slate-600 sm:gap-4 sm:text-sm">
-          <Link href="/dashboard" className="hover:text-brand">
+          <Link
+            href={session?.user ? "/dashboard" : "/"}
+            prefetch={false}
+            className="hover:text-brand"
+          >
             Puzzles
           </Link>
           <Link href="/leaderboard" className="hover:text-brand">
@@ -46,16 +56,7 @@ export async function SiteHeader() {
           {session?.user && <HeaderDailyProgress initialCount={todayCompletedCount} />}
 
           {session?.user ? (
-            <form
-              action={async () => {
-                "use server";
-                await signOut({ redirectTo: "/login" });
-              }}
-            >
-              <button className="whitespace-nowrap rounded-full bg-slate-100 px-3 py-1.5 text-slate-700 hover:bg-slate-200 sm:px-4 sm:py-2">
-                Sign out
-              </button>
-            </form>
+            <SignOutButton />
           ) : (
             <Link
               href="/login"

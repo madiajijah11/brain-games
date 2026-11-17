@@ -3,6 +3,7 @@
 import { useEffect, useState, ReactNode, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { track } from "@vercel/analytics";
 import { GameSlug, GAME_CATALOG, PuzzleSubmissionResult } from "@/lib/puzzles/types";
 import { formatCountdown, getMillisecondsUntilNextUTCMidnight } from "@/lib/puzzles/daily-engine";
 import { AdBanner } from "@/components/ads/ad-banner";
@@ -93,6 +94,13 @@ export function PuzzleShell({
         const res = await onSubmit(finalDuration);
         if (!cancelled && res) {
           setSubmissionResult(res);
+          track("puzzle_solved", {
+            game: slug,
+            mode: res.mode ?? initialMode,
+            issue: issueNumber,
+            duration_ms: finalDuration,
+            hints_used: hintsUsed,
+          });
           if (typeof res.todayCompletedCount === "number") {
             window.dispatchEvent(
               new CustomEvent(DAILY_PROGRESS_EVENT, {
@@ -117,7 +125,17 @@ export function PuzzleShell({
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [isComplete, submissionResult, onSubmit, startTime, router]);
+  }, [
+    isComplete,
+    submissionResult,
+    onSubmit,
+    startTime,
+    router,
+    slug,
+    initialMode,
+    issueNumber,
+    hintsUsed,
+  ]);
 
   const handleToggleSound = useCallback(() => {
     const nextMuted = soundFx.toggleMute();
