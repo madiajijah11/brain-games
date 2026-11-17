@@ -33,15 +33,37 @@ interface GamePageProps {
   }>;
 }
 
-export async function generateMetadata({ params }: GamePageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: GamePageProps): Promise<Metadata> {
   const { slug } = await params;
+  const query = await searchParams;
   const game = GAME_CATALOG.find((g) => g.slug === slug);
   if (!game) return { title: "Game Not Found | Brain Games" };
 
   const edition = getDailyEdition(game.slug);
-  const title = `${game.title} #${edition.issueNumber} - Daily Brain Game`;
-  const description = `Play today's daily puzzle ${game.title} #${edition.issueNumber}. ${game.description}`;
-  const canonicalUrl = `https://brain-games.vercel.app/games/${slug}`;
+  const requestedIssue = query.issue ? Number(query.issue) : NaN;
+  const activeIssue =
+    Number.isInteger(requestedIssue) && requestedIssue >= 1 ? requestedIssue : edition.issueNumber;
+
+  const isPractice = query.mode === "practice" || activeIssue !== edition.issueNumber;
+  const rawChallenger = (query.challenger || "").replace(/[<>]/g, "").trim().slice(0, 24);
+  const rawTargetMs = query.targetMs ? Number(query.targetMs) : NaN;
+  const hasChallenge =
+    Number.isFinite(rawTargetMs) && rawTargetMs >= 2000 && rawTargetMs <= 1800000;
+
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://brain-games-delta.vercel.app";
+  const canonicalUrl = `${baseUrl}/games/${slug}`;
+
+  const title =
+    hasChallenge && rawChallenger
+      ? `Beat ${rawChallenger} on ${game.title} #${activeIssue} - Brain Games`
+      : isPractice
+        ? `${game.title} #${activeIssue} (Practice) - Brain Games`
+        : `${game.title} #${activeIssue} - Daily Brain Game`;
+
+  const description =
+    hasChallenge && rawChallenger
+      ? `${rawChallenger} challenged you to beat their solve time on ${game.title} #${activeIssue}.`
+      : `Play ${isPractice ? "practice" : "today's daily"} puzzle ${game.title} #${activeIssue}. ${game.description}`;
 
   return {
     title,

@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { GAME_CATALOG } from "@/lib/puzzles/types";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://brain-games.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://brain-games-delta.vercel.app";
   const now = new Date();
 
   const gameUrls = GAME_CATALOG.map((game) => ({

@@ -27,6 +27,7 @@ import {
   generateChallengeText,
   generateShareText,
 } from "@/lib/social/share-generator";
+import { computeLongestUtcStreak, computeWinRate } from "@/lib/puzzles/analytics";
 
 describe("Daily Edition Engine", () => {
   it("calculates issue number deterministically from UTC epoch", () => {
@@ -316,5 +317,27 @@ describe("Challenge Link & Share Generator", () => {
     });
     expect(invite).toContain("00:38");
     expect(invite).toContain("challenger=Dian");
+  });
+});
+
+describe("Player Analytics Helpers", () => {
+  it("computes longest consecutive UTC streak across gaps and duplicates", () => {
+    expect(computeLongestUtcStreak([])).toBe(0);
+    expect(
+      computeLongestUtcStreak([
+        "2026-11-10",
+        "2026-11-11",
+        "2026-11-11", // duplicate date same day
+        "2026-11-12",
+        "2026-11-15",
+        "2026-11-16",
+      ]),
+    ).toBe(3);
+  });
+
+  it("computes accurate win rate percentage", () => {
+    expect(computeWinRate(0, 0)).toBe(0);
+    expect(computeWinRate(7, 10)).toBe(70);
+    expect(computeWinRate(10, 10)).toBe(100);
   });
 });

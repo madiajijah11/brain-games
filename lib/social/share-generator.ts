@@ -26,7 +26,9 @@ export function buildChallengeUrl(params: {
 }): string {
   const base =
     params.origin ||
-    (typeof window !== "undefined" ? window.location.origin : "https://brain-games.vercel.app");
+    (typeof window !== "undefined"
+      ? window.location.origin
+      : process.env.NEXT_PUBLIC_APP_URL || "https://brain-games-delta.vercel.app");
   const url = new URL(`/games/${params.slug}`, base);
   url.searchParams.set("issue", String(params.issueNumber));
   url.searchParams.set("targetMs", String(Math.max(2000, Math.round(params.durationMs))));
@@ -52,13 +54,18 @@ export function generateShareText(payload: ShareCardPayload): string {
         : "🧠 Sharp solve";
   const summaryLine = payload.solveSummary ? `\n${payload.solveSummary}` : "";
 
+  const shareOrigin =
+    typeof window !== "undefined"
+      ? window.location.origin
+      : process.env.NEXT_PUBLIC_APP_URL || "https://brain-games-delta.vercel.app";
+
   return `Brain Games — ${payload.title} #${payload.issueNumber}
 ⏱ ${time}${streakText} | ${hintText}
 ${speedBadge}${summaryLine}
 🟩🟩🟩🟩🟩
 
 Play today's edition:
-https://brain-games.vercel.app/games/${payload.slug}`;
+${shareOrigin}/games/${payload.slug}`;
 }
 
 export function generateChallengeText(params: {
@@ -126,9 +133,13 @@ async function copyWithFallback(
 export async function copyShareText(
   payload: ShareCardPayload,
 ): Promise<{ success: boolean; method: "clipboard" | "share" | "fallback" }> {
+  const origin =
+    typeof window !== "undefined"
+      ? window.location.origin
+      : process.env.NEXT_PUBLIC_APP_URL || "https://brain-games-delta.vercel.app";
   return copyWithFallback(generateShareText(payload), {
     title: `${payload.title} #${payload.issueNumber}`,
-    url: `https://brain-games.vercel.app/games/${payload.slug}`,
+    url: `${origin}/games/${payload.slug}`,
   });
 }
 

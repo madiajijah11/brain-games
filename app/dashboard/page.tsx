@@ -7,6 +7,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { GAME_CATALOG } from "@/lib/puzzles/types";
 import { getDailyEdition } from "@/lib/puzzles/daily-engine";
+import { computeLongestUtcStreak, computeWinRate } from "@/lib/puzzles/analytics";
 import { levelForXp } from "@/lib/games";
 import { ProgressRing } from "@/components/shared/progress-ring";
 import { StatsModalButton } from "@/components/profile/stats-modal";
@@ -18,7 +19,16 @@ export default async function DashboardPage() {
 
   const today = new Date().toISOString().slice(0, 10);
 
-  const [user, sessions, topUsersCount, completions, totalGamesCount] = await Promise.all([
+  const [
+    user,
+    sessions,
+    topUsersCount,
+    completions,
+    sessionAgg,
+    solvedGamesCount,
+    allCompletionDays,
+    groupedByGame,
+  ] = await Promise.all([
     prisma.user.findUniqueOrThrow({ where: { id: session.user.id } }),
     prisma.gameSession.findMany({
       where: { userId: session.user.id },
@@ -32,35 +42,73 @@ export default async function DashboardPage() {
         dateKey: today,
       },
     }),
-    prisma.gameSession.count({ where: { userId: session.user.id } }),
+    prisma.gameSession.aggregate({
+      where: { userId: session.user.id },
+      _count: true,
+      _avg: { durationMs: true },
+      _min: { durationMs: true },
+    }),
+    prisma.gameSession.count({
+      where: {
+        userId: session.user.id,
+        score: { gte: 100 },
+      },
+    }),
+    prisma.dailyGameCompletion.findMany({
+      where: { userId: session.user.id },
+      select: { dateKey: true },
+      distinct: ["dateKey"],
+    }),
+    prisma.gameSession.groupBy({
+      by: ["gameSlug"],
+      where: {
+        userId: session.user.id,
+        score: { gte: 100 },
+      },
+      _count: true,
+      _min: { durationMs: true },
+    }),
   ]);
 
   const level = levelForXp(user.totalXp);
-  const nextThreshold = [
-    { name: "Beginner", min: 0 },
-    { name: "Thinker", min: 500 },
-    { name: "Strategist", min: 1500 },
-    { name: "Mastermind", min: 3500 },
-    { name: "Genius", min: 7000 },
-  ].find((x) => x.min > user.totalXp)?.min ?? 10000;
+  const nextThreshold =
+    [
+      { name: "Beginner", min: 0 },
+      { name: "Thinker", min: 500 },
+      { name: "Strategist", min: 1500 },
+      { name: "Mastermind", min: 3500 },
+      { name: "Genius", min: 7000 },
+    ].find((x) => x.min > user.totalXp)?.min ?? 10000;
 
   const completedSlugSet = new Set(completions.map((c) => c.gameSlug));
 
-  // Compute analytics stats for the user
-  const avgDurationMs = sessions.length
-    ? Math.round(sessions.reduce((acc, s) => acc + s.durationMs, 0) / sessions.length)
-    : 0;
-  const fastestDurationMs = sessions.length
-    ? Math.min(...sessions.map((s) => s.durationMs))
-    : 0;
+  const totalGamesCount = sessionAgg._count;
+  const avgDurationMs = sessionAgg._avg.durationMs ? Math.round(sessionAgg._avg.durationMs) : 0;
+  const fastestDurationMs = sessionAgg._min.durationMs ?? 0;
+  const computedLongest = computeLongestUtcStreak(allCompletionDays.map((d) => d.dateKey));
+
+  const bestByGame = groupedByGame
+    .map((entry) => {
+      const meta = GAME_CATALOG.find((g) => g.slug === entry.gameSlug);
+      return {
+        slug: entry.gameSlug,
+        title: meta?.title || entry.gameSlug,
+        icon: meta?.icon || "◆",
+        solvedCount: entry._count,
+        fastestMs: entry._min.durationMs ?? 0,
+      };
+    })
+    .sort((a, b) => b.solvedCount - a.solvedCount);
 
   const statsPayload = {
     totalGames: totalGamesCount,
-    winRate: totalGamesCount > 0 ? 100 : 0,
+    solvedGames: solvedGamesCount,
+    winRate: computeWinRate(solvedGamesCount, totalGamesCount),
     currentStreak: user.streak,
-    longestStreak: Math.max(user.streak, completions.length > 0 ? 1 : 0),
+    longestStreak: Math.max(user.streak, computedLongest),
     avgDurationMs,
     fastestDurationMs,
+    bestByGame,
   };
 
   return (
@@ -68,12 +116,10 @@ export default async function DashboardPage() {
       {/* Header Profile Greeting & Action Buttons */}
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-black tracking-widest text-brand uppercase">
+          <p className="text-xs font-black uppercase tracking-widest text-brand">
             YOUR BRAIN SPACE
           </p>
-          <h1 className="mt-1 text-3xl font-black">
-            Good to see you, {user.name.split(" ")[0]}.
-          </h1>
+          <h1 className="mt-1 text-3xl font-black">Good to see you, {user.name.split(" ")[0]}.</h1>
           <p className="mt-1 text-sm text-slate-500">
             Complete today&apos;s 8 editions to train all cognitive regions.
           </p>
@@ -126,9 +172,7 @@ export default async function DashboardPage() {
                 <ProgressRing completed={completions.length} total={8} size={36} />
               </div>
             )}
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">
-              {s.label}
-            </p>
+            <p className="text-xs font-bold uppercase tracking-wider text-slate-500">{s.label}</p>
             <p className={`mt-2 text-2xl font-black ${s.color}`}>{s.value}</p>
             <p className="mt-1 text-xs text-slate-400">{s.sub}</p>
           </div>
@@ -144,7 +188,7 @@ export default async function DashboardPage() {
               Prep your mind and compare results. 1 official scored edition per day.
             </p>
           </div>
-          <span className="hidden sm:inline text-xs font-bold text-emerald-600">
+          <span className="hidden text-xs font-bold text-emerald-600 sm:inline">
             ✓ 100 XP per solved edition
           </span>
         </div>
@@ -178,21 +222,17 @@ export default async function DashboardPage() {
                     )}
                   </div>
 
-                  <h3 className="mt-4 text-lg font-black text-slate-900 group-hover:text-brand transition">
+                  <h3 className="mt-4 text-lg font-black text-slate-900 transition group-hover:text-brand">
                     {g.title}
                   </h3>
-                  <p className="mt-0.5 text-xs font-bold text-slate-400">
-                    {g.subtitle}
-                  </p>
-                  <p className="mt-2 text-xs leading-relaxed text-slate-500 line-clamp-2">
+                  <p className="mt-0.5 text-xs font-bold text-slate-400">{g.subtitle}</p>
+                  <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-500">
                     {g.description}
                   </p>
                 </div>
 
                 <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-3 text-xs">
-                  <span className="text-slate-400 font-medium">
-                    {g.estimatedMinutes}
-                  </span>
+                  <span className="font-medium text-slate-400">{g.estimatedMinutes}</span>
                   <span
                     className={`font-bold transition group-hover:translate-x-1 ${
                       isCompletedToday ? "text-slate-500" : "text-brand"
@@ -210,7 +250,7 @@ export default async function DashboardPage() {
       {/* Progress & Milestone Overview */}
       <section className="grid gap-4 lg:grid-cols-[1.3fr_.7fr]">
         <div className="rounded-2xl bg-[#1D2140] p-6 text-white">
-          <p className="text-xs font-bold tracking-widest text-violet-200 uppercase">
+          <p className="text-xs font-bold uppercase tracking-widest text-violet-200">
             DAILY STREAK BONUS
           </p>
           <h2 className="mt-2 text-2xl font-black">Build a lasting cognitive habit</h2>
@@ -257,9 +297,7 @@ export default async function DashboardPage() {
                       {gameMatch?.title || s.gameSlug}
                     </span>
                     {s.issueNumber && (
-                      <span className="text-xs font-semibold text-slate-400">
-                        #{s.issueNumber}
-                      </span>
+                      <span className="text-xs font-semibold text-slate-400">#{s.issueNumber}</span>
                     )}
                     {s.mode === "practice" && (
                       <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-500">
@@ -267,7 +305,7 @@ export default async function DashboardPage() {
                       </span>
                     )}
                   </div>
-                  <span className="text-slate-500 font-medium">
+                  <span className="font-medium text-slate-500">
                     +{s.xpEarned} XP · {(s.durationMs / 1000).toFixed(1)}s
                   </span>
                 </div>
