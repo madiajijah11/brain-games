@@ -298,7 +298,18 @@ export function WendBoard({
                 return (
                   <div
                     key={`${r}-${c}`}
-                    className={`relative z-20 flex items-center justify-center rounded-xl text-2xl font-black transition-all ${
+                    role="button"
+                    tabIndex={0}
+                    aria-pressed={isSelected}
+                    aria-label={`Row ${r + 1} Col ${c + 1} letter ${char}${isSelected ? ", selected" : ""}`}
+                    onKeyDown={(e) => {
+                      if (isSolved) return;
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        extendTrailTo(r, c, true);
+                      }
+                    }}
+                    className={`relative z-20 flex items-center justify-center rounded-xl text-2xl font-black transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 ${
                       isSelected
                         ? "scale-95 bg-brand text-white shadow-md ring-2 ring-violet-300"
                         : "bg-slate-800 text-white hover:bg-slate-700"

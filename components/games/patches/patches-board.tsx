@@ -376,8 +376,8 @@ export function PatchesBoard({
           )}
 
           {/* Shapes Dock with True Polyomino Geometry & Rotate */}
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            {puzzle.shapes.map((shape) => {
+          <div className="mt-5 flex flex-wrap justify-center gap-3">
+            {puzzle.shapes.map((shape, shapeIdx) => {
               const isPlaced = placedPositions[shape.id] !== undefined;
               const isDragging = activeDragId === shape.id;
               const isSelected = selectedShapeId === shape.id;
@@ -386,8 +386,24 @@ export function PatchesBoard({
               return (
                 <div
                   key={shape.id}
+                  role="button"
+                  tabIndex={isPlaced ? -1 : 0}
+                  aria-disabled={isPlaced}
+                  aria-pressed={isSelected}
+                  aria-label={`Piece ${shapeIdx + 1} (${coords.length} cells)${isPlaced ? ", placed" : isSelected ? ", selected" : ""}`}
+                  onKeyDown={(e) => {
+                    if (isPlaced || isSolved) return;
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      soundFx.playTap();
+                      setSelectedShapeId((prev) => (prev === shape.id ? null : shape.id));
+                    } else if (e.key.toLowerCase() === "r") {
+                      e.preventDefault();
+                      handleRotateShape(shape.id);
+                    }
+                  }}
                   onPointerDown={(e) => !isPlaced && handlePiecePointerDown(shape.id, e)}
-                  className={`relative flex min-w-[84px] touch-none flex-col items-center justify-between rounded-2xl border-2 p-2.5 transition-all ${
+                  className={`relative flex min-w-[84px] touch-none flex-col items-center justify-between rounded-2xl border-2 p-2.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
                     isDragging
                       ? "scale-105 border-brand bg-violet-50 shadow-lg ring-2 ring-brand"
                       : isSelected
@@ -405,7 +421,9 @@ export function PatchesBoard({
                         e.stopPropagation();
                         handleRotateShape(shape.id);
                       }}
+                      onKeyDown={(e) => e.stopPropagation()}
                       className="self-end rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] font-black text-slate-600 hover:bg-brand hover:text-white"
+                      aria-label={`Rotate piece ${shapeIdx + 1} 90 degrees`}
                       title="Rotate 90°"
                     >
                       ↻

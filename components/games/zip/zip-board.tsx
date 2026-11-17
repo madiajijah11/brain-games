@@ -298,7 +298,17 @@ export function ZipBoard({
                 return (
                   <div
                     key={`${r}-${c}`}
-                    className={`relative flex items-center justify-center border border-slate-800/80 transition-colors ${
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Row ${r + 1} Col ${c + 1}${nodeNum !== undefined ? ` checkpoint ${nodeNum}` : ""}${isVisited ? ", visited" : ""}`}
+                    onKeyDown={(e) => {
+                      if (isSolved) return;
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        handleCellEnter(r, c);
+                      }
+                    }}
+                    className={`relative flex items-center justify-center border border-slate-800/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 ${
                       isVisited ? "bg-indigo-950/60" : "bg-slate-800/50"
                     }`}
                     style={{ aspectRatio: "1/1" }}
